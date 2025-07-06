@@ -1,6 +1,8 @@
-import './Landing.css'
+import './landing.css'
 
-const Landing = (props) => {
+import SignUpPage from './SignUp'
+
+const LandingPage = (props) => {
 
     return (
       <div className='landing-wrapper'>
@@ -8,10 +10,11 @@ const Landing = (props) => {
             <h1>I Buy U Buy </h1>
             <h1>Aunties & Uncles</h1>
             <h1>SG Neighbhours</h1>
+            <SignUpPage />
         </div>
       </div>        
     )
 
 }
 
-export default Landing
+export default LandingPage

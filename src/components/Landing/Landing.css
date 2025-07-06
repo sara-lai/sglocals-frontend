@@ -16,3 +16,10 @@
 .landing-box {
     text-align: center;
 }
+
+.top-nav {
+    height: 60px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

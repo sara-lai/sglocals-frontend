@@ -1,5 +1,13 @@
+import SignOut from "./SignOut"
+
 const Dashboard = () => {
-    <h1> you're on your dashboard</h1>
+
+    return (
+        <>
+            <h1> your dashboard</h1>
+            <SignOut />
+        </>
+    )
 }
 
 export default Dashboard

@@ -14,7 +14,8 @@ const LandingPage = (props) => {
       <div className='landing-wrapper'>
           <div className='top-nav'>
             <div className='logo-top-nav'>
-              Kampong Lah
+              <img src='/images/flowers1.png' />
+              <span>Kampong Lah</span>              
             </div>
             <div className='button-row'>
                 <p>Organizations & Agencies</p>

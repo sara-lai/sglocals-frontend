@@ -36,7 +36,12 @@
 
 .logo-top-nav {
     font-size: 1.4rem;
-    font-weight: bolder;
+    font-weight: 800;
+    display: flex;
+    gap: 10px;
+}
+.logo-top-nav img {
+    max-height:  50px;
 }
 
 .btn-dark {

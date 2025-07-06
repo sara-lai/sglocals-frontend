@@ -1,0 +1,17 @@
+.landing-wrapper {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.landing-box ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style-type: none;
+    font-family: "Roboto";
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    margin-top: 40px; /* probably hacky! */
+}

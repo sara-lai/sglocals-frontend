@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router'
 import { useAuth } from '@clerk/clerk-react'
+import { Button } from '@chakra-ui/react'
 
 const SignOut = () => {
   const { signOut } = useAuth()
@@ -9,9 +10,9 @@ const SignOut = () => {
     navigate('/')
   }
   return (
-    <button onClick={handleSignOut}>
+    <Button onClick={handleSignOut}>
       Sign Out
-    </button>
+    </Button>
   )
 }
 

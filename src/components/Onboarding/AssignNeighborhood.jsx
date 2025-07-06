@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router'
+import { Button } from '@chakra-ui/react'
 
 import './onboarding.css'
 
@@ -12,7 +13,7 @@ const AssignNeighborhood = () => {
         <div className='onboarding-container'>
             <h1>Let's Figure out your neighborhood</h1>
             <div>[some form]</div>
-            <button onClick={() => navigate('/dashboard')}>done</button>
+            <Button onClick={() => navigate('/dashboard')}>done</Button>
         </div>
     )
 

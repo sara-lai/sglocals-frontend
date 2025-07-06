@@ -4,7 +4,10 @@ import { BrowserRouter } from 'react-router';
 import { ClerkProvider } from '@clerk/clerk-react';
 
 // Chakra v3 w/ Vite: https://www.chakra-ui.com/docs/get-started/frameworks/vite
-import { Provider } from "./components/ui/provider"
+//import { Provider } from "./components/ui/provider"
+
+// Chakra v2 for now
+import { ChakraProvider } from '@chakra-ui/react';
 
 import './index.css'
 import App from './App.jsx'
@@ -21,9 +24,9 @@ createRoot(document.getElementById('root')).render(
       signUpFallbackRedirectUrl={import.meta.env.VITE_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL}      
     >
     <BrowserRouter>
-      <Provider>
+      <ChakraProvider>
         <App />
-      </Provider>
+      </ChakraProvider>
       </BrowserRouter>
     </ClerkProvider>
   </StrictMode>,

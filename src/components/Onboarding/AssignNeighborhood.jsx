@@ -11,9 +11,10 @@ const AssignNeighborhood = () => {
 
     return (
         <div className='onboarding-container'>
-            <h1>Let's Figure out your neighborhood</h1>
+            <h1>Let's Figure out your neighbourhood</h1>
             <div>[some form]</div>
             <Button onClick={() => navigate('/dashboard')}>done</Button>
+            <img className='onboarding-img' src='/images/onboarding-turtle-ride.png' />
         </div>
     )
 

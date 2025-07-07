@@ -40,7 +40,7 @@ const Dashboard = () => {
                             <Text>Content Feed</Text>                                                                
                             <img src='/images/nd-content1.png' />
                         </Box>
-                        <Box className="side-content" flex="0 0 30%"  bg="white" p={4}  p={2} borderRadius="md" boxShadow="md">
+                        <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">
                             <Text>Misc Side panel</Text>
                             <img src='/images/nd-content2.png' />
                         </Box>

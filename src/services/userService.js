@@ -2,11 +2,11 @@ import { useAuth } from '@clerk/clerk-react';
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`
 
-// assumptions
-// a POST to /users is for creating userProfile (or similar) ; userId & email come from Clerk session on express
-// a GET to /users is not for all users, it is for a userProfile (or similar) based on the Clerk session on express (probably no reason to get all users) 
+// userProfile vs user:
+// On BE probably should use a users table and skip a userProfile table, still need "users" eg your neighbors, posts by nearby users, etc. 
+// Clerk does id/email/passowrd/jwt ... users table at least needs to store the clerk  userId, and can have the profile data too
 
-const createProfile = async (profileData) => {
+const createUserProfile = async (profileData) => {
     const { getToken } = useAuth()
     const token = await getToken()
 
@@ -32,6 +32,7 @@ const createProfile = async (profileData) => {
     }
  }
 
+ // a GET to /users is not for all users, it is mainly for the user prodfile data (probably no reason to get all users unless duplicating Clerk's admin dashboards) 
 const getUserProfile = async () => {
     const { getToken } = useAuth()
     const token = await getToken()    
@@ -60,8 +61,8 @@ const updateProfile = async (profileData) => {
 }
 
 export {
-  createProfile,
-  getProfile,
+  createUserProfile,
+  getUserProfile,
   updateProfile,
   getNeighboursOfUser
 }

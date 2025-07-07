@@ -23,7 +23,7 @@ const AssignNeighborhood = () => {
     async function handleSubmit(event){
          event.preventDefault()
         try {
-            const userProfile = await userService.createProfile()
+            const userProfile = await userService.createUserProfile()
             console.log('created userProfile', userProfile)
             navigate('/dashboard')
         } catch(err) {

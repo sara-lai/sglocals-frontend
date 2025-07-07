@@ -16,6 +16,7 @@ const AssignNeighborhood = () => {
         neighbourhood: '',
     })
     const { neighbourhood } = formData
+
     function handleChange(event){
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
@@ -48,7 +49,7 @@ const AssignNeighborhood = () => {
                         <FormLabel >
                             Your Neighbourhood
                         </FormLabel>
-                        <Select placeholder="select" bg="white" color="gray.800" borderRadius="md" onChange={handleChange} value={neighbourhood}>
+                        <Select placeholder="select" bg="white" color="gray.800" borderRadius="md" name="neighbourhood" onChange={handleChange} value={neighbourhood}>
                             <option value="Alexandra">Alexandra</option>
                             <option value="Ang Mo Kio">Ang Mo Kio</option>
                             <option value="Bedok">Bedok</option>

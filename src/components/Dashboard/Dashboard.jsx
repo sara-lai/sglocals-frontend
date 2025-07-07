@@ -12,7 +12,7 @@ const Dashboard = () => {
                 <SignOut />                
             </div>
             <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
-                <Box flex="0 0 15%" bg="white" p={4} borderRadius="md" boxShadow="md">
+                <Box flex="0 0 20%" bg="white" p={4} borderRadius="md" boxShadow="md">
                 <div className='side-navbar'>
                     <div className='logo-side-nav'>
                         <img src='/images/flowers1.png' />

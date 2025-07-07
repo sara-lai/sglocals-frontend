@@ -1,0 +1,58 @@
+/*  an app feel/ layout - no scrolling to footer etc */
+#root:has(.dashboard-container) {
+    height: 100vh;
+ }
+
+ .dashboard-container {
+ }
+
+.upper-right-profile-misc {
+    position: absolute;
+    right: 20px; 
+    top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+} 
+
+ .side-navbar {
+    min-width: 240px;
+    border-right: 2px solid rgba(255, 255, 255, 0.128);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;    
+ }
+
+.side-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.side-links p {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+ .content-feed {
+    padding: 20px;
+}
+.side-content {
+    margin-top: 40px; /* clearance for upper-right btns */
+    padding: 20px;
+}
+
+.logo-side-nav {
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: start;
+    
+}
+.logo-side-nav img {
+    max-height:  50px;
+}

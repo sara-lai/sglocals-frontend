@@ -1,16 +1,18 @@
 /* landing page specific layout */
+
 #root {
   margin: 0;
-  padding: 20px;
   min-height: 100vh;
   width: 100%;
 }
 
 .landing-wrapper {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh;
     justify-content: space-between;
+    background-image: url('/images/joochiat1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;    
 }
 
 .landing-box {
@@ -18,8 +20,31 @@
 }
 
 .top-nav {
-    height: 60px;
-    position: absolute;
-    top: 0;
+    height: 80px;
     width: 100%;
+    background: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.logo-top-nav {
+    font-size: 1.4rem;
+    font-weight: 800;
+    display: flex;
+    gap: 10px;
+}
+.logo-top-nav img {
+    max-height:  50px;
+}
+
+.btn-dark {
+    background-color: rgb(35, 47, 70);
+    color: white;
 }

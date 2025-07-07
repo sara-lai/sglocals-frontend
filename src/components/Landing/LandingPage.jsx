@@ -1,5 +1,6 @@
 import { useUser } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router'
+import { Button } from '@chakra-ui/react'
 
 import SignUpPage from './SignUp'
 import './landing.css'
@@ -12,12 +13,19 @@ const LandingPage = (props) => {
     return (
       <div className='landing-wrapper'>
           <div className='top-nav'>
-            {isSignedIn && <button onClick={() => navigate('/dashboard')}>dashboard</button>}
+            <div className='logo-top-nav'>
+              <img src='/images/flowers1.png' />
+              <span>Kampong Lah</span>              
+            </div>
+            <div className='button-row'>
+                <p>Organizations & Agencies</p>
+                <p>SG Businesses</p>
+                <Button onClick={() => navigate('/sign-in')}>Log in</Button>
+                <Button bg="gray.800" color="white" onClick={() => navigate('/sign-up')}>Sign up</Button>
+            </div>
+            {isSignedIn && <Button onClick={() => navigate('/dashboard')}>dashboard</Button>}
            </div>
         <div className='landing-box'>
-            <h1>I Buy U Buy </h1>
-            <h1>Aunties & Uncles</h1>
-            <h1>NeighbourLah</h1>
             <SignUpPage />
         </div>
       </div>        

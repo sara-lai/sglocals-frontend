@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Button, Select, FormControl, FormLabel } from '@chakra-ui/react'
-
 import './onboarding.css'
 
 const AssignNeighborhood = (props) => {
@@ -15,13 +14,18 @@ const AssignNeighborhood = (props) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
 
+    function handleSubmit(event) {
+        event.preventDefault()
+        props.updateOnboarding(formData)
+    }
+
     return (       
         <>
             <div>
                 <div className='onboarding-title'>Welcome, let's figure out your neighbourhood.</div>
                 <p>Kampong Lah connects you with 2-3 nearby neighbourhoods too</p>
             </div>
-            <form onSubmit={props.handleSubmit} style={{ alignSelf: 'center' }}>
+            <form onSubmit={handleSubmit} style={{ alignSelf: 'center' }}>
                 <FormControl  w="400px"  alignSelf="center" >
                     <FormLabel >
                         Your Neighbourhood

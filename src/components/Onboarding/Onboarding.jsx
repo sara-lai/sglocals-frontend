@@ -3,12 +3,14 @@ import AssignNeighborhood from './AssignNeighborhood'
 import GetDisplayName from './GetDisplayName'
 import { useNavigate } from 'react-router'
 import * as userService from '../../services/userService'
+import { useAuth } from '@clerk/clerk-react'
 
 import './onboarding.css'
 
 const Onboarding = () => {
 
     const navigate = useNavigate()
+    const { getToken } = useAuth()
     const [onboardingData, setOnboardingData] = useState({})
 
     // open question how  to manage "steps" & complete onboarding
@@ -16,21 +18,23 @@ const Onboarding = () => {
     const [stepIdx, setStepIdx] = useState(0) // index to refer to the steps
     
     async function updateOnboarding(data){
-        setOnboardingData({ ...onboardingData, ...data })
+          
+        const updatedDated = { ...onboardingData, ...data }  // need a ref to pass to completeOnboarding, state var stale scope issue thing
+        setOnboardingData(updatedDated)
 
         if (stepIdx + 1 >= steps.length){  // this means done! 
-            completeOnboarding()
+            completeOnboarding(updatedDated)
             return
         }
         setStepIdx(prev => prev + 1)
     }
 
-    async function completeOnboarding(){
-        console.log("onboarding complete!")
+    async function completeOnboarding(data){
+        const token = await getToken()
         try {
             // skip until implemented BE
-            // const userProfile = await userService.createUserProfile()
-            // console.log('created userProfile', userProfile)
+            const userProfile = await userService.createUserProfile(data, token) // make sure this actually gets latest data
+            console.log('created userProfile', userProfile)
             navigate('/dashboard')
         } catch(err) { 
             console.log(err)

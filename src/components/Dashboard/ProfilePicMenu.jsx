@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuList, MenuItem, Flex, Avatar, Icon } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, MenuItem, Flex, Avatar, Icon, Box } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
 import SignOut from "./SignOut"
@@ -21,7 +21,7 @@ const ProfilePicMenu = ({ userInfo }) => {
                     <p>{userInfo.neighbourhood}</p>
                 </Flex>
                 <MenuItem>View Profile</MenuItem>
-                <MenuItem> <SignOut /></MenuItem>
+                <Box><SignOut /></Box>
             </MenuList>
         </Menu>        
     )

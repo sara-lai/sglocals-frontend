@@ -56,8 +56,8 @@ const updateProfile = async (profileData) => {
 }
 
 export {
-  createUserProfile,
-  getCurrentUser,
-  updateProfile,
-  getNeighboursOfUser
+    createUserProfile,
+    getCurrentUser,
+    updateProfile,
+    getNeighboursOfUser
 }

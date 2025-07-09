@@ -5,6 +5,7 @@ import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 import '../Onboarding/onboarding.css'
 import ProfilePicMenu from './ProfilePicMenu'
+import NewPost from './NewPost'
 
 const Dashboard = () => {
 
@@ -53,6 +54,9 @@ const Dashboard = () => {
                         <Box className="content-feed" flex="0 0 70%"  bg="white" p={4}  borderRadius="md" boxShadow="md">
                              <Text>Search Bar</Text>      
                             <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
+
+                            <NewPost userInfo={currentUser} />
+
                         </Box>
                         <Box className="side-content" flex="0 0 30%"  bg="white" borderRadius="md" boxShadow="md"  p={4}>
                             <Text>Misc Side panel</Text>

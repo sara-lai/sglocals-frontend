@@ -5,6 +5,7 @@ import { Button } from '@chakra-ui/react'
 const SignOut = () => {
   const { signOut } = useAuth()
   const navigate = useNavigate()
+  
   const handleSignOut = async () => {
     await signOut()
     navigate('/')

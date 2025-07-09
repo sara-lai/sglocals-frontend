@@ -15,7 +15,8 @@ const createUserProfile = async (profileData, token) => {
             },
             body: JSON.stringify({
                 'neighbourhood': profileData.neighbourhood,
-                'fullName': profileData.fullName
+                'fullName': profileData.fullName,
+                'onboardingComplete': true,
             })          
         })
         if (!response.ok){
@@ -30,10 +31,9 @@ const createUserProfile = async (profileData, token) => {
  }
 
  // a GET to /users is not for all users, it is mainly for the user prodfile data (probably no reason to get all users unless duplicating Clerk's admin dashboards) 
-const getUserProfile = async (token) => {
-
+const getCurrentUser = async (token) => {
     try {
-        const response = await fetch(BASE_URL, {
+        const response = await fetch(BASE_URL + '/current', {
              headers: {  Authorization: `Bearer ${token}` }
         })
         if (!response.ok){
@@ -57,7 +57,7 @@ const updateProfile = async (profileData) => {
 
 export {
   createUserProfile,
-  getUserProfile,
+  getCurrentUser,
   updateProfile,
   getNeighboursOfUser
 }

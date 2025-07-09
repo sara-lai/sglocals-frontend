@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AssignNeighborhood from './AssignNeighborhood'
 import GetDisplayName from './GetDisplayName'
 import { useNavigate } from 'react-router'
-import * as userService from '../../services/userService'
 import { useAuth } from '@clerk/clerk-react'
+import * as userService from '../../services/userService'
 
 import './onboarding.css'
 
@@ -16,6 +16,27 @@ const Onboarding = () => {
     // open question how  to manage "steps" & complete onboarding
     const steps = ['assignNeighborhood', 'getDisplayName']
     const [stepIdx, setStepIdx] = useState(0) // index to refer to the steps
+
+    async function skipIfCompleted(){
+        // may be a better way 
+        
+        // if no token shouldnt be here
+        const token = await getToken()
+        console.log('this is the token', token)
+        if (!token){
+            navigate('/')
+        }
+        // if no onboarding complete
+        const user = await userService.getCurrentUser(token)
+        console.log('got the current user from db', user)
+        if (user.user?.onboardingComplete){
+            navigate('/dashboard')
+        }
+    }
+
+    useEffect(() => {
+        skipIfCompleted()
+    }, [])
     
     async function updateOnboarding(data){
           

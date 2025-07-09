@@ -1,0 +1,8 @@
+/* this is because Chakra adds these odd blue outlines */
+button:focus,
+button:hover,
+button:hover:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+}

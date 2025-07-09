@@ -7,6 +7,8 @@ import { useAuth } from '@clerk/clerk-react'
 //import { uploadImageToCloudinary, createPost } from '../services/postService';
 import * as postService from '../../services/postService'
 
+import './dashboard.css'
+
 const NewPost = ({ userInfo }) => {
     
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -23,38 +25,38 @@ const NewPost = ({ userInfo }) => {
     }
 
     return (
-        <>
+        <div className='new-post-container'>
             <Button colorScheme="green" float="right" leftIcon={<AddIcon />} onClick={onOpen}>
-            Post
+                Post
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} size="md">
-                <ModalOverlay bg="blackAlpha.200" />
-                <ModalContent p={3} paddingTop={14}>
-                    <Button position="absolute" top={2} right={2} colorScheme="green" onClick={handleSubmit}>Post</Button>
-                    <ModalCloseButton position="absolute" top={2} left={2} />
+                <ModalOverlay bg="blackAlpha.400" />
 
+                <ModalContent className='new-post-modal'>
+                    <Button className='btn' colorScheme="green" onClick={handleSubmit}>
+                        Post
+                    </Button>                    
+                    <ModalCloseButton className='btn-close'/>
+                    
                     <Flex direction="row" align="center" gap={2}>
-                        <Avatar size="md" src={userInfo.profileImg} name={userInfo.fullName || 'User'} />
+                        <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={userInfo.profileImg} name={userInfo.fullName?.[0]} />
                         <div>
-                            <p>{userInfo.fullName}</p>
-                            <p>{userInfo.neighbourhood}</p>
+                            <div className='avatar-name'>{userInfo.fullName}</div>
+                            <div className='avatar-nhood'>{userInfo.neighbourhood}</div>
                         </div>
                     </Flex>                    
 
                     <Flex direction="column" gap={4} m={4}>
-                        <Textarea value={content}
-                            placeholder="Write your post here..."
-                            minH="200px"
-                            resize="vertical"
-                            variant="unstyled"
+                        <Textarea value={content} minH="200px" resize="vertical" variant="unstyled"
+                            placeholder="Share what's on your mind."
                             onChange={(e) => setContent(e.target.value)}
                         />
                         <Flex gap={2} justify="start">
                             <IconButton icon={<FaImage />} colorScheme="teal" variant="outline"
-                            onClick={() => document.getElementById('image-upload').click()}
+                                onClick={() => document.getElementById('image-upload').click()}
                             />
                             <input id="image-upload" type="file" accept="image/*" hidden
-                            onChange={(e) => setFile(e.target.files[0])}
+                                onChange={(e) => setFile(e.target.files[0])}
                             />
                             <IconButton icon={<FaMapMarkerAlt />} colorScheme="teal" variant="outline" />
                             <IconButton icon={<FaAt />} colorScheme="teal" variant="outline" />
@@ -62,7 +64,7 @@ const NewPost = ({ userInfo }) => {
                     </Flex>
                 </ModalContent>
             </Modal>  
-        </>
+        </div>
     )
 }
 

@@ -7,6 +7,7 @@ import SignInPage from './components/Landing/SignIn'
 import SignUpPage from './components/Landing/SignUp'
 import AssignNeighborhood from './components/Onboarding/AssignNeighborhood'
 import Dashboard from './components/Dashboard/Dashboard'
+import Events from './components/Events/Events'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} /> 
       <Route path="/onboarding" element={<AssignNeighborhood />} />
+      <Route path="/events" element={<Events />} />
 
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}
       <Route path="/dashboard" element={

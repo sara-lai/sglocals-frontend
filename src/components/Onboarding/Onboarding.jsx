@@ -29,7 +29,7 @@ const Onboarding = () => {
         // if no onboarding complete
         const user = await userService.getCurrentUser(token)
         console.log('got the current user from db', user)
-        if (user.user?.onboardingComplete){
+        if (user.onboardingComplete){
             navigate('/dashboard')
         }
     }

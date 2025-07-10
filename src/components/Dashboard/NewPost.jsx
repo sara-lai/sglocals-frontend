@@ -39,7 +39,7 @@ const NewPost = ({ userInfo }) => {
                     <ModalCloseButton className='btn-close'/>
                     
                     <Flex direction="row" align="center" gap={2}>
-                        <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={userInfo.profileImg} name={userInfo.fullName?.[0]} />
+                        <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={userInfo.profileImg} name={userInfo.fullName?.[0]} />
                         <div>
                             <div className='avatar-name'>{userInfo.fullName}</div>
                             <div className='avatar-nhood'>{userInfo.neighbourhood}</div>
@@ -47,19 +47,15 @@ const NewPost = ({ userInfo }) => {
                     </Flex>                    
 
                     <Flex direction="column" gap={4} m={4}>
-                        <Textarea value={content} minH="200px" resize="vertical" variant="unstyled"
+                        <Textarea value={content} minH="180px" resize="vertical" variant="unstyled"
                             placeholder="Share what's on your mind."
                             onChange={(e) => setContent(e.target.value)}
                         />
                         <Flex gap={2} justify="start">
-                            <IconButton icon={<FaImage />} colorScheme="teal" variant="outline"
-                                onClick={() => document.getElementById('image-upload').click()}
-                            />
-                            <input id="image-upload" type="file" accept="image/*" hidden
-                                onChange={(e) => setFile(e.target.files[0])}
-                            />
-                            <IconButton icon={<FaMapMarkerAlt />} colorScheme="teal" variant="outline" />
-                            <IconButton icon={<FaAt />} colorScheme="teal" variant="outline" />
+                            <IconButton icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
+                            <input hidden id="image-upload" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
+                            <IconButton icon={<FaMapMarkerAlt size={26} />} />
+                            <IconButton icon={<FaAt size={26} />}  />
                         </Flex>
                     </Flex>
                 </ModalContent>

@@ -40,7 +40,7 @@ const getCurrentUser = async (token) => {
                 throw new Error(`HTTP problem ${response.status}`);
         }        
         const data = await response.json()
-        return data
+        return data.user
     } catch(err) {
         console.log(err)
         throw new Error(err)        

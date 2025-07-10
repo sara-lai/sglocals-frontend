@@ -27,23 +27,26 @@ const createNewPost = async (content, token) => {
     }
  }
 
-// const getPostsForCurrentUser = async (token) => {
-//     try {
-//         const response = await fetch(BASE_URL + '/current', {
-//              headers: {  Authorization: `Bearer ${token}` }
-//         })
-//         if (!response.ok){
-//                 throw new Error(`HTTP problem ${response.status}`);
-//         }        
-//         const data = await response.json()
-//         return data
-//     } catch(err) {
-//         console.log(err)
-//         throw new Error(err)        
-//     }
-// }
+const getPostsForNeighbourhood = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/local' , { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.posts
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
 
 
 export {
     createNewPost,
+    getPostsForNeighbourhood
 }

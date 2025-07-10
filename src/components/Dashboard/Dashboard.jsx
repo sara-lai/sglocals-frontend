@@ -75,7 +75,7 @@ const Dashboard = () => {
                             <ContentFeed theFeed={contentFeed} />
 
                         </Box>
-                        <Box className="side-content" flex="0 0 30%"  bg="white" borderRadius="md" boxShadow="md"  p={4}>
+                        <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">
                             <Text>Misc Side panel</Text>
                             <img src='/images/nd-content2.png' />
                         </Box>

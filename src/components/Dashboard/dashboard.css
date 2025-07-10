@@ -8,7 +8,7 @@
 
 .upper-right-profile-misc {
     position: absolute;
-    right: 20px; 
+    right: 30px; 
     top: 10px;
     display: flex;
     gap: 10px;
@@ -36,9 +36,6 @@
     font-size: 1.2rem;
 }
 
- .content-feed {
-    padding: 20px;
-}
 .side-content {
     margin-top: 40px; /* clearance for upper-right btns */
     padding: 20px;
@@ -55,4 +52,103 @@
 }
 .logo-side-nav img {
     max-height:  50px;
+}
+
+.post-stat{
+    font-weight: bold;
+}
+
+.new-post-container {
+    height: 40px;
+}
+.new-post-container .add-btn {
+    background-color: #1b8751;
+    color: white;
+    border-radius: 30px;    
+    &:hover {
+        background-color: #21ad67;
+    }
+}
+
+.new-post-modal {
+    min-width: 600px;
+    border-radius: 20px !important;
+    padding: 30px;
+    padding-top: 80px;
+}
+.new-post-modal .btn {
+    position: absolute;
+    top: 20px; 
+    right: 30px;
+    border-radius: 20px;
+}
+.new-post-modal .btn-close {
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+}
+.new-post-modal textarea {
+    font-size: 20px;
+    letter-spacing: .7px;
+}
+.btn-close svg {
+    height: 1.1rem;
+    width: 1.1rem;
+}
+.avatar-name {
+    letter-spacing: .5px;
+    font-weight: 600;
+}
+.avatar-nhood {
+    letter-spacing: .1px;
+}
+
+
+ .content-feed-container {
+    padding: 20px;
+}
+
+/* Posts in content feed related.... tweaks to Chakra */
+/* todo - shrink fonts a bit, use grays for some, tighten content text, try out fonts */
+
+.post-card {
+    border: 1px solid #cad3e5;
+    border-radius: 12px;
+    background: white;
+    padding: 16px;    
+    /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
+}
+.post-top-matter {
+    margin-bottom: 20px;
+}
+.post-info-set {
+    margin-left: 8px;
+}
+.post-info-set p {
+    font-size: .9rem;
+}
+.post-content {
+    padding-left: 10px;
+    letter-spacing: .4px;
+}
+
+.post-action-row {
+    margin-top: 14px;
+}
+.post-action-row svg { 
+    stroke-width: 2 !important;
+    height: 1.4rem; 
+    width: 1.4rem;
+}
+.post-action-row .icon-stat-set {
+    background-color: #f5f5f5;
+    border-radius: 30px;
+    padding: 2px;
+    padding-right: 10px;
+    &:hover {
+        background: #e8e8e8;
+    }
+}
+.icon-stat-set .chakra-button:hover {
+    background: transparent !important; /* causing problems*/
 }

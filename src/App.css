@@ -1,0 +1,16 @@
+/* this is because Chakra adds these odd blue outlines */
+button:focus,
+button:hover,
+button:hover:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+
+/* for default letter "fallback" when no pic */
+.chakra-avatar {
+  background: #d5dce5 !important; 
+  color: #1A202C !important; 
+  font-weight: 700 !important;
+}

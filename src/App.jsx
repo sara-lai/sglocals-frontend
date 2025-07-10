@@ -5,7 +5,7 @@ import './App.css'
 import Landing from './components/Landing/LandingPage'
 import SignInPage from './components/Landing/SignIn'
 import SignUpPage from './components/Landing/SignUp'
-import AssignNeighborhood from './components/Onboarding/AssignNeighborhood'
+import Onboarding from './components/Onboarding/Onboarding'
 import Dashboard from './components/Dashboard/Dashboard'
 import Events from './components/Events/Events'
 
@@ -18,8 +18,8 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} /> 
-      <Route path="/onboarding" element={<AssignNeighborhood />} />
       <Route path="/events" element={<Events />} />
+      <Route path="/onboarding" element={<Onboarding />} />
 
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}
       <Route path="/dashboard" element={

@@ -5,7 +5,6 @@ import SignOut from "./SignOut"
 
 const ProfilePicMenu = ({ userInfo }) => {
 
-    console.log('what is the userInfo', userInfo)
     return (
         <Menu>
             <MenuButton>

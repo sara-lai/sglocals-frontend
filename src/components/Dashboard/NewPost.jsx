@@ -9,9 +9,9 @@ import * as postService from '../../services/postService'
 
 import './dashboard.css'
 
-const NewPost = ({ userInfo }) => {
+const NewPost = ({ userInfo, addTopOfFeed }) => {
     
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure() // this is some internal thing to Chakra
     const [content, setContent] = useState('')
     const [file, setFile] = useState(null)
 
@@ -21,12 +21,18 @@ const NewPost = ({ userInfo }) => {
         const token = await getToken()
         // call the postsService to create a post! 
         const newPost = await postService.createNewPost(content, token)
-        console.log('tried to create post?', newPost )
+        console.log('the new post', newPost )
+        
+        addTopOfFeed(newPost.post) // .post ugh but makes work
+
+        // reset & close
+        setContent('')
+        onClose()
     }
 
     return (
         <div className='new-post-container'>
-            <Button colorScheme="green" float="right" leftIcon={<AddIcon />} onClick={onOpen}>
+            <Button className='add-btn' float="right" leftIcon={<AddIcon />} onClick={onOpen}>
                 Post
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} size="md">

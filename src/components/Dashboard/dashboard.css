@@ -54,9 +54,22 @@
     max-height:  50px;
 }
 
+.post-stat{
+    font-weight: bold;
+}
+
 .new-post-container {
     height: 40px;
 }
+.new-post-container .add-btn {
+    background-color: #1b8751;
+    color: white;
+    border-radius: 30px;    
+    &:hover {
+        background-color: #21ad67;
+    }
+}
+
 .new-post-modal {
     min-width: 600px;
     border-radius: 20px !important;
@@ -99,7 +112,7 @@
 /* todo - shrink fonts a bit, use grays for some, tighten content text, try out fonts */
 
 .post-card {
-    border: 1px solid #E2E8F0;
+    border: 1px solid #cad3e5;
     border-radius: 12px;
     background: white;
     padding: 16px;    
@@ -129,7 +142,13 @@
 }
 .post-action-row .icon-stat-set {
     background-color: #f5f5f5;
-    border-radius: 12px;
+    border-radius: 30px;
     padding: 2px;
     padding-right: 10px;
+    &:hover {
+        background: #e8e8e8;
+    }
+}
+.icon-stat-set .chakra-button:hover {
+    background: transparent !important; /* causing problems*/
 }

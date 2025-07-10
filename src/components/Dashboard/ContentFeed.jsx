@@ -1,6 +1,6 @@
 // open question how to build the Content Feed
 import {  Avatar,  Box,  Flex, IconButton, HStack  } from '@chakra-ui/react'
-import { FiHeart, FiMessageSquare, FiShare } from "react-icons/fi" // Fi vs Fa??
+import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
 
 const ContentFeed = ( { theFeed }) => {
@@ -15,7 +15,7 @@ const ContentFeed = ( { theFeed }) => {
                                 <div className='avatar-name'>{post.user?.fullName}</div>
                                 <Flex gap={2}>
                                     <p>{post.user?.neighbourhood}</p>
-                                    <p>{post.createdAt}</p>
+                                    <p>todo format {post.createdAt}</p>
                                 </Flex>
                             </div>
                         </Flex>  
@@ -41,7 +41,7 @@ const ContentFeed = ( { theFeed }) => {
                                     </Flex>
                                 </Flex>
                                 <Flex className='icon-stat-set' alignItems='center'>
-                                    <IconButton icon={<FiShare />} variant="ghost" size="lg" />
+                                    <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
                                 </Flex>
                             </Flex>
 

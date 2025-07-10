@@ -28,11 +28,18 @@ const Dashboard = () => {
         const posts = await postService.getPostsForNeighbourhood(token)
         console.log('retreived posts', posts)
         setContentFeed(posts)
+
+        // 
     }
-    // load currentUser
     useEffect( () => {
         loadDataForDashboard()
     }, [] )
+
+    function addTopOfFeed(newPost){
+        // todo need to set at top of feed
+        // sort by date instead?
+        setContentFeed([newPost, ...contentFeed])
+    }
 
     return (
         <div className='dashboard-container'> 
@@ -60,11 +67,10 @@ const Dashboard = () => {
                 </Box>
                 <Box flex="0 0 80%" bg="white" p={4} >
                     <Flex maxW="1000px"  minH="80vh" gap={4}>
-                        <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md" >
-                             <Text>Search Bar</Text>      
+                        <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md" > 
                             <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
 
-                            <NewPost userInfo={currentUser} />
+                            <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 
                             <ContentFeed theFeed={contentFeed} />
 

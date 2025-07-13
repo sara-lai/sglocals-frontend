@@ -7,9 +7,18 @@ import './dashboard.css'
 
 import * as postService from '../../services/postService'
 
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
 
     const { getToken } = useAuth() // todo - trouble passing token from parent, re-doing here
+
+    // "time ago" date formatting
+    dayjs.extend(relativeTime) 
+    function timeAgoFormat(time){
+        return dayjs(time).fromNow()
+    }
 
     async function updateLikes(postId){
         // simplest , just a +1 to the post and skip serviceCall/BE skip subtracting etc
@@ -61,7 +70,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                                 <div className='avatar-name'>{post.user?.fullName}</div>
                                 <Flex gap={2}>
                                     <p>{post.user?.neighbourhood}</p>
-                                    <p>todo format {post.createdAt}</p>
+                                    <p>{timeAgoFormat(post.createdAt)}</p>
                                 </Flex>
                             </div>
                         </Flex>  

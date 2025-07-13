@@ -71,7 +71,7 @@ const Dashboard = () => {
 
                             <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                            <ContentFeed theFeed={contentFeed} />
+                            <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} />
 
                         </Box>
                         <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">

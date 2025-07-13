@@ -4,27 +4,33 @@ import {  Avatar,  Box,  Flex, IconButton, HStack  } from '@chakra-ui/react'
 import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
 
-const ContentFeed = ( { theFeed }) => {
+const ContentFeed = ( { theFeed, setContentFeed }) => {
 
     const [likes, setLikes] = useState(0)
     const [likeAction, setLikeAction] = useState('add')
 
     function updateLikes(postId){
-        // search through the posts (theFeed variable)
-        // find the one with the id
-        // add or subtract the likes
+        // simplest , just a +1 to the post and skip serviceCall/BE skip subtracting etc
         const thePost = theFeed.find(post => post._id === postId)
-        thePost.likes += 1
-        
-        console.log(theFeed, postId)
+        const numLikes = thePost.likes
+        const newLikes = numLikes + 1
+        const newPost = {...thePost, likes: newLikes }
 
-        // if  (likeAction === 'add'){
-        //     setLikes(prev => prev + 1)
-        //     setLikeAction('minus')
-        // } else {
-        //     setLikes(prev => prev - 1)
-        //     setLikeAction('add')
-        // }
+        // goal: take newPost and "merge" newPost into theFeed        
+        // copy the state though (React law), don't mutate 
+        const newFeed = theFeed.map((post) => {
+            if (post._id === postId){
+                return newPost
+            } else {
+                return post
+            }
+        })
+
+        // set this before DB (immediately update UI)
+        setContentFeed(newFeed)
+
+        // some service class call to update post
+
     }
 
     return (

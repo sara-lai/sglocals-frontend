@@ -7,6 +7,7 @@ import SignInPage from './components/Landing/SignIn'
 import SignUpPage from './components/Landing/SignUp'
 import Onboarding from './components/Onboarding/Onboarding'
 import Dashboard from './components/Dashboard/Dashboard'
+import Layout from './components/Layout'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -19,8 +20,12 @@ function App() {
       <Route path="/sign-up" element={<SignUpPage />} /> 
       <Route path="/onboarding" element={<Onboarding />} />
 
+      <Route element={<Layout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}
-      <Route path="/dashboard" element={
+      {/*  <Route path="/dashboard" element={
         <>
           <SignedIn>
             <Dashboard />
@@ -29,7 +34,7 @@ function App() {
             <RedirectToSignIn redirectUrl="/sign-in" />
           </SignedOut>
         </>
-      }/>
+      }/> */}
 
       <Route path="*" element={<h2>Whoops, nothing here!</h2>} /> 
     </Routes>

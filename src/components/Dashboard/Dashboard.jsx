@@ -1,35 +1,27 @@
+import {  useOutletContext } from 'react-router'
 import { useEffect, useState } from 'react'
 import { Flex, Box, Text  } from '@chakra-ui/react';
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 import '../Onboarding/onboarding.css'
-import ProfilePicMenu from './ProfilePicMenu'
 import NewPost from './NewPost'
 import ContentFeed from './ContentFeed'
 
-import * as userService from '../../services/userService'
 import * as postService from '../../services/postService'
 
 const Dashboard = () => {
-
+    const { currentUser } = useOutletContext()    
      const { getToken } = useAuth()
-     const [currentUser, setCurrentUser] = useState({})
      const [contentFeed, setContentFeed] = useState([])
 
     async function loadDataForDashboard() {
         const token = await getToken()
-
-        // current user related
-        const user = await userService.getCurrentUser(token)
-        console.log('the current user on dashboard', user)
-        setCurrentUser(user)
 
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
         console.log('retreived posts', posts)
         setContentFeed(posts)
 
-        // 
     }
     useEffect( () => {
         loadDataForDashboard()

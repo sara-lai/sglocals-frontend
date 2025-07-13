@@ -30,7 +30,7 @@ const Layout = () => {
                 <ProfilePicMenu userInfo={currentUser} />  
             </div>
             <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
-                <Box flex="0 0 20%" bg="white" p={4} borderRadius="md" boxShadow="md">
+                <Box flex="0 0 20%" p={4}>
                     <div className='side-navbar'>
                         <div className='logo-side-nav'>
                             <img src='/images/flowers1.png' />
@@ -48,8 +48,8 @@ const Layout = () => {
                         <img  style={{ width: '200px'}} src='/images/nd-sidebar.png' />
                     </div>
                 </Box>
-                <Box flex="0 0 80%" bg="white" p={4} >
-                    <Outlet />
+                <Box flex="0 0 80%"  p={4} >
+                    <Outlet context={{ currentUser }} />
                 </Box>
             </Flex>
         </div>

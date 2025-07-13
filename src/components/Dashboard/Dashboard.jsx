@@ -43,7 +43,7 @@ const Dashboard = () => {
     return (
         <div className='dashboard-container'> 
             <div className='upper-right-profile-misc'>               
-                <ProfilePicMenu userInfo={currentUser} />  
+                <ProfilePicMenu currentUser={currentUser} />  
             </div>
             <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
                 <Box flex="0 0 20%" bg="white" p={4} borderRadius="md" boxShadow="md">
@@ -71,7 +71,7 @@ const Dashboard = () => {
 
                             <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                            <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} />
+                            <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
 
                         </Box>
                         <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">

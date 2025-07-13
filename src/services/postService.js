@@ -46,8 +46,31 @@ const getPostsForNeighbourhood = async (token) => {
     }
 }
 
+// update post, generic for anything
+const updatePost = async (token, postData) =>{
+    try {
+        const response = await fetch(BASE_URL , { 
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },
+            body: JSON.stringify(postData)          
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    } 
+}
+
 
 export {
     createNewPost,
-    getPostsForNeighbourhood
+    getPostsForNeighbourhood,
+    updatePost
 }

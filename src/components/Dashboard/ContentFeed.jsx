@@ -2,19 +2,34 @@
 import { useState } from 'react'
 import {  Avatar,  Box,  Flex, IconButton, HStack  } from '@chakra-ui/react'
 import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi" // Fi vs Fa??
+import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 
-const ContentFeed = ( { theFeed, setContentFeed }) => {
+import * as postService from '../../services/postService'
 
-    const [likes, setLikes] = useState(0)
-    const [likeAction, setLikeAction] = useState('add')
+const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
 
-    function updateLikes(postId){
+    const { getToken } = useAuth() // todo - trouble passing token from parent, re-doing here
+
+    async function updateLikes(postId){
         // simplest , just a +1 to the post and skip serviceCall/BE skip subtracting etc
         const thePost = theFeed.find(post => post._id === postId)
-        const numLikes = thePost.likes
-        const newLikes = numLikes + 1
-        const newPost = {...thePost, likes: newLikes }
+        let numLikes = thePost.likes
+        
+        const userId = currentUser.user_id
+
+        let newLikedBy = [...thePost.likedBy] // copy the likedBy array b/c of React law (dont mutate state)
+        if (newLikedBy.includes(userId)){   // has the user already liked it?
+            numLikes--
+            newLikedBy = newLikedBy.filter(user =>  user !== userId)
+            // or get idx in the array of users.... splice to remove that user
+        } else {
+            numLikes++
+            newLikedBy.push(userId)
+        }
+
+        // assembling the new post
+        const newPost = {...thePost, likes: numLikes, likedBy: newLikedBy }
 
         // goal: take newPost and "merge" newPost into theFeed        
         // copy the state though (React law), don't mutate 
@@ -29,8 +44,10 @@ const ContentFeed = ( { theFeed, setContentFeed }) => {
         // set this before DB (immediately update UI)
         setContentFeed(newFeed)
 
-        // some service class call to update post
-
+        // only update the 1 post .....  newPost.... if updating all the fields for post (newPost), then thats a PUT 
+        const token = await getToken()
+        const newPostDB = await postService.updatePost(token, newPost)
+        console.log('saved newPostDB!', newPostDB)
     }
 
     return (

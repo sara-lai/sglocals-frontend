@@ -1,9 +1,14 @@
-import { useState, useContext, useEffect } from "react";
 import EventCard from "./EventCard";
-import { Flex, Box, Text, Grid  } from '@chakra-ui/react';
+// import CreateEventsButton from './CreateEventsButton';
+import EventForm from './EventForm/EventForm';
+
+// import { useState, useContext, useEffect } from "react";
+import { Flex, Box, Text, Grid, Button  } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons'
+
 import './Events.css'
 
-const Events = (props) => {
+const Events = () => {
 const cards = 6;
 const eventCards= [];
 for (let i=0; i<cards; i++) {
@@ -32,6 +37,8 @@ for (let i=0; i<cards; i++) {
                     {/* <img  style={{ width: '200px'}} src='/images/nd-sidebar.png' /> */}
                 </div>
             </Box>
+            <EventForm/>
+
             <Grid templateColumns="repeat(2, 1fr)" gap="6">
 
                 {eventCards}

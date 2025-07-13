@@ -29,7 +29,6 @@ const Dashboard = () => {
         console.log('retreived posts', posts)
         setContentFeed(posts)
 
-        // 
     }
     useEffect( () => {
         loadDataForDashboard()

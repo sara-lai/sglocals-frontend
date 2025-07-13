@@ -27,6 +27,7 @@ const createNewPost = async (content, token) => {
     }
  }
 
+ // just returns all posts for now
 const getPostsForNeighbourhood = async (token) => {
     try {
         const response = await fetch(BASE_URL + '/local' , { 

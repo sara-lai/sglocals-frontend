@@ -7,7 +7,6 @@ button:hover:focus {
     border-color: transparent !important;
 }
 
-
 /* for default letter "fallback" when no pic */
 .chakra-avatar {
   background: #d5dce5 !important; 

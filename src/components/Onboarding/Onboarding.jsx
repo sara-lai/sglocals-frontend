@@ -26,7 +26,7 @@ const Onboarding = () => {
         if (!token){
             navigate('/')
         }
-        // if no onboarding complete
+        // if onboarding complete shouldb't be here
         const user = await userService.getCurrentUser(token)
         console.log('got the current user from db', user)
         if (user.onboardingComplete){
@@ -53,8 +53,7 @@ const Onboarding = () => {
     async function completeOnboarding(data){
         const token = await getToken()
         try {
-            // skip until implemented BE
-            const userProfile = await userService.createUserProfile(data, token) // make sure this actually gets latest data
+            const userProfile = await userService.createUserProfile(data, token)
             console.log('created userProfile', userProfile)
             navigate('/dashboard')
         } catch(err) { 

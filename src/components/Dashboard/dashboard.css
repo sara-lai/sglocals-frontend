@@ -134,6 +134,9 @@
 .post-content {
     padding-left: 10px;
     letter-spacing: .4px;
+    &:hover {
+        cursor: pointer;
+    }    
 }
 
 .post-action-row {
@@ -153,4 +156,27 @@
 }
 .icon-stat-set .chakra-button:hover {
     background: transparent !important; /* causing problems*/
+}
+
+.post-full-modal .btn-close {
+    position: absolute;
+    top: -36px; 
+    right: -36px;    
+    color: white;
+    background-color: #232f46;
+    border-radius: 50%;
+    height: 38px;
+    width: 38px;
+}
+
+.post-full-container {
+    min-height: 300px;
+}
+
+.post-comment-section {
+
+}
+
+.post-comment-form {
+    
 }

@@ -8,9 +8,7 @@ import './Dashboard/dashboard.css' // temporary
 import ProfilePicMenu from './Dashboard/ProfilePicMenu'
 import * as userService from '../services/userService'
 
-
 const Layout = () => {
-
     const { getToken } = useAuth()
     const [currentUser, setCurrentUser] = useState({})
 
@@ -19,7 +17,6 @@ const Layout = () => {
         const user = await userService.getCurrentUser(token)
         setCurrentUser(user)
     }
-
     useEffect( () => {
         loadCurrentUser()
     }, [] )
@@ -27,7 +24,7 @@ const Layout = () => {
     return (
         <div className='app-wrapper'>
             <div className='upper-right-profile-misc'>               
-                <ProfilePicMenu userInfo={currentUser} />  
+                <ProfilePicMenu currentUser={currentUser} />  
             </div>
             <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
                 <Box flex="0 0 20%" p={4}>

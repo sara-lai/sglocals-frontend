@@ -36,7 +36,7 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
                 Post
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} size="md">
-                <ModalOverlay bg="blackAlpha.400" />
+                <ModalOverlay bg="blackAlpha.500" />
 
                 <ModalContent className='new-post-modal'>
                     <Button className='btn' colorScheme="green" onClick={handleSubmit}>

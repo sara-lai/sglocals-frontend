@@ -11,8 +11,8 @@ import * as postService from '../../services/postService'
 
 const Dashboard = () => {
     const { currentUser } = useOutletContext()    
-     const { getToken } = useAuth()
-     const [contentFeed, setContentFeed] = useState([])
+    const { getToken } = useAuth()
+    const [contentFeed, setContentFeed] = useState([])
 
     async function loadDataForDashboard() {
         const token = await getToken()

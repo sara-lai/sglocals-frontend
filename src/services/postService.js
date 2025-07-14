@@ -46,6 +46,24 @@ const getPostsForNeighbourhood = async (token) => {
     }
 }
 
+const getPostsForCurrentUser = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/currentUser' , { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.posts
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
+}
+
 // update post, generic for anything
 const updatePost = async (token, postData) =>{
     try {
@@ -72,5 +90,6 @@ const updatePost = async (token, postData) =>{
 export {
     createNewPost,
     getPostsForNeighbourhood,
+    getPostsForCurrentUser,
     updatePost
 }

@@ -90,6 +90,8 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                             timeAgoFormat={timeAgoFormat}  
                             updateLikes={updateLikes} 
                             currentUser={currentUser}
+                            setContentFeed={setContentFeed}
+                            theFeed={theFeed}
                         />
                 </ModalContent>
             </Modal>

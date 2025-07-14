@@ -25,6 +25,16 @@ button.btn-default {
     }
 }
 
+ button.btn-green {
+    background-color: #1b8751;
+    color: white;
+    border-radius: 30px;    
+    &:hover {
+        background-color: #21ad67;
+    }
+}
+
+
 /* attempt at scrollable center content with "app style" fixed height */
 .app-wrapper {
     height: 100vh;

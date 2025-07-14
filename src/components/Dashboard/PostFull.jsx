@@ -1,12 +1,55 @@
 import { useState } from 'react'
 import {  Button, Avatar,  Box,  Flex, IconButton, Divider, Input  } from '@chakra-ui/react'
 import { FiHeart, FiRepeat } from "react-icons/fi" // Fi vs Fa??
+import { useAuth } from '@clerk/clerk-react'
 import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
+
+import * as postService from '../../services/postService'
+
 import './dashboard.css'
 
-const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser }) => {
+const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFeed, theFeed }) => {
 
+    const { getToken } = useAuth()
     const [file, setFile] = useState(null)
+    const [content, setContent] = useState('')
+
+    async function addCommentToPost() {
+        // todo - figure out likes on commenting - should it only re-render the selected post ? eg dont update whole contentFeed
+        // copy post ; add comment to post & the ui; send off to DB
+
+        const newPost = structuredClone(post)
+        const newComment = {
+            text: content,
+            user: {
+                fullName: currentUser.fullName,
+                neighbourhood: currentUser.neighbourhood,
+                circleImg: currentUser.profileimg
+            },     
+            createdAt: Date.now()
+        }
+        newPost.comments.push(newComment)
+
+        // copying from likes logic, 
+        // note- not sure if this is a problem! ONLY update selected post, or update ENTIRE FEED
+        const newFeed = theFeed.map((post2) => {
+            if (post._id === post2._id){
+                return newPost
+            } else {
+                return post2 // do need StructuredClone here too?
+            }
+        })
+
+        setContentFeed(newFeed)
+
+        setContent('')// clear comment 
+
+        // send off to back end
+        const token = await getToken()
+        const newPostDB = await postService.updatePost(token, newPost)
+        console.log('saved newPostDB!', newPostDB)        
+
+    }
 
     return (
         <>
@@ -26,11 +69,11 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser }) => {
                 </div>
                 <Flex className='post-action-row' justifyContent='space-between'>               
                     <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    
-                        <IconButton icon={<FiHeart />} variant="ghost" size="lg" />
+                        <IconButton icon={<FiHeart />} variant="ghost" size="sm" />
                         {post.likes > 0 && <div className='post-stat'>{post.likes}</div>}
                     </Flex>                            
                     <Flex className='icon-stat-set' alignItems='center'>
-                        <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
+                        <IconButton icon={<FiRepeat />} variant="ghost" size="sm" />
                     </Flex>
                 </Flex>
             </Box>
@@ -44,8 +87,21 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser }) => {
                         <p>Be the first to comment!</p>
                     </>
                 }
+                {post.comments.length > 0 && <p>Comments ({post.comments.length})</p>}
                 {post.comments.map((comment) => (
-                    <p>comment component to do</p>
+                    <Box pt={4} pb={4}>
+                        <Flex gap={2}>
+                             <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={comment.user.profileimg} name={comment.user.fullName?.[0]} />
+                             <Box>
+                                <Flex gap={2}>
+                                    <p style={{ fontWeight: '600' }}>{comment.user.fullName}</p>
+                                    <p>{timeAgoFormat(comment.createdAt)}</p>
+                                    <p>{comment.user.neighbourhood}</p>
+                                </Flex>
+                                <p style={{ fontSize: '1.1rem'}}>{comment.text}</p>
+                            </Box>
+                        </Flex>
+                    </Box>
                 ))}
             </Box>
 
@@ -53,10 +109,13 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser }) => {
 
             <Box className='post-comment-form' p={4}>
 
-                <Flex gap={4}>
+                <Flex gap={2}>
                     <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileimg} name={currentUser?.fullName?.[0]} />        
                     <Box w='100%'>
-                        <Input placeholder="Add a comment..." />
+                        <Input placeholder="Add a comment..." 
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                         />
                         <Flex justify='space-between' mt={4}>
                             <Flex gap={2} justify="start">
                                 <IconButton className='action-icon' icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
@@ -64,12 +123,10 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser }) => {
                                 <IconButton className='action-icon' icon={<FaMapMarkerAlt size={26} />} />
                                 <IconButton className='action-icon' icon={<FaAt size={26} />}  />
                             </Flex>     
-                            <Button className='btn-default'>Comment</Button>          
+                            <Button className='btn-default' onClick={addCommentToPost}>Comment</Button>          
                         </Flex>            
                     </Box>
                 </Flex>
-
-
 
             </Box>  
         </>

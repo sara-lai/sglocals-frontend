@@ -37,7 +37,7 @@ const Dashboard = () => {
         <div className='dashboard-container'> 
             <Flex maxW="1000px" h="100%">
                 <Box flex="0 0 70%" > 
-                    <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
+                    <img style={{ maxHeight: '80px', margin: "0 auto"}} src='/images/nd-search-bar.png' />
 
                     <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 

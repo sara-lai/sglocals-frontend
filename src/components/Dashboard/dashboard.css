@@ -39,6 +39,7 @@
 .side-content {
     margin-top: 40px; /* clearance for upper-right btns */
     padding: 20px;
+    padding-left: 4px;
 }
 
 .logo-side-nav {

@@ -7,7 +7,7 @@ import './dashboard.css'
 const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost }) => {
     
     return (
-        <Box className='post-card' mb={4} boxShadow="sm">
+        <Box className='post-card' mb={2.5} boxShadow="sm">
             <div className='post-top-matter'>
                 <Flex direction="row" align="center" gap={1}>
                     <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileimg} name={post.user?.fullName?.[0]} />

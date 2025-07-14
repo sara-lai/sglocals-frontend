@@ -19,7 +19,6 @@ const Dashboard = () => {
 
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
-        console.log('retreived posts', posts)
         setContentFeed(posts)
 
     }

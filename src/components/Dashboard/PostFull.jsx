@@ -8,7 +8,7 @@ import * as postService from '../../services/postService'
 
 import './dashboard.css'
 
-const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFeed, theFeed }) => {
+const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFeed, theFeed, setSelectedPost }) => {
 
     const { getToken } = useAuth()
     const [file, setFile] = useState(null)
@@ -30,8 +30,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         }
         newPost.comments.push(newComment)
 
-        // copying from likes logic, 
-        // note- not sure if this is a problem! ONLY update selected post, or update ENTIRE FEED
+        // copying from likes logic,
         const newFeed = theFeed.map((post2) => {
             if (post._id === post2._id){
                 return newPost
@@ -40,15 +39,15 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
             }
         })
 
+        // two prop callbacks!! sets the open modal and the background list of posts
+        setSelectedPost(newPost)
         setContentFeed(newFeed)
 
-        setContent('')// clear comment 
+        setContent('') // clear comment 
 
         // send off to back end
         const token = await getToken()
-        const newPostDB = await postService.updatePost(token, newPost)
-        console.log('saved newPostDB!', newPostDB)        
-
+        const newPostDB = await postService.updatePost(token, newPost)  
     }
 
     return (

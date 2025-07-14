@@ -21,7 +21,6 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
         const token = await getToken()
         // call the postsService to create a post! 
         const newPost = await postService.createNewPost(content, token)
-        console.log('the new post', newPost )
         
         addTopOfFeed(newPost.post) // .post ugh but makes work
 

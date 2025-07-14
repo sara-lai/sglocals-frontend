@@ -61,13 +61,13 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
             }
         })
 
-        // set this before DB (immediately update UI)
+        // sets the open modal and the background list of posts
+        setSelectedPost(newPost)
         setContentFeed(newFeed)
 
-        // only update the 1 post .....  newPost.... if updating all the fields for post (newPost), then thats a PUT 
+        // off to the db
         const token = await getToken()
         const newPostDB = await postService.updatePost(token, newPost)
-        console.log('saved newPostDB!', newPostDB)
     }
 
     return (
@@ -91,6 +91,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                             updateLikes={updateLikes} 
                             currentUser={currentUser}
                             setContentFeed={setContentFeed}
+                            setSelectedPost={setSelectedPost}
                             theFeed={theFeed}
                         />
                 </ModalContent>

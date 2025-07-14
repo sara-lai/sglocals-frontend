@@ -22,13 +22,11 @@ const Onboarding = () => {
         
         // if no token shouldnt be here
         const token = await getToken()
-        console.log('this is the token', token)
         if (!token){
             navigate('/')
         }
         // if onboarding complete shouldb't be here
         const user = await userService.getCurrentUser(token)
-        console.log('got the current user from db', user)
         if (user.onboardingComplete){
             navigate('/dashboard')
         }
@@ -54,7 +52,6 @@ const Onboarding = () => {
         const token = await getToken()
         try {
             const userProfile = await userService.createUserProfile(data, token)
-            console.log('created userProfile', userProfile)
             navigate('/dashboard')
         } catch(err) { 
             console.log(err)

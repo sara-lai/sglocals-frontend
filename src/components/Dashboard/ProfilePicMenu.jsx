@@ -1,7 +1,8 @@
-import { Menu, MenuButton, MenuList, Button, Flex, Avatar, Icon, Box } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, Button, Flex, Avatar, Icon, Box, Divider } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
 import SignOut from "./SignOut"
+import './dashboard.css'
 
 const ProfilePicMenu = ({ currentUser }) => {
 
@@ -14,12 +15,13 @@ const ProfilePicMenu = ({ currentUser }) => {
                 </Flex>
             </MenuButton>
             <MenuList minWidth="300px" p={4}>
-                 <Flex direction="column" align="center" gap={2}>
+                <Flex direction="column" align="center" gap={2} mb={6}>
                     <Avatar size="md" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
                     <div className='avatar-name'>{currentUser.fullName}</div>
                     <div className='avatar-nhood'>{currentUser.neighbourhood}</div>
-                    <Button mt={2}>View Profile</Button>
+                    <Button className='btn-default' mt={2}>View Profile</Button>
                 </Flex>
+                <Divider />
                 <Box><SignOut /></Box>
             </MenuList>
         </Menu>        

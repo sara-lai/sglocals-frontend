@@ -81,7 +81,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                 />
             ))}
 
-            <Modal isOpen={isOpen} onClose={onClose} size='2xl' >
+            <Modal isOpen={isOpen} onClose={onClose} size='override' >
                 <ModalOverlay bg="blackAlpha.600" />
                 <ModalContent className='post-full-modal'>
                     <ModalCloseButton className='btn-close' />

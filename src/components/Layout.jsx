@@ -26,7 +26,7 @@ const Layout = () => {
             <div className='upper-right-profile-misc'>               
                 <ProfilePicMenu currentUser={currentUser} />  
             </div>
-            <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
+            <Flex maxW="1600px" mx="auto" h="100vh" gap={4}>
                 <Box flex="0 0 20%" p={4}>
                     <div className='side-navbar'>
                         <div className='logo-side-nav'>
@@ -45,7 +45,7 @@ const Layout = () => {
                         <img  style={{ width: '200px'}} src='/images/nd-sidebar.png' />
                     </div>
                 </Box>
-                <Box flex="0 0 80%"  p={4} >
+                <Box flex="0 0 80%" overflowY="auto"  p={4} className="content-scroll">
                     <Outlet context={{ currentUser }} />
                 </Box>
             </Flex>

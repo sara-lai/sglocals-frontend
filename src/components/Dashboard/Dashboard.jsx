@@ -35,7 +35,7 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard-container'> 
-            <Flex maxW="1000px"  minH="80vh">
+            <Flex maxW="1000px" h="100%">
                 <Box flex="0 0 70%" > 
                     <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
 
@@ -44,7 +44,7 @@ const Dashboard = () => {
                     <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
 
                 </Box>
-                <Box className="side-content" flex="0 0 30%">
+                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0}>
                     <img src='/images/nd-content2.png' />
                 </Box>
             </Flex> 

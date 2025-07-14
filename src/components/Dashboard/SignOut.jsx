@@ -13,7 +13,7 @@ const SignOut = () => {
     navigate('/')
   }
   return (
-    <Flex as="button" onClick={handleSignOut} gap={2} alignItems='center' mt={10}>
+    <Flex as="button" onClick={handleSignOut} gap={2} alignItems='center' mt={4} >
       <FaSignOutAlt size={20} />
       <Text>Sign Out</Text>
     </Flex>

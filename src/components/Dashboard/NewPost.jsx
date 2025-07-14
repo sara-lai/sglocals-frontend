@@ -58,10 +58,10 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
                             onChange={(e) => setContent(e.target.value)}
                         />
                         <Flex gap={2} justify="start">
-                            <IconButton icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
+                            <IconButton className='action-icon' icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
                             <input hidden id="image-upload" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
-                            <IconButton icon={<FaMapMarkerAlt size={26} />} />
-                            <IconButton icon={<FaAt size={26} />}  />
+                            <IconButton className='action-icon' icon={<FaMapMarkerAlt size={26} />} />
+                            <IconButton className='action-icon' icon={<FaAt size={26} />}  />
                         </Flex>
                     </Flex>
                 </ModalContent>

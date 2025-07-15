@@ -4,7 +4,7 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/posts`
 // On BE probably should use a users table and skip a userProfile table, still need "users" eg your neighbors, posts by nearby users, etc. 
 // Clerk does id/email/passowrd/jwt ... users table at least needs to store the clerk  userId, and can have the profile data too
 
-const createNewPost = async (content, token) => {
+const createNewPost = async (postData, token) => {
     try {
         const response = await fetch(BASE_URL , { 
             method: 'POST',
@@ -12,9 +12,7 @@ const createNewPost = async (content, token) => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}` 
             },
-            body: JSON.stringify({
-                'content': content,
-            })          
+            body: JSON.stringify(postData)          
         })
         if (!response.ok){
              throw new Error(`HTTP problem ${response.status}`);

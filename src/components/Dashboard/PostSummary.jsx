@@ -2,8 +2,6 @@ import {  Avatar,  Box,  Flex, IconButton  } from '@chakra-ui/react'
 import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
 
-// maybe to help simplify the ContentFeed
-
 const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost }) => {
     
     return (

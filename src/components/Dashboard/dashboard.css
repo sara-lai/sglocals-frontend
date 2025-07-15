@@ -3,10 +3,7 @@
     height: 100vh;
  }
 
- .dashboard-container {
- }
-
-.upper-right-profile-misc {
+ .upper-right-profile-misc {
     position: absolute;
     right: 30px; 
     top: 10px;
@@ -120,8 +117,7 @@
 .post-card {
     border: 1px solid #cad3e5;
     border-radius: 12px;
-    background: white;
-    padding: 16px;    
+    background: white;   
     /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
 }
 .post-top-matter {
@@ -134,15 +130,10 @@
     font-size: .9rem;
 }
 .post-content {
-    padding-left: 10px;
     letter-spacing: .4px;
     &:hover {
         cursor: pointer;
     }    
-}
-
-.post-action-row {
-    margin-top: 14px;
 }
 
 .post-comment-form svg {

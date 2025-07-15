@@ -24,7 +24,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
             user: {
                 fullName: currentUser.fullName,
                 neighbourhood: currentUser.neighbourhood,
-                circleImg: currentUser.profileimg
+                profileImg: currentUser.profileImg
             },     
             createdAt: Date.now()
         }
@@ -54,7 +54,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         <>
             <Box p={4}>
                 <Flex direction="row" align="center" gap={1} mb={4}>
-                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileimg} name={post.user?.fullName?.[0]} />
+                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
                     <div className='post-info-set'>
                         <div className='avatar-name'>{post.user?.fullName}</div>
                         <Flex gap={2}>
@@ -90,7 +90,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                 {post.comments.map((comment) => (
                     <Box pt={4} pb={4}>
                         <Flex gap={2}>
-                             <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={comment.user.profileimg} name={comment.user.fullName?.[0]} />
+                             <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={comment.user.profileImg} name={comment.user.fullName?.[0]} />
                              <Box>
                                 <Flex gap={2}>
                                     <p style={{ fontWeight: '600' }}>{comment.user.fullName}</p>
@@ -109,7 +109,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
             <Box className='post-comment-form' p={4}>
 
                 <Flex gap={2}>
-                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileimg} name={currentUser?.fullName?.[0]} />        
+                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />        
                     <Box w='100%'>
                         <Input placeholder="Add a comment..." 
                             value={content}

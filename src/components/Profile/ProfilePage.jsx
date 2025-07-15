@@ -35,7 +35,7 @@ const ProfilePage = () => {
                         backgroundPosition="15% 15%"                
                     >
                     </Box>
-                    <Flex direction='column' pl={6}>
+                    <Flex direction='column' pl={6} pr={6}>
                         <Avatar className='avatar-profile-page' size="2xl" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
                         <Heading size='lg' mb={0}>{currentUser.fullName}</Heading>
                         <Text mt={4} mb={4}>{currentUser.bio}</Text>

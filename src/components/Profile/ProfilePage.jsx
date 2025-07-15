@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Box, Flex, Button, Avatar, Heading, Text, Icon } from '@chakra-ui/react'
-import {  useOutletContext } from 'react-router'
+import {  useOutletContext, useNavigate } from 'react-router'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { useAuth } from '@clerk/clerk-react'
 import './profile.css'
@@ -12,6 +12,7 @@ const ProfilePage = () => {
     const bannerImgUrl = currentUser.bannerImg || '/images/sg-skyline-sunset3.jpg'
     const { getToken } = useAuth()
     const [userPosts, setUserPosts] = useState([])
+    const navigate = useNavigate()
 
     // profile page is also place where user can see all their stuff, posts, groups, etc
     async function fetchProfilePageData(){
@@ -38,12 +39,12 @@ const ProfilePage = () => {
                     <Flex direction='column' pl={6}>
                         <Avatar className='avatar-profile-page' size="2xl" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
                         <Heading size='lg' mb={0}>{currentUser.fullName}</Heading>
-                        <Text>{currentUser.bio}</Text>
+                        <Text mt={4} mb={4}>{currentUser.bio}</Text>
                         <Flex align="center" gap={1}>
                             <Icon as={FaMapMarkerAlt} w={4} h={4} />
                             <Text>{currentUser.neighbourhood}</Text>
                         </Flex>
-                        <Button  w='110px' className='btn-default' mt={5}>Edit Profile</Button>
+                        <Button  w='110px' className='btn-default' mt={5} onClick={() => navigate('/profile/edit')}>Edit Profile</Button>
                     </Flex>
                 </Flex>
             </Box>

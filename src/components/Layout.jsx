@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, Text  } from '@chakra-ui/react';
-import { Outlet } from "react-router"
+import { Outlet, Link } from "react-router"
 import { useAuth } from '@clerk/clerk-react'
 
 import './Dashboard/dashboard.css' // temporary
@@ -34,7 +34,7 @@ const Layout = () => {
                             <span>Kampong Lah</span>              
                         </div>    
                         <div className='side-links'>
-                            <p>Home</p>
+                            <Link to='/dashboard' className='nav-link'>Home</Link>
                             <p>I Buy U Buy</p>
                             <p>Groups</p>
                             <p>Events</p>

@@ -56,3 +56,18 @@ button.btn-default {
     background: white;
     padding: 16px;        
 }
+
+/* some form defaults */
+input::placeholder, textarea::placeholder {
+    font-weight: 300;
+    color: #232f46; 
+    letter-spacing: .2px;
+}
+
+.nav-link {
+    font-weight: 700;
+    font-size: 1.2rem;
+    &:hover {
+        color: black;
+    }
+}

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import {  useOutletContext, useNavigate } from 'react-router'
-import { Box, Flex, Button, Avatar, Textarea, Input, FormLabel, Text, Icon } from '@chakra-ui/react'
+import { Box, Flex, Button, Avatar, Textarea, Input, FormLabel, Text, Icon, IconButton } from '@chakra-ui/react'
+import { ArrowBackIcon } from '@chakra-ui/icons'
+import { FaCamera, FaImage } from 'react-icons/fa' // vs. FaImage? // todo - really need set icon library accross app
 import { useAuth } from '@clerk/clerk-react'
 import './profile.css'
 
@@ -37,34 +39,37 @@ const EditProfile = () => {
 
     return (
         <div className='profile-page-wrapper'>
+            <Flex align="center" as="button" gap={2} mb={4} onClick={() => navigate('/profile') }>
+                <Icon as={ArrowBackIcon} w={6} h={6} />
+                <Text fontSize="md">Profile</Text>
+            </Flex>
+
             <Box className='default-border' w='600px' pl={0} pr={0} >
                 <Flex direction='column'>
-                    <Box className='blah'
-                        h='220px'
-                        backgroundImage={bannerImgUrl}
-                        backgroundSize="cover"
-                        backgroundPosition="15% 15%"                
-                    >
+                    <Box h='220px' position="relative" backgroundImage={bannerImgUrl} backgroundSize="cover" backgroundPosition="15% 15%" >
+                        <Flex className='upload-banner-img-box' gap={2} align="center">
+                            <IconButton icon={<FaImage />} size="sm" variant="ghost" color="black" />
+                            <Text fontSize="sm">Upload cover photo</Text>   
+                        </Flex>                     
                     </Box>
-                    <Box direction='column' pl={6}>
-                        <Avatar className='avatar-profile-page' size="2xl" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
+                    <Box pl={6}>
+                        <Box as="button" position='relative' maxW='130px' onClick={console.log('todo')}>
+                            <Avatar className='avatar-profile-page' size="2xl" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
+                            <Box>
+                                <IconButton icon={<FaImage />} size="md" color="black" position="absolute"  bottom="4px" right="8px" borderRadius="full" />                            
+                            </Box>
+                        </Box>
                         <form onSubmit={handleSubmit}>
                             <Flex direction="column" gap={10} p={6}>
                                 <Box>
                                     <FormLabel htmlFor='bio'>Bio</FormLabel>
-                                    <Textarea minH="180px" pt={4}
-                                        name="bio"
-                                        value={formData.bio}
-                                        onChange={handleChange}
+                                    <Textarea minH="180px" pt={4} name="bio" value={formData.bio} onChange={handleChange}
                                         placeholder="Tell your neighbours a bit about yourself"
                                     />
                                 </Box>
                                 <Box>
                                     <FormLabel htmlFor='hometown'>Hometown (if not Singapore)</FormLabel>
-                                    <Input p={4} h="60px"
-                                        name="hometown"
-                                        value={formData.hometown}
-                                        onChange={handleChange}
+                                    <Input p={4} h="60px" name="hometown" value={formData.hometown} onChange={handleChange}
                                         placeholder=".e.g. Adelaide"
                                     />
                                 </Box>  
@@ -72,7 +77,7 @@ const EditProfile = () => {
                                     <i>To change name or neighbourhood, please <Text as="span" textDecoration="underline"  _hover={{ cursor: 'pointer' }}>contact support</Text></i>
                                 </Box> 
                                 <Flex justify="flex-end">
-                                    <Button type="submit" w='60px' className="btn-default" >Save</Button>
+                                    <Button type="submit" h="46px" className="btn-default btn-lg" >Save</Button>
                                 </Flex>                         
                             </Flex>
                         </form>

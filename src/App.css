@@ -14,6 +14,8 @@ button:hover:focus {
   font-weight: 700 !important;
 }
 
+
+/* some default button options; can set height/width on chakra */
 button.btn-default {
     border-radius: 20px;
     padding: 12px;
@@ -24,7 +26,11 @@ button.btn-default {
         background-color: #576176;
     }
 }
-
+button.btn-default.btn-lg {
+    font-size: 1.1rem;
+    border-radius: 30px;
+    padding: 16px;
+}
  button.btn-green {
     background-color: #1b8751;
     color: white;

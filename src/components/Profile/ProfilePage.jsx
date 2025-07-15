@@ -29,8 +29,7 @@ const ProfilePage = () => {
         <div className='profile-page-wrapper'>
             <Box className='default-border' w='600px' pl={0} pr={0} >
                 <Flex direction='column'>
-                    <Box className='blah'
-                        h='220px'
+                    <Box h='220px'
                         backgroundImage={bannerImgUrl}
                         backgroundSize="cover"
                         backgroundPosition="15% 15%"                

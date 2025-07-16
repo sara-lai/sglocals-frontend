@@ -162,10 +162,6 @@ button.action-icon {
     background: transparent !important; /* causing problems*/
 }
 
-.post-full-modal {
-    width: 640px !important;
-}
-
 .post-full-modal .btn-close {
     position: absolute;
     top: -36px; 

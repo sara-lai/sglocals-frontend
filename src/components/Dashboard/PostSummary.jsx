@@ -1,11 +1,12 @@
+import {  useOutletContext } from 'react-router'
 import {  Avatar,  Box,  Flex, IconButton, Image  } from '@chakra-ui/react'
-import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi" // Fi vs Fa??
+import { FiHeart, FiMessageSquare, FiRepeat, FiTrash } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
 
-const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost }) => {
-
+const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost }) => {
     const postImg = post.imageUrls?.[0]  // testing tmp
-    
+    const { currentUser } = useOutletContext()
+
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
             <Flex direction="row" align="center" gap={1} p={4}>
@@ -34,10 +35,17 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost }) => {
                         <IconButton icon={<FiMessageSquare />} variant="ghost" size="lg" />
                         {post.comments.length > 0 && <div className='post-stat'>{post.comments.length}</div>}
                     </Flex>
-                </Flex>
-                <Flex className='icon-stat-set' alignItems='center'>
-                    <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
-                </Flex>
+                </Flex>        
+                <Flex gap={2}>
+                    {post.user_id === currentUser.user_id && ( 
+                        <Flex className='icon-stat-set' alignItems='center' onClick={() => deletePost(post._id) }>
+                            <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
+                        </Flex>
+                    )}
+                    <Flex className='icon-stat-set' alignItems='center'>
+                        <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
+                    </Flex>                    
+                </Flex>          
             </Flex>                    
         </Box>
     )

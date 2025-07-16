@@ -4,7 +4,7 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody  } from 
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 
-import * as postService from '../../services/postService'
+import * as postService  from '../../services/postService'
 import PostSummary from './PostSummary'
 import PostFull from './PostFull'
 
@@ -70,6 +70,15 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
         const newPostDB = await postService.updatePost(token, newPost)
     }
 
+    async function deletePost(postId){
+        const newFeed = theFeed.filter( post =>  post._id !== postId )
+        setContentFeed(newFeed)
+
+        const token = await getToken()
+        const deleted = postService.deletePost(token, postId)
+        console.log(deleted)
+    }
+
     return (
         <div className='content-feed-container'>
             {theFeed.map(  (post) => (
@@ -78,12 +87,13 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                     timeAgoFormat={timeAgoFormat}  
                     updateLikes={updateLikes} 
                     showFullPost={showFullPost} 
+                    deletePost={deletePost}
                 />
             ))}
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' >
                 <ModalOverlay bg="blackAlpha.600" />
-                <ModalContent className='post-full-modal'>
+                <ModalContent className='post-full-modal' w={selectedPost.imageUrls?.length > 0 ? "1000px" : "640px"}>
                     <ModalCloseButton className='btn-close' />
                         <PostFull
                             post={selectedPost} 

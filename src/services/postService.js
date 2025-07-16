@@ -84,10 +84,30 @@ const updatePost = async (token, postData) =>{
     } 
 }
 
+const deletePost = async (token, postId) =>{
+    try {
+        const response = await fetch(BASE_URL + '/' + postId, { 
+            method: 'DELETE',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            }      
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    } 
+}
 
 export {
     createNewPost,
     getPostsForNeighbourhood,
     getPostsForCurrentUser,
-    updatePost
+    updatePost,
+    deletePost,
 }

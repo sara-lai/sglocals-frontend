@@ -35,10 +35,9 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
 
     const handleImageUpload = () => { 
         uploadWidget((secureUrlsList) => {
-            // behavior: if mutli images, it comes through sequentially
             console.log(secureUrlsList)
             setImageUrls(secureUrlsList)       
-        }, true) //  true for multi upload`
+        }, true) //  set true for multi upload -> means secureUrlsList is an array
     }        
 
     return (

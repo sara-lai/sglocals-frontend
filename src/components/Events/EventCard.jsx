@@ -1,8 +1,8 @@
 import { Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
-import { useState, useContext, useEffect } from "react";
+// import { useState, useContext, useEffect } from "react";
 import './EventCard.css'
 
-const EventCard = (props) => {
+const EventCard = () => {
 
     return (
         <>

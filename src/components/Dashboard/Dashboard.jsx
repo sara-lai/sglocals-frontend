@@ -11,15 +11,14 @@ import * as postService from '../../services/postService'
 
 const Dashboard = () => {
     const { currentUser } = useOutletContext()    
-     const { getToken } = useAuth()
-     const [contentFeed, setContentFeed] = useState([])
+    const { getToken } = useAuth()
+    const [contentFeed, setContentFeed] = useState([])
 
     async function loadDataForDashboard() {
         const token = await getToken()
 
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
-        console.log('retreived posts', posts)
         setContentFeed(posts)
 
     }
@@ -35,17 +34,16 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard-container'> 
-            <Flex maxW="1000px"  minH="80vh" gap={4}>
-                <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md" > 
-                    <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
+            <Flex maxW="1000px" h="100%">
+                <Box flex="0 0 70%" > 
+                    <img style={{ maxHeight: '80px', margin: "0 auto"}} src='/images/nd-search-bar.png' />
 
                     <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                    <ContentFeed theFeed={contentFeed} />
+                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
 
                 </Box>
-                <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">
-                    <Text>Misc Side panel</Text>
+                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0}>
                     <img src='/images/nd-content2.png' />
                 </Box>
             </Flex> 

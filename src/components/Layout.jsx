@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, Text  } from '@chakra-ui/react';
-import { Outlet } from "react-router"
+import { Outlet, Link } from "react-router"
 import { useAuth } from '@clerk/clerk-react'
 
 import './Dashboard/dashboard.css' // temporary
@@ -8,9 +8,7 @@ import './Dashboard/dashboard.css' // temporary
 import ProfilePicMenu from './Dashboard/ProfilePicMenu'
 import * as userService from '../services/userService'
 
-
 const Layout = () => {
-
     const { getToken } = useAuth()
     const [currentUser, setCurrentUser] = useState({})
 
@@ -19,7 +17,6 @@ const Layout = () => {
         const user = await userService.getCurrentUser(token)
         setCurrentUser(user)
     }
-
     useEffect( () => {
         loadCurrentUser()
     }, [] )
@@ -27,9 +24,9 @@ const Layout = () => {
     return (
         <div className='app-wrapper'>
             <div className='upper-right-profile-misc'>               
-                <ProfilePicMenu userInfo={currentUser} />  
+                <ProfilePicMenu currentUser={currentUser} />  
             </div>
-            <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
+            <Flex maxW="1600px" mx="auto" h="100vh" gap={4}>
                 <Box flex="0 0 20%" p={4}>
                     <div className='side-navbar'>
                         <div className='logo-side-nav'>
@@ -37,7 +34,7 @@ const Layout = () => {
                             <span>Kampong Lah</span>              
                         </div>    
                         <div className='side-links'>
-                            <p>Home</p>
+                            <Link to='/dashboard' className='nav-link'>Home</Link>
                             <p>I Buy U Buy</p>
                             <p>Groups</p>
                             <p>Events</p>
@@ -48,8 +45,8 @@ const Layout = () => {
                         <img  style={{ width: '200px'}} src='/images/nd-sidebar.png' />
                     </div>
                 </Box>
-                <Box flex="0 0 80%"  p={4} >
-                    <Outlet context={{ currentUser }} />
+                <Box flex="0 0 80%" overflowY="auto"  p={4} className="content-scroll">
+                    <Outlet context={{ currentUser, setCurrentUser }} />
                 </Box>
             </Flex>
         </div>

@@ -5,7 +5,6 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`
 // Clerk does id/email/passowrd/jwt ... users table at least needs to store the clerk  userId, and can have the profile data too
 
 const createUserProfile = async (profileData, token) => {
-
     try {
         const response = await fetch(BASE_URL, { 
             method: 'POST',
@@ -47,17 +46,29 @@ const getCurrentUser = async (token) => {
     }
 }
 
-const getNeighboursOfUser = async() => {
-    // lol to figure out later
-}
-
-const updateProfile = async (profileData) => {
-    // todo 
+const updateUserProfile = async (userProfileData, token) => {
+    try {
+        const response = await fetch(BASE_URL, { 
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },
+            body: JSON.stringify(userProfileData)          
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
 }
 
 export {
     createUserProfile,
     getCurrentUser,
-    updateProfile,
-    getNeighboursOfUser
+    updateUserProfile
 }

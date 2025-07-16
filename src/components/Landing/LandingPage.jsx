@@ -23,7 +23,7 @@ const LandingPage = (props) => {
                 <Button onClick={() => navigate('/sign-in')}>Log in</Button>
                 <Button bg="gray.800" color="white" onClick={() => navigate('/sign-up')}>Sign up</Button>
             </div>
-            {isSignedIn && <Button onClick={() => navigate('/dashboard')}>dashboard</Button>}
+            {isSignedIn && <Button onClick={() => navigate('/dashboard')}>Dashboard</Button>}
            </div>
         <div className='landing-box'>
             <SignUpPage />

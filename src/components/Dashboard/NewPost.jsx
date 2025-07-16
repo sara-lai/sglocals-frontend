@@ -1,13 +1,10 @@
 import {  Avatar, Modal,  ModalOverlay,  ModalContent,  ModalCloseButton,  Button,  Textarea,  Flex,  IconButton,  useDisclosure, Image } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
-
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-//import { uploadImageToCloudinary, createPost } from '../services/postService';
 import * as postService from '../../services/postService'
 import { uploadWidget } from '../../utils/cloudinaryUpload'
-
 import './dashboard.css'
 
 const NewPost = ({ userInfo, addTopOfFeed }) => {

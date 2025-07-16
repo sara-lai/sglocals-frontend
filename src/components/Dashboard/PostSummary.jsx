@@ -1,4 +1,4 @@
-import {  useOutletContext } from 'react-router'
+import {  useOutletContext, useNavigate } from 'react-router'
 import {  Avatar,  Box,  Flex, IconButton, Image  } from '@chakra-ui/react'
 import { FiHeart, FiMessageSquare, FiRepeat, FiTrash } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
@@ -6,10 +6,11 @@ import './dashboard.css'
 const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost }) => {
     const postImg = post.imageUrls?.[0]  // testing tmp
     const { currentUser } = useOutletContext()
+    const  navigate = useNavigate()
 
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
-            <Flex direction="row" align="center" gap={1} p={4}>
+            <Flex direction="row" align="center" gap={1} p={4}  _hover={{ cursor: 'pointer' }} onClick={() => navigate("/profile/" +  post.user_id)} >
                 <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
                 <div className='post-info-set'>
                     <div className='avatar-name'>{post.user?.fullName}</div>
@@ -23,7 +24,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 {post.content}
             </Box>
             <div className='post-summary-img'>
-                {postImg && <Image src={postImg} width="100%" objectFit="cover" />}
+                {postImg && <Image src={postImg} width="100%" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
             </div>
             <Flex className='post-action-row' justifyContent='space-between' p={4}>
                 <Flex gap={2}>                         

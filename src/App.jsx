@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Layout from './components/Layout'
 import ProfilePage from './components/Profile/ProfilePage'
 import EditProfile from './components/Profile/EditProfile'
+import Events from './components/Events/Events'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/onboarding" element={<Onboarding />} />
 
       <Route element={<Layout />}>
+        <Route path="/events" element={<Events />} />      
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />

@@ -5,7 +5,7 @@ import { useAuth } from '@clerk/clerk-react'
 
 import './Dashboard/dashboard.css' // temporary
 
-import ProfilePicMenu from './Dashboard/ProfilePicMenu'
+import ProfilePicMenu from './Profile/ProfilePicMenu'
 import * as userService from '../services/userService'
 
 const Layout = () => {

@@ -102,9 +102,9 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                                 <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={comment.user.profileImg} name={comment.user.fullName?.[0]} />
                                 <Box>
                                     <Flex gap={2}>
-                                        <p style={{ fontWeight: '600' }}>{comment.user.fullName}</p>
-                                        <p>{timeAgoFormat(comment.createdAt)}</p>
-                                        <p>{comment.user.neighbourhood}</p>
+                                        <p className='compact' style={{ fontWeight: '600' }}>{comment.user.fullName}</p>
+                                        <p className='compact'>{timeAgoFormat(comment.createdAt)}</p>
+                                        <p className='compact'>{comment.user.neighbourhood}</p>
                                     </Flex>
                                     <p style={{ fontSize: '1.1rem'}}>{comment.text}</p>
                                 </Box>

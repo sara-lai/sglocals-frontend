@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router'
 import { Menu, MenuButton, MenuList, Button, Flex, Avatar, Icon, Box, Divider, MenuItem } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import SignOut from "./SignOut"
-import './dashboard.css'
+import SignOut from "../Dashboard/SignOut"
+import '../Dashboard/dashboard.css'
 
 const ProfilePicMenu = ({ currentUser }) => {
     const navigate = useNavigate()

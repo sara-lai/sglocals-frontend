@@ -181,6 +181,10 @@ button.action-icon {
     min-height: 140px;
 }
 
+.post-comment-section .compact {
+    letter-spacing: -.5px;
+}
+
 .post-comment-form input {
     border-radius: 30px;
     padding-left: 30px;

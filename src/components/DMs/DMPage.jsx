@@ -27,7 +27,7 @@ const DMPage = () => {
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' isCentered>
                 <ModalOverlay bg="blackAlpha.600" />
-                <ModalContent className='post-full-modal' w='400px' h='500px' p={4}>
+                <ModalContent className='post-full-modal' w='400px' p={4}>
                     <ModalCloseButton className='btn-close' />
                         <NewDM />
                 </ModalContent>

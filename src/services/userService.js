@@ -58,6 +58,23 @@ const getAnyUser = async (userId, token) => {
     }
 }
 
+// for search feature in dms
+const getAvailableUsers = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/available', {
+             headers: {  Authorization: `Bearer ${token}` }
+        })
+        if (!response.ok){
+                throw new Error(`HTTP problem ${response.status}`);
+        }        
+        const data = await response.json()
+        return data.users
+    } catch(err) {
+        console.log(err)
+        throw new Error(err)        
+    }
+}
+
 const updateUserProfile = async (userProfileData, token) => {
     try {
         const response = await fetch(BASE_URL, { 
@@ -83,5 +100,6 @@ export {
     createUserProfile,
     getCurrentUser,
     getAnyUser,
-    updateUserProfile
+    updateUserProfile,
+    getAvailableUsers,
 }

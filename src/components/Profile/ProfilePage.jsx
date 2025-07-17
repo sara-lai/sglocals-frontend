@@ -19,7 +19,7 @@ const ProfilePage = () => {
     const [selectedUser, setSelectedUser] = useState({})
     const navigate = useNavigate()
     const { id } = useParams()
-    
+
     async function fetchProfilePageData(){
         const token = await getToken()
 

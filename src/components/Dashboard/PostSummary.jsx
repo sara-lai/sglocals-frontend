@@ -10,7 +10,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
 
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
-            <Flex direction="row" align="center" gap={1} p={4}  _hover={{ cursor: 'pointer' }} onClick={() => navigate("/profile/" +  post.user_id)} >
+            <Flex direction="row" align="center" gap={1} p={4}  cursor='pointer' onClick={() => navigate("/profile/" +  post.user_id)} >
                 <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
                 <div className='post-info-set'>
                     <div className='avatar-name'>{post.user?.fullName}</div>

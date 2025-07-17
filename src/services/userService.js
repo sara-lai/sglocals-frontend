@@ -58,7 +58,6 @@ const getAnyUser = async (userId, token) => {
     }
 }
 
-
 const updateUserProfile = async (userProfileData, token) => {
     try {
         const response = await fetch(BASE_URL, { 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import {  Button, Avatar,  Box,  Flex, IconButton, Divider, Input, Image  } from '@chakra-ui/react'
 import { FiHeart, FiRepeat } from "react-icons/fi" // Fi vs Fa??
 import { useAuth } from '@clerk/clerk-react'
@@ -14,6 +15,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
     const [file, setFile] = useState(null)
     const [content, setContent] = useState('')
     const isImagePost = post.imageUrls.length > 0
+    const navigate = useNavigate()
 
     async function addCommentToPost() {
         // todo - figure out likes on commenting - should it only re-render the selected post ? eg dont update whole contentFeed
@@ -22,6 +24,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         const newPost = structuredClone(post)
         const newComment = {
             text: content,
+            user_id: currentUser.user_id,
             user: {
                 fullName: currentUser.fullName,
                 neighbourhood: currentUser.neighbourhood,
@@ -101,7 +104,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                             <Flex gap={2}>
                                 <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={comment.user.profileImg} name={comment.user.fullName?.[0]} />
                                 <Box>
-                                    <Flex gap={2}>
+                                    <Flex gap={2} cursor='pointer' onClick={() => navigate("/profile/" +  comment.user_id)}>
                                         <p className='compact' style={{ fontWeight: '600' }}>{comment.user.fullName}</p>
                                         <p className='compact'>{timeAgoFormat(comment.createdAt)}</p>
                                         <p className='compact'>{comment.user.neighbourhood}</p>

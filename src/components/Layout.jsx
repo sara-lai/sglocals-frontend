@@ -28,20 +28,23 @@ const Layout = () => {
 
     return (
         <div className='app-wrapper'>
-            <div className='upper-right-profile-misc'>
-                 <FontAwesomeIcon icon={faBell}  size="xl" cursor="pointer" />
-                 <FontAwesomeIcon icon={faComments} size="xl" cursor="pointer"  onClick={() => navigate('/dms')} />
-                <ProfilePicMenu currentUser={currentUser} />  
-            </div>
+            <Flex  justify="space-between" align="center" gap={4}> {/* refactoring attempt yikes */}
+                <Link to="/dashboard"> {/* todo - align this left with the side bar links */}
+                    <div className='logo-top-nav'>
+                        <img src='/images/flowers1.png' />
+                        <span>Kampong Lah</span>              
+                    </div>   
+                </Link>       
+                <img style={{ maxHeight: '80px' }} src='/images/nd-search-bar.png' />          
+                <div className='upper-right-profile-misc'>
+                    <FontAwesomeIcon icon={faBell}  size="xl" cursor="pointer" />
+                    <FontAwesomeIcon icon={faComments} size="xl" cursor="pointer"  onClick={() => navigate('/dms')} />
+                    <ProfilePicMenu currentUser={currentUser} />  
+                </div>
+            </Flex>
             <Flex maxW="1600px" mx="auto" h="100vh" gap={4}>
-                <Box flex="0 0 20%" p={4}>
+                <Box flex="0 0 20%" p={4} pt={0}>
                     <Flex className='side-navbar' direction='column' gap={4}>
-                        <Link to="/dashboard">
-                            <div className='logo-side-nav'>
-                                <img src='/images/flowers1.png' />
-                                <span>Kampong Lah</span>              
-                            </div>   
-                        </Link> 
                         <Flex direction='column' gap={7} mt={6}>
                             <Flex gap={2} alignItems='center'>
                                 <Box w="2rem">
@@ -80,6 +83,7 @@ const Layout = () => {
                     </Flex>
                 </Box>
                 <Box flex="0 0 80%" overflowY="auto"  p={4} className="content-scroll">
+
                     <Outlet context={{ currentUser, setCurrentUser }} />
                 </Box>
             </Flex>

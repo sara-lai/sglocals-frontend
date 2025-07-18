@@ -3,16 +3,19 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure  } f
 import { FaPen } from 'react-icons/fa'
 import './dms.css'
 import NewDM from './NewDM'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 
 const DMPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
         <Box className='dm-container' maxW='900px'>
-            <Flex justify='space-between' mb={4} align='center' h='80px'>
+            <Flex justify='space-between' mb={2} align='center' h='80px'>
                 <Heading size='lg'> Chats </Heading> 
                 <Flex className='dms-new-msg' align="center" as="button" gap={2} onClick={onOpen}>
-                    <Icon as={FaPen} w={4} h={4} />
+                    {/* <Icon as={FaPen} w={4} h={4} /> */}
+                    <FontAwesomeIcon icon={faPenToSquare}  size="xl" cursor="pointer" />
                     <Text fontSize="md">New message</Text>
                 </Flex>             
             </Flex>
@@ -23,7 +26,6 @@ const DMPage = () => {
                     <Image maxW='300px'  src='/images/tmp-placeholder-no-messages.png' />
                 </Flex>
             </Flex>
-
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' isCentered>
                 <ModalOverlay bg="blackAlpha.600" />

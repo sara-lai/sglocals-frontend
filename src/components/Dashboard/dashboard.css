@@ -4,34 +4,21 @@
  }
 
  .upper-right-profile-misc {
-    position: absolute;
+    /* position: absolute; 
     right: 30px; 
-    top: 10px;
+    top: 10px; */
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
+    margin-right: 30px;
 } 
 
  .side-navbar {
     min-width: 240px;
     border-right: 2px solid rgba(255, 255, 255, 0.128);
     padding: 20px;
-    display: flex;
-    flex-direction: column;
     justify-content: start;    
  }
-
-.side-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.side-links p {
-    font-weight: bold;
-    font-size: 1.2rem;
-}
 
 .side-content {
     margin-top: 40px; /* clearance for upper-right btns */
@@ -39,16 +26,17 @@
     padding-left: 4px;
 }
 
-.logo-side-nav {
+.logo-top-nav {
     font-size: 1.2rem;
     font-weight: 800;
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: start;
-    
+    margin-left: 30px;
 }
-.logo-side-nav img {
+
+.logo-top-nav img {
     max-height:  50px;
 }
 
@@ -181,6 +169,10 @@ button.action-icon {
     min-height: 140px;
 }
 
+.post-comment-section .compact {
+    letter-spacing: -.5px;
+}
+
 .post-comment-form input {
     border-radius: 30px;
     padding-left: 30px;
@@ -193,4 +185,8 @@ button.action-icon {
 
 .signout-btn {
     margin-top: 0px;
+}
+
+.sponsor-img {
+    border-radius: 12px;
 }

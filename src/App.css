@@ -14,7 +14,6 @@ button:hover:focus {
   font-weight: 700 !important;
 }
 
-
 /* some default button options; can set height/width on chakra */
 button.btn-default {
     border-radius: 20px;
@@ -40,7 +39,6 @@ button.btn-default.btn-lg {
     }
 }
 
-
 /* attempt at scrollable center content with "app style" fixed height */
 .app-wrapper {
     height: 100vh;
@@ -54,7 +52,6 @@ button.btn-default.btn-lg {
 .content-scroll::-webkit-scrollbar {
     display: none;
 }
-
 
 .default-border {
     border: 1px solid #cad3e5;
@@ -71,9 +68,19 @@ input::placeholder, textarea::placeholder {
 }
 
 .nav-link {
-    font-weight: 700;
-    font-size: 1.2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: -.1px;
     &:hover {
         color: black;
     }
+}
+
+.fi-icon-thicken {
+    stroke-width: 2.4 !important;
+}
+
+/* skip the blue hover default */
+a:hover {
+  color: inherit; 
 }

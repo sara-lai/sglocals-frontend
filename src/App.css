@@ -14,6 +14,7 @@ button:hover:focus {
   font-weight: 700 !important;
 }
 
+
 /* some default button options; can set height/width on chakra */
 button.btn-default {
     border-radius: 20px;
@@ -38,6 +39,28 @@ button.btn-default.btn-lg {
         background-color: #21ad67;
     }
 }
+button.minimal-toggle-btn {
+    background: white;
+    font-size: .9rem;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 34px;
+    letter-spacing: -.2px;
+    &:hover {
+        background: inherit;
+        border: 2px solid #cad3e5 !important;
+    }
+    border: 1px solid #cad3e5;
+    border-radius: 12px;    
+}
+
+button.current-border {
+    border: 2px solid black;
+    &:hover {
+        border: 2px solid black !important;
+    }    
+}
+
 
 /* attempt at scrollable center content with "app style" fixed height */
 .app-wrapper {

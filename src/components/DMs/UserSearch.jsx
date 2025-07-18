@@ -3,7 +3,7 @@ import { Flex, Box, Heading, Input, InputGroup, InputLeftElement, Avatar, Text }
 import { SearchIcon } from '@chakra-ui/icons'
 import Fuse from 'fuse.js'
 
-const UserSearch = ({ users }) => {
+const UserSearch = ({ users, createNewChat }) => {      
     const [query, setQuery] = useState('')
     const fuse = new Fuse(users, { keys: ['fullName'], threshold: 0.3 })
     let results = [] // or set it to all users as the default!
@@ -22,7 +22,7 @@ const UserSearch = ({ users }) => {
 
             <Flex direction='column' gap={3} h="400px" overflowY="auto" mt={6}>
                 {results.map(user => (
-                    <Box m={2} cursor='pointer'>
+                    <Box m={2} cursor='pointer' onClick={() => createNewChat(user.user_id)}>
                         <Flex gap={2}>
                             <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={user.profileImg} name={user.fullName?.[0]} />
                             <Flex direction='column' >

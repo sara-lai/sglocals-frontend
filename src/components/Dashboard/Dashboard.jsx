@@ -39,7 +39,6 @@ const Dashboard = () => {
                     <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
 
                     <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
-
                 </Box>
                 <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0} ml={4}>                    
                     <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">

@@ -10,20 +10,24 @@ import *  as dmService from '../../services/dmService'
 import DMFull from './DMFull'
 import DMsSummary from './DMsSummary'
 import { useState } from 'react'
+import {  useOutletContext } from 'react-router'
 
 const DMPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { getToken } = useAuth()
     const [ allDMs, setAllDMs ] = useState([])
     const [ selectedDM, setSelectedDM ] = useState({})
+    const { currentUser } = useOutletContext() 
 
     async function createNewChat(other_user_id){
-        console.log(other_user_id)
         const token = await getToken()
         const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
-        console.log('dm', newDM)
+        console.log('newDM', newDM)
+        // display new data in two places
+        setSelectedDM(newDM)
+        setAllDMs([...allDMs, newDM])
 
-        // todo - get this into components to display
+        onClose() // close the modal 
     }
 
     return (
@@ -46,7 +50,7 @@ const DMPage = () => {
                             Marketplace                        
                         </Button>         
                     </Flex>     
-                    <DMsSummary allDMs={allDMs} />      
+                    <DMsSummary allDMs={allDMs} currentUser={currentUser} />      
                 </Box>
                 <Divider orientation='vertical' />
                 <Flex flex='1' justify='center' align='center'>

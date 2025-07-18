@@ -14,7 +14,7 @@ const createNewDM = async (dmData, token) => {
              throw new Error(`HTTP problem ${response.status}`);
         }
         const data = await response.json();
-        return data
+        return data.chat
     } catch (err) {
         console.log(err)
         throw new Error(err)

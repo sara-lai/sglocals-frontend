@@ -63,7 +63,7 @@ const EditProfile = () => {
                 <Text fontSize="md">Profile</Text>
             </Flex>
 
-            <Box className='default-border' w='600px' pl={0} pr={0} >
+            <Box className='default-border' w='600px' pl={0} pr={0} mb={20} >
                 <Flex direction='column'>
                     <Box h='220px' position="relative" backgroundImage={formData.profileBannerImg} backgroundSize="cover" backgroundPosition="15% 15%" >
                         <Flex className='upload-banner-img-box' gap={2} align="center">

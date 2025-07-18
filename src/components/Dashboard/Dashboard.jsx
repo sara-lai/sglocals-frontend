@@ -1,6 +1,6 @@
 import {  useOutletContext } from 'react-router'
 import { useEffect, useState } from 'react'
-import { Flex, Box, Text  } from '@chakra-ui/react';
+import { Flex, Box, Text, Link  } from '@chakra-ui/react';
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 import '../Onboarding/onboarding.css'
@@ -43,8 +43,17 @@ const Dashboard = () => {
                     <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
 
                 </Box>
-                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0}>
-                    <img src='/images/nd-content2.png' />
+                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0} ml={4}>                    
+                    <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">
+                        <Link href='https://www.demo-sgknowledge.com/' _hover={{ textDecoration: 'none', color: 'black' }}>
+                            <img src='/images/sample-sponsor1.png' className='sponsor-img' />
+                            <Text textAlign='center' mt={4} mb={2} textDecoration="none" fontWeight='200'>
+                                Win a staycation at:
+                            </Text>
+                            <img src='/images/sample-sponsor2.png' className='sponsor-img'/>
+                        </Link>
+                    </Box>
+                    <img src='/images/sample-sponsor-3.png' />
                 </Box>
             </Flex> 
         </div>

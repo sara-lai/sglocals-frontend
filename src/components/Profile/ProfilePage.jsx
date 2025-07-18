@@ -60,6 +60,7 @@ const ProfilePage = () => {
             </Box>
             <Box mt={10} ml={-5}  maxWidth='640px'>
                 <Heading ml={6} size='md'>Posts</Heading>
+                {userPosts.length === 0 && <Text ml={6} mt={2}>No Posts yet.</Text>}
                 <ContentFeed theFeed={userPosts} setContentFeed={setUserPosts} currentUser={currentUser} />
             </Box>
 

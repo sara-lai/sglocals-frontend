@@ -11,6 +11,7 @@ import Layout from './components/Layout'
 import ProfilePage from './components/Profile/ProfilePage'
 import EditProfile from './components/Profile/EditProfile'
 import Events from './components/Events/Events'
+import DMPage from './components/DMs/DMPage'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -26,8 +27,10 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/events" element={<Events />} />      
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/dms" element={<DMPage />} />
+        <Route path="/" element={<EditProfile />} />
       </Route>
 
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}

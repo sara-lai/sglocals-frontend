@@ -1,14 +1,15 @@
 import {  Avatar, Modal,  ModalOverlay,  ModalContent,  ModalCloseButton,  Button,  Textarea,  Flex,  IconButton,  useDisclosure, Image } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
-
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-//import { uploadImageToCloudinary, createPost } from '../services/postService';
 import * as postService from '../../services/postService'
 import { uploadWidget } from '../../utils/cloudinaryUpload'
-
 import './dashboard.css'
+
+import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImages } from '@fortawesome/free-regular-svg-icons'
+import { FiMapPin, FiAtSign } from 'react-icons/fi'
 
 const NewPost = ({ userInfo, addTopOfFeed }) => {
     
@@ -73,10 +74,10 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
                             ))}
                         </Flex>
                         <Flex gap={2} justify="start"></Flex>                        
-                        <Flex gap={2} justify="start">
-                            <IconButton className='action-icon' icon={<FaImage size={26} />} onClick={handleImageUpload} />
-                            <IconButton className='action-icon' icon={<FaMapMarkerAlt size={26} />} />
-                            <IconButton className='action-icon' icon={<FaAt size={26} />}  />
+                        <Flex gap={4} justify="start">
+                            <FontAwesomeIcon icon={faImages}  size="2xl" cursor="pointer"  onClick={handleImageUpload} />
+                            <FiMapPin className='fi-icon-thicken' color="gray.700" size="1.8rem" />                           
+                            <FiAtSign className='fi-icon-thicken' color="gray.700" size="1.8rem" />
                         </Flex>
                     </Flex>
                 </ModalContent>

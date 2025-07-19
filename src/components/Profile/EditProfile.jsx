@@ -44,7 +44,7 @@ const EditProfile = () => {
         console.log('updated userProfile', userProfile)
         
         setCurrentUser(newUserProfile)
-        navigate('/profile')
+        navigate('/profile/' + currentUser.user_id)
     }    
 
     const handleImageUpload = () => { 
@@ -58,7 +58,7 @@ const EditProfile = () => {
 
     return (
         <div className='profile-page-wrapper'>
-            <Flex align="center" as="button" gap={2} mb={4} onClick={() => navigate('/profile') }>
+            <Flex align="center" as="button" gap={2} mb={4} onClick={() => navigate('/profile/' + currentUser.user_id) }>
                 <Icon as={ArrowBackIcon} w={6} h={6} />
                 <Text fontSize="md">Profile</Text>
             </Flex>

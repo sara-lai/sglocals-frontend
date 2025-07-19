@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router'
 import { Menu, MenuButton, MenuList, Button, Flex, Avatar, Icon, Box, Divider, MenuItem } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import SignOut from "./SignOut"
-import './dashboard.css'
+import SignOut from "../Dashboard/SignOut"
+import '../Dashboard/dashboard.css'
 
 const ProfilePicMenu = ({ currentUser }) => {
     const navigate = useNavigate()
@@ -20,7 +20,7 @@ const ProfilePicMenu = ({ currentUser }) => {
                     <Avatar size="md" src={currentUser.profileImg} name={currentUser.fullName?.[0]} />
                     <div className='avatar-name'>{currentUser.fullName}</div>
                     <div className='avatar-nhood'>{currentUser.neighbourhood}</div>
-                    <MenuItem as={Button} className='btn-default' w='140px' mt={2} onClick={() => navigate('/profile') }>View Profile</MenuItem>
+                    <MenuItem as={Button} className='btn-default' w='140px' mt={2} onClick={() => navigate('/profile/' + currentUser.user_id) }>View Profile</MenuItem>
                 </Flex>
                 <Divider />
                 <Box><SignOut /></Box>

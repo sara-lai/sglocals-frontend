@@ -10,25 +10,7 @@ const MarketPlace = () => {
     <div>
       <div className='dashboard-container'> 
         <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
-          <Box flex="0 0 20%" bg="white" p={4} borderRadius="md" boxShadow="md">
-            <div className='marketplace-container'>
-              <div className='side-navbar'>
-                <div className='logo-side-nav'>
-                  <img src='/images/flowers1.png' />
-                  <span>Kampong Lah</span>              
-                </div>
-                <div className='side-links'>
-                  <p>Home</p>
-                  <p>I Buy U Buy</p>
-                  <p>Groups</p>
-                  <p>Events</p>
-                  <p>Chats</p>
-                  <p>+ Post</p>
-                </div>
-              </div>
-                <Text>E.g.:</Text>
-            </div>
-          </Box>      
+          
         
             <Box flex="0 0 80%" bg="white" p={4} >
               <Flex maxW="1000px"  minH="80vh" gap={4}>

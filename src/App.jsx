@@ -1,17 +1,18 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes } from 'react-router';
 
-import './App.css'
+import './App.css';
 
-import Landing from './components/Landing/LandingPage'
-import SignInPage from './components/Landing/SignIn'
-import SignUpPage from './components/Landing/SignUp'
-import Onboarding from './components/Onboarding/Onboarding'
-import Dashboard from './components/Dashboard/Dashboard'
-import MarketPlace from './components/MarketPlace/MarketPlace'import Layout from './components/Layout'
-import ProfilePage from './components/Profile/ProfilePage'
-import EditProfile from './components/Profile/EditProfile'
-import Events from './components/Events/Events'
-import DMPage from './components/DMs/DMPage'
+import Landing from './components/Landing/LandingPage';
+import SignInPage from './components/Landing/SignIn';
+import SignUpPage from './components/Landing/SignUp';
+import Onboarding from './components/Onboarding/Onboarding';
+import Dashboard from './components/Dashboard/Dashboard';
+import MarketPlace from './components/MarketPlace/MarketPlace';
+import Layout from './components/Layout';
+import ProfilePage from './components/Profile/ProfilePage';
+import EditProfile from './components/Profile/EditProfile';
+import Events from './components/Events/Events';
+import DMPage from './components/DMs/DMPage';
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import { Mark } from '@chakra-ui/react'
@@ -25,11 +26,12 @@ function App() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} /> 
       <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/marketplace" element={<MarketPlace />} />
+      
 
       <Route element={<Layout />}>
         <Route path="/events" element={<Events />} />      
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/dms" element={<DMPage />} />

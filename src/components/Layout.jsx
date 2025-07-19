@@ -56,19 +56,19 @@ const Layout = () => {
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faHandshake}  size="xl" cursor="pointer" />
                                 </Box>                                    
-                                <Link to='/dashboard' className='nav-link'>I Buy U Buy</Link>
+                                <Link to='/marketplace' className='nav-link'>I Buy U Buy</Link>
                             </Flex> 
-                            <Flex gap={2}  alignItems='center'>
+                            {/* <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">
                                     <FiUsers className='fi-icon-thicken' color="gray.700" size="1.5rem" />
                                 </Box>                                    
                                 <Link to='/dashboard' className='nav-link'>Groups</Link>
-                            </Flex> 
+                            </Flex>  */}
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faCalendarCheck}  size="xl" cursor="pointer" />
                                 </Box> 
-                                <Link to='/dashboard' className='nav-link'>Events</Link>
+                                <Link to='/events' className='nav-link'>Events</Link>
                             </Flex>  
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">

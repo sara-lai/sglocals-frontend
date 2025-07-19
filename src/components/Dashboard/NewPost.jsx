@@ -1,27 +1,31 @@
-import {  Avatar, Modal,  ModalOverlay,  ModalContent,  ModalCloseButton,  Button,  Textarea,  Flex,  IconButton,  useDisclosure } from '@chakra-ui/react'
+import {  Avatar, Modal,  ModalOverlay,  ModalContent,  ModalCloseButton,  Button,  Textarea,  Flex,  IconButton,  useDisclosure, Image } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
-
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-//import { uploadImageToCloudinary, createPost } from '../services/postService';
 import * as postService from '../../services/postService'
-
+import { uploadWidget } from '../../utils/cloudinaryUpload'
 import './dashboard.css'
+
+import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImages } from '@fortawesome/free-regular-svg-icons'
+import { FiMapPin, FiAtSign } from 'react-icons/fi'
 
 const NewPost = ({ userInfo, addTopOfFeed }) => {
     
     const { isOpen, onOpen, onClose } = useDisclosure() // this is some internal thing to Chakra
     const [content, setContent] = useState('')
-    const [file, setFile] = useState(null)
+    const [imageUrls, setImageUrls] = useState([])
 
     const { getToken } = useAuth();
 
     const handleSubmit = async () => {
         const token = await getToken()
         // call the postsService to create a post! 
-        const newPost = await postService.createNewPost(content, token)
-        console.log('the new post', newPost )
+
+        const postData = { content: content, imageUrls: imageUrls }
+        const newPost = await postService.createNewPost(postData, token)
+        console.log('new post made', newPost)
         
         addTopOfFeed(newPost.post) // .post ugh but makes work
 
@@ -30,16 +34,23 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
         onClose()
     }
 
+    const handleImageUpload = () => { 
+        uploadWidget((secureUrlsList) => {
+            console.log(secureUrlsList)
+            setImageUrls(secureUrlsList)       
+        }, true) //  set true for multi upload -> means secureUrlsList is an array
+    }        
+
     return (
         <div className='new-post-container'>
             <Button className='add-btn' float="right" leftIcon={<AddIcon />} onClick={onOpen}>
                 Post
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} size="md">
-                <ModalOverlay bg="blackAlpha.400" />
+                <ModalOverlay bg="blackAlpha.500" />
 
                 <ModalContent className='new-post-modal'>
-                    <Button className='btn' colorScheme="green" onClick={handleSubmit}>
+                    <Button className='btn btn-green' onClick={handleSubmit}>
                         Post
                     </Button>                    
                     <ModalCloseButton className='btn-close'/>
@@ -57,11 +68,16 @@ const NewPost = ({ userInfo, addTopOfFeed }) => {
                             placeholder="Share what's on your mind."
                             onChange={(e) => setContent(e.target.value)}
                         />
-                        <Flex gap={2} justify="start">
-                            <IconButton icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
-                            <input hidden id="image-upload" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
-                            <IconButton icon={<FaMapMarkerAlt size={26} />} />
-                            <IconButton icon={<FaAt size={26} />}  />
+                        <Flex gap={2}>
+                            {imageUrls.map((url) => (
+                                <Image src={url} boxSize="100px" objectFit="cover" />
+                            ))}
+                        </Flex>
+                        <Flex gap={2} justify="start"></Flex>                        
+                        <Flex gap={4} justify="start">
+                            <FontAwesomeIcon icon={faImages}  size="2xl" cursor="pointer"  onClick={handleImageUpload} />
+                            <FiMapPin className='fi-icon-thicken' color="gray.700" size="1.8rem" />                           
+                            <FiAtSign className='fi-icon-thicken' color="gray.700" size="1.8rem" />
                         </Flex>
                     </Flex>
                 </ModalContent>

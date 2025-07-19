@@ -1,35 +1,26 @@
+import {  useOutletContext } from 'react-router'
 import { useEffect, useState } from 'react'
-import { Flex, Box, Text  } from '@chakra-ui/react';
+import { Flex, Box, Text, Link  } from '@chakra-ui/react';
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 import '../Onboarding/onboarding.css'
-import ProfilePicMenu from './ProfilePicMenu'
 import NewPost from './NewPost'
 import ContentFeed from './ContentFeed'
 
-import * as userService from '../../services/userService'
 import * as postService from '../../services/postService'
 
 const Dashboard = () => {
-
-     const { getToken } = useAuth()
-     const [currentUser, setCurrentUser] = useState({})
-     const [contentFeed, setContentFeed] = useState([])
+    const { currentUser } = useOutletContext()    
+    const { getToken } = useAuth()
+    const [contentFeed, setContentFeed] = useState([])
 
     async function loadDataForDashboard() {
         const token = await getToken()
 
-        // current user related
-        const user = await userService.getCurrentUser(token)
-        console.log('the current user on dashboard', user)
-        setCurrentUser(user)
-
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
-        console.log('retreived posts', posts)
         setContentFeed(posts)
 
-        // 
     }
     useEffect( () => {
         loadDataForDashboard()
@@ -43,47 +34,26 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard-container'> 
-            <div className='upper-right-profile-misc'>               
-                <ProfilePicMenu userInfo={currentUser} />  
-            </div>
-            <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
-                <Box flex="0 0 20%" bg="white" p={4} borderRadius="md" boxShadow="md">
-                <div className='side-navbar'>
-                    <div className='logo-side-nav'>
-                        <img src='/images/flowers1.png' />
-                        <span>Kampong Lah</span>              
-                    </div>    
-                    <div className='side-links'>
-                        <p>Home</p>
-                        <p>I Buy U Buy</p>
-                        <p>Groups</p>
-                        <p>Events</p>
-                        <p>Chats</p>
-                        <p>+ Post</p>
-                    </div>
-                    <Text>E.g.:</Text>
-                    <img  style={{ width: '200px'}} src='/images/nd-sidebar.png' />
-                </div>
+            <Flex maxW="1000px" h="100%">
+                <Box flex="0 0 70%" > 
+                    <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
+
+                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
+
                 </Box>
-                <Box flex="0 0 80%" bg="white" p={4} >
-                    <Flex maxW="1000px"  minH="80vh" gap={4}>
-                        <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md" > 
-                            <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
-
-                            <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
-
-                            <ContentFeed theFeed={contentFeed} />
-
-                        </Box>
-                        <Box className="side-content" flex="0 0 30%"  bg="white" p={4} borderRadius="md" boxShadow="md">
-                            <Text>Misc Side panel</Text>
-                            <img src='/images/nd-content2.png' />
-                        </Box>
-                    </Flex>
+                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0} ml={4}>                    
+                    <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">
+                        <Link href='https://www.demo-sgknowledge.com/' _hover={{ textDecoration: 'none', color: 'black' }}>
+                            <img src='/images/sample-sponsor1.png' className='sponsor-img' />
+                            <Text textAlign='center' mt={4} mb={2} textDecoration="none" fontWeight='200'>
+                                Win a staycation at:
+                            </Text>
+                            <img src='/images/sample-sponsor2.png' className='sponsor-img'/>
+                        </Link>
+                    </Box>
+                    <img src='/images/sample-sponsor-3.png' />
                 </Box>
-            </Flex>
-
-
+            </Flex> 
         </div>
     )
 }

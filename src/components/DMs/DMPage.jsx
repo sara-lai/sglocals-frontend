@@ -9,7 +9,7 @@ import { useAuth } from '@clerk/clerk-react'
 import *  as dmService from '../../services/dmService'
 import DMFull from './DMFull'
 import DMsSummary from './DMsSummary'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {  useOutletContext } from 'react-router'
 
 const DMPage = () => {
@@ -22,7 +22,7 @@ const DMPage = () => {
     async function createNewChat(other_user_id){
         const token = await getToken()
         const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
-        console.log('newDM', newDM)
+       
         // display new data in two places
         setSelectedDM(newDM)
         setAllDMs([...allDMs, newDM])
@@ -30,8 +30,17 @@ const DMPage = () => {
         onClose() // close the modal 
     }
 
+    async function getDataForDMs(){
+        const token = await getToken()
+        const userDMs = await dmService.getDMsForCurrentUser(token)
+        setAllDMs(userDMs)
+    }
+    useEffect(() => {
+        getDataForDMs()
+    }, [])
+
     return (
-        <Box className='dm-container' maxW='900px'>
+        <Box className='dm-container' maxW='900px' mb={20}>
             <Flex justify='space-between' mb={2} align='center' h='80px'>
                 <Heading size='lg'> Chats </Heading> 
                 <Flex className='dms-new-msg' align="center" as="button" gap={2} onClick={onOpen}>
@@ -40,7 +49,7 @@ const DMPage = () => {
                     <Text fontSize="md">New message</Text>
                 </Flex>             
             </Flex>
-            <Flex className='default-border' maxW='900px' h='78vh' p={0}>
+            <Flex className='default-border' maxW='900px' h='700px' p={0}>
                 <Box w='340px'>
                     <Flex p={4}  gap={2}>
                         <Button className='minimal-toggle-btn current-border'>
@@ -52,11 +61,12 @@ const DMPage = () => {
                     </Flex>     
                     <DMsSummary allDMs={allDMs} currentUser={currentUser} />      
                 </Box>
-                <Divider orientation='vertical' />
-                <Flex flex='1' justify='center' align='center'>
-                    <Image maxW='300px'  src='/images/tmp-placeholder-no-messages.png' />
-                    <DMFull selectedDM={selectedDM} />
-                </Flex>
+                <Divider orientation='vertical' />  
+                    {
+                        Object.keys(selectedDM).length === 0 ? 
+                            <Flex flex='1' justify='center' align='center'><Image maxW='300px'  src='/images/tmp-inbox.png' /></Flex> : 
+                            <DMFull selectedDM={selectedDM} currentUser={currentUser} />
+                    }
             </Flex>
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' isCentered>

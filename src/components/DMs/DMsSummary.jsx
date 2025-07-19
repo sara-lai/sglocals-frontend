@@ -2,6 +2,8 @@ import { Flex, Box, Avatar, Text } from "@chakra-ui/react"
 
 const DMsSummary = ({ allDMs, currentUser }) => {
 
+    // todo - onclick to open the DMFull
+
     // trickiness: have to determine if "other user" is user1 or user2 (can be either)
     // could turn allDMs into array of otherUsers for easy display
     let otherUsers = []
@@ -17,7 +19,7 @@ const DMsSummary = ({ allDMs, currentUser }) => {
         <> 
             {otherUsers.map( user => (
                 <>
-                   <Box m={2} cursor='pointer'>
+                   <Box m={2} cursor='pointer' onClick={console.log('log')}>
                         <Flex gap={2}>
                             <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={user.profileImg} name={user.fullName?.[0]} />
                             <Flex direction='column' >

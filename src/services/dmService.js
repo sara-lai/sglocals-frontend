@@ -21,6 +21,25 @@ const createNewDM = async (dmData, token) => {
     }
  }
 
+ const getDMsForCurrentUser = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/currentUser' , { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.chats
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }  
+ }
+
  export {
-    createNewDM
+    createNewDM,
+    getDMsForCurrentUser
  }

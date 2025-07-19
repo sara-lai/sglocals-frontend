@@ -82,8 +82,7 @@ const Layout = () => {
                         </Flex>
                     </Flex>
                 </Box>
-                <Box flex="0 0 80%" overflowY="auto"  p={4} className="content-scroll">
-
+                <Box flex="0 0 80%" overflowY="auto"  p={2} className="content-scroll">
                     <Outlet context={{ currentUser, setCurrentUser }} />
                 </Box>
             </Flex>

@@ -1,34 +1,34 @@
 import { Flex, Box, Avatar, Text } from "@chakra-ui/react"
 
-const DMsSummary = ({ allDMs, currentUser }) => {
+const DMsSummary = ({ allDMs, currentUser, setSelectedDM }) => {
 
-    // todo - onclick to open the DMFull
-
-    // trickiness: have to determine if "other user" is user1 or user2 (can be either)
-    // could turn allDMs into array of otherUsers for easy display
-    let otherUsers = []
-    for (let dm of allDMs){
+    function renderBoxForOtherUser (dm) {
+        // summary:
+        // the panel needs to show info about the "other user" from the chat, NOT the current user
+        // other user can be user_id_1 or user_id_2
+        let otherUser = null
         if (dm.user_id_1 === currentUser.user_id){
-            otherUsers.push(dm.user2)   // put OTHER user in array if current user is user1
+            otherUser = dm.user2
         } else {
-            otherUsers.push(dm.user1)
+            otherUser = dm.user1
         }
+        return (
+            <Flex gap={3}>
+                <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={otherUser.profileImg} name={otherUser.fullName?.[0]} />
+                <Flex direction='column' >
+                    <Text fontWeight='600' fontSize='1.1rem'>{otherUser.fullName}</Text>
+                    <Text color='#576580' fontWeight='500'>{otherUser.neighbourhood}</Text>
+                </Flex>
+            </Flex>            
+        )
     }
 
     return (
         <> 
-            {otherUsers.map( user => (
-                <>
-                   <Box m={2} cursor='pointer' onClick={console.log('log')}>
-                        <Flex gap={2}>
-                            <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={user.profileImg} name={user.fullName?.[0]} />
-                            <Flex direction='column' >
-                                <Text fontWeight='600' fontSize='1.1rem'>{user.fullName}</Text>
-                                <Text color='#576580' fontWeight='500'>{user.neighbourhood}</Text>
-                            </Flex>
-                        </Flex>
-                    </Box>
-                </>
+            {allDMs.map(dm => (
+                <Box m={4} cursor='pointer' onClick={() => setSelectedDM(dm)}>
+                    {renderBoxForOtherUser(dm)}
+                </Box>
             ))}        
         </>
     )

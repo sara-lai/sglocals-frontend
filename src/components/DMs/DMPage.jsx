@@ -30,6 +30,16 @@ const DMPage = () => {
         onClose() // close the modal 
     }
 
+    async function createNewMessage(message){
+        const token = await getToken()
+        const newMsg = { message: message, dm_id: selectedDM._id }        
+        const newDM = await dmService.addMessageToDM(newMsg, token) // this returns a NEW DM not a new Msg
+        console.log('is this newDM from DB', newDM)
+        setSelectedDM(newDM)
+      
+        // todo - hmmm i should put this in state var first to update immediately.... have to construct full object in meantime....
+    }
+
     async function getDataForDMs(){
         const token = await getToken()
         const userDMs = await dmService.getDMsForCurrentUser(token)
@@ -50,8 +60,8 @@ const DMPage = () => {
                 </Flex>             
             </Flex>
             <Flex className='default-border' maxW='900px' h='700px' p={0}>
-                <Box w='340px'>
-                    <Flex p={4}  gap={2}>
+                <Box w='340px' className='content-scroll'>
+                    <Flex p={4}  gap={2} position=''>
                         <Button className='minimal-toggle-btn current-border'>
                             All                        
                         </Button>
@@ -59,13 +69,13 @@ const DMPage = () => {
                             Marketplace                        
                         </Button>         
                     </Flex>     
-                    <DMsSummary allDMs={allDMs} currentUser={currentUser} />      
+                    <DMsSummary allDMs={allDMs} currentUser={currentUser} setSelectedDM={setSelectedDM} />      
                 </Box>
                 <Divider orientation='vertical' />  
                     {
                         Object.keys(selectedDM).length === 0 ? 
                             <Flex flex='1' justify='center' align='center'><Image maxW='300px'  src='/images/tmp-inbox.png' /></Flex> : 
-                            <DMFull selectedDM={selectedDM} currentUser={currentUser} />
+                            <DMFull selectedDM={selectedDM} currentUser={currentUser}  createNewMessage={createNewMessage} />
                     }
             </Flex>
 

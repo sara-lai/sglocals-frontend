@@ -39,7 +39,29 @@ const createNewDM = async (dmData, token) => {
     }  
  }
 
+const addMessageToDM = async (newMsg, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/addMessage',  { 
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },
+            body: JSON.stringify(newMsg)          
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.chat
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
+}
+
  export {
     createNewDM,
-    getDMsForCurrentUser
+    getDMsForCurrentUser,
+    addMessageToDM
  }

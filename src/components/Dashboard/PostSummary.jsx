@@ -24,7 +24,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 {post.content}
             </Box>
             <div className='post-summary-img'>
-                {postImg && <Image src={postImg} mt={4} width="100%" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
+                {postImg && <Image src={postImg} mt={4} width="100%" maxH="440px" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
             </div>
             <Flex className='post-action-row' justifyContent='space-between' p={4}>
                 <Flex gap={2}>                         

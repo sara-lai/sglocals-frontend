@@ -1,6 +1,5 @@
-import { Box, Divider, Flex, Heading, Image, Icon, Text, ButtonGroup, Button } from '@chakra-ui/react'
+import { Box, Divider, Flex, Heading, Image, Text, Button } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure  } from '@chakra-ui/react'
-import { FaPen } from 'react-icons/fa'
 import './dms.css'
 import NewDM from './NewDM'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,8 +8,12 @@ import { useAuth } from '@clerk/clerk-react'
 import *  as dmService from '../../services/dmService'
 import DMFull from './DMFull'
 import DMsSummary from './DMsSummary'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {  useOutletContext } from 'react-router'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+import Pusher from 'pusher-js'
 
 const DMPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -18,6 +21,12 @@ const DMPage = () => {
     const [ allDMs, setAllDMs ] = useState([])
     const [ selectedDM, setSelectedDM ] = useState({})
     const { currentUser } = useOutletContext() 
+    const pusherRef = useRef(null)
+
+    dayjs.extend(relativeTime) 
+    function timeAgoFormat(time){
+        return dayjs(time).fromNow()
+    }
 
     async function createNewChat(other_user_id){
         const token = await getToken()
@@ -25,7 +34,7 @@ const DMPage = () => {
        
         // display new data in two places
         setSelectedDM(newDM)
-        setAllDMs([...allDMs, newDM])
+        setAllDMs([newDM, ...allDMs ])
 
         onClose() // close the modal 
     }
@@ -48,6 +57,25 @@ const DMPage = () => {
     useEffect(() => {
         getDataForDMs()
     }, [])
+
+    useEffect(() => {
+        // fixed bug: showing abnormally high concurrent connections
+        // this section used GPT guidance / plus pusher docs (post signup)
+        console.log('useeffect for pusher')
+        if (!pusherRef.current) { // restrict pusher from init a bunch
+            console.log('init of new pusher')
+            pusherRef.current = new Pusher(import.meta.env.VITE_PUSHER_KEY, { cluster: 'ap1' });
+        }
+        const pusher = pusherRef.current
+        const channel = pusher.subscribe(`chat-${selectedDM._id}`);
+        channel.bind('new-message', (data) => {
+            setSelectedDM(data)
+        })
+        return () => {
+            channel.unbind_all()
+            channel.unsubscribe()
+        }
+    }, [selectedDM._id])    
 
     return (
         <Box className='dm-container' maxW='900px' mb={20}>
@@ -75,7 +103,11 @@ const DMPage = () => {
                     {
                         Object.keys(selectedDM).length === 0 ? 
                             <Flex flex='1' justify='center' align='center'><Image maxW='300px'  src='/images/tmp-inbox.png' /></Flex> : 
-                            <DMFull selectedDM={selectedDM} currentUser={currentUser}  createNewMessage={createNewMessage} />
+                            <DMFull 
+                                selectedDM={selectedDM}  currentUser={currentUser}  
+                                createNewMessage={createNewMessage}                                 
+                                timeAgoFormat={timeAgoFormat} 
+                            />
                     }
             </Flex>
 

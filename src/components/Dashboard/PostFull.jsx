@@ -58,7 +58,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
    
         <Flex w="100%">
             {isImagePost && (
-                <Box w="550px" bg='black' display='flex' alignItems='center' justifyContent='center'>
+                <Box w="650px" bg='black' display='flex' alignItems='center' justifyContent='center'>
                     <Image src={post.imageUrls?.[0]} width="100%" objectFit="cover" />
                 </Box>
             )}
@@ -91,7 +91,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                 <Divider />
 
 
-                <Box className='post-comment-section' p={4} pl={6}>
+                <Box className='post-comment-section content-scroll' maxH='500px' p={4} pl={6}>
                     {post.comments.length === 0 && 
                         <>
                             <p style={{ fontWeight: '600', marginBottom: '6px' }}>No Comments</p>

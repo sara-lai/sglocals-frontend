@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages } from '@fortawesome/free-regular-svg-icons'
 import { useState } from "react"
 
-const DMFull = ({ selectedDM, createNewMessage, currentUser }) => {
+const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) => {
     const [message, setMessage] = useState('')
 
     // need to determine which user is 1 or 2 (current vs other)
@@ -36,14 +36,17 @@ const DMFull = ({ selectedDM, createNewMessage, currentUser }) => {
                 <Divider /> 
             </Box>
 
-            <Box h="100%" p={4}>
+            <Box h="100%" p={4} className='content-scroll'>
                 <Flex direction='column' gap={4}>
                     {selectedDM.messages.map(msg => (
                         <Flex gap={2} p={2}>
                             <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={msg.user.profileImg} name={msg.user.fullName?.[0]} />
-                            <Flex direction='column' >
-                                <Text fontWeight='600' fontSize='1rem'>{msg.user.fullName}</Text>
-                                <Text>{msg.text}</Text>
+                            <Flex direction='column' w='100%'>
+                                <Flex justify='space-between'>
+                                    <Text fontWeight='600' fontSize='1rem'>{msg.user.fullName}</Text>
+                                    <Text fontWeight='200' fontSize='.8rem'>{timeAgoFormat(msg.createdAt)}</Text>
+                                </Flex>
+                                <Box pr={10}><Text>{msg.text}</Text></Box>
                             </Flex>
                         </Flex>                            
                     ))}

@@ -7,13 +7,15 @@ import SignInPage from './components/Landing/SignIn'
 import SignUpPage from './components/Landing/SignUp'
 import Onboarding from './components/Onboarding/Onboarding'
 import Dashboard from './components/Dashboard/Dashboard'
-import Layout from './components/Layout'
+import MarketPlace from './components/MarketPlace/MarketPlace'import Layout from './components/Layout'
 import ProfilePage from './components/Profile/ProfilePage'
 import EditProfile from './components/Profile/EditProfile'
 import Events from './components/Events/Events'
 import DMPage from './components/DMs/DMPage'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import { Mark } from '@chakra-ui/react'
+
 
 function App() {
   
@@ -23,6 +25,7 @@ function App() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} /> 
       <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/marketplace" element={<MarketPlace />} />
 
       <Route element={<Layout />}>
         <Route path="/events" element={<Events />} />      
@@ -42,6 +45,7 @@ function App() {
           <SignedOut>
             <RedirectToSignIn redirectUrl="/sign-in" />
           </SignedOut>
+          <MarketPlace />
         </>
       }/> */}
 

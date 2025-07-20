@@ -10,7 +10,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Layout from './components/Layout'
 import ProfilePage from './components/Profile/ProfilePage'
 import EditProfile from './components/Profile/EditProfile'
-import Events from './components/Events/Events'
+import Events from './components/Events/EventTab'
 import DMPage from './components/DMs/DMPage'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';

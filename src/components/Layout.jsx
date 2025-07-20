@@ -28,8 +28,8 @@ const Layout = () => {
 
     return (
         <div className='app-wrapper'>
-            <Flex  justify="space-between" align="center" gap={4}> {/* refactoring attempt yikes */}
-                <Link to="/dashboard"> {/* todo - align this left with the side bar links */}
+            <Flex  justify="space-between" align="center" gap={4}>
+                <Link to="/dashboard">
                     <div className='logo-top-nav'>
                         <img src='/images/flowers1.png' />
                         <span>Kampong Lah</span>              
@@ -68,7 +68,7 @@ const Layout = () => {
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faCalendarCheck}  size="xl" cursor="pointer" />
                                 </Box> 
-                                <Link to='/dashboard' className='nav-link'>Events</Link>
+                                <Link to='/events' className='nav-link'>Events</Link>
                             </Flex>  
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">

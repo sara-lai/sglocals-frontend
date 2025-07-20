@@ -24,8 +24,8 @@ const NewPost = ({ currentUser, addTopOfFeed }) => {
         const newPost = await postService.createNewPost(postData, token)
         console.log('new post made', newPost)
         
-        addTopOfFeed(newPost.post) // .post ugh but makes work
-
+        addTopOfFeed(newPost)
+        
         // reset & close
         setContent('')
         onClose()

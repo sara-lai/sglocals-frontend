@@ -20,13 +20,13 @@ const Dashboard = () => {
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
         setContentFeed(posts)
-
     }
     useEffect( () => {
         loadDataForDashboard()
     }, [] )
 
     function addTopOfFeed(newPost){
+        console.log('top of content feed', newPost)
         // todo need to set at top of feed
         // sort by date instead?
         setContentFeed([newPost, ...contentFeed])

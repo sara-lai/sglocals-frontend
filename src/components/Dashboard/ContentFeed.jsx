@@ -74,7 +74,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed }) =>
         setContentFeed(newFeed)
 
         const token = await getToken()
-        const deleted = postService.deletePost(token, postId)
+        const deleted = await postService.deletePost(token, postId)
         console.log(deleted)
     }
 

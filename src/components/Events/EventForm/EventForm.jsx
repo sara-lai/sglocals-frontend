@@ -2,20 +2,52 @@ import { Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, Drawer
 import { useState, useContext, useEffect, useRef } from "react";
 import { useDisclosure } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons'
+import { uploadWidget } from '../../../utils/cloudinaryUpload'
+import { eventAPI } from '../../../services/eventService'
+import { useAuth } from '@clerk/clerk-react'
 // import './EventCard.css'
 
 import UploadImage from './UploadImage';
+import * as userService from '../../../services/userService'
 
-const EventForm = () => {
+const EventForm = (props) => {
+        const [fileList, setFileList] = useState('');
+        const [imageUrls, setImageUrls] = useState();
         // const [size, setSize] = useState('')
         const { isOpen, onOpen, onClose } = useDisclosure();
         const firstField = useRef();
+        const { userId, getToken } = useAuth();
+        
         const xlSizes = 'xl';
 
-        const handleClick = (newSize) => {
-            // setSize(newSize)
-            onOpen()
+        const handleClick = () => {
+            onOpen();
         }
+
+        const addEventFunction = async () => {
+            const token = await getToken();
+            // const user = await userService.getCurrentUser(token)
+            let postRequest = 'POST';
+
+            const eventName = document.getElementById("eventname"); 
+            const eventOrganizer = document.getElementById("eventorganizer");
+            const eventDescription = document.getElementById("eventDescription");
+
+            const requestObj = {
+                name: eventName.value,  
+                organizer: eventOrganizer.value,
+                description: eventDescription.value,
+                image: imageUrls,
+                users: [userId]
+            }
+            const callApi = await eventAPI(postRequest, token, requestObj);
+            props.seteventAdded(true);
+            console.log(requestObj);
+
+            onClose();
+        }
+    
+
 
         return (
             <>
@@ -58,15 +90,16 @@ const EventForm = () => {
                             <Input
                             ref={firstField}
                             id='eventorganizer'
+                            placeholder='Please enter event organizer'
                             ></Input>
                         </Box>
 
                         <Box>
                             <FormLabel htmlFor='desc'>Description</FormLabel>
-                            <Textarea id='desc' />
+                            <Textarea id='eventDescription' />
                         </Box>
                         <Box>
-                            <UploadImage/>
+                            <UploadImage setFileList={setFileList} fileList={fileList} imageUrls={imageUrls} setImageUrls={setImageUrls}/>
                         </Box>
                         </Stack>
                     </DrawerBody>
@@ -75,7 +108,7 @@ const EventForm = () => {
                         <Button variant='outline' mr={3} onClick={onClose}>
                         Cancel
                         </Button>
-                        <Button colorScheme='blue'>Add</Button>
+                        <Button colorScheme='blue' onClick={addEventFunction} >Add</Button>
                     </DrawerFooter>
                     </DrawerContent>
                 </Drawer>

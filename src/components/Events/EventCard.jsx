@@ -2,7 +2,7 @@ import { Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridIt
 // import { useState, useContext, useEffect } from "react";
 import './EventCard.css'
 
-const EventCard = () => {
+const EventCard = (props) => {
 
     return (
         <>
@@ -17,24 +17,23 @@ const EventCard = () => {
                 <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '200px' }}
-                    src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                    src={props.event.image}
                     alt='Caffe Latte'
                 />
 
                 <Stack>
                     <CardBody>
-                    <Heading size='md'>The perfect latte</Heading>
+                    <Heading size='md'>{props.event.name}</Heading>
 
                     <Text py='2'>
-                        Caffè latte is a coffee beverage of Italian origin made with espresso
-                        and steamed milk.
+                        {props.event.description}
                     </Text>
                     </CardBody>
 
                     <CardFooter>
-                    <Button variant='solid' colorScheme='blue'>
+                    {/* <Button variant='solid' colorScheme='blue'>
                         Buy Latte
-                    </Button>
+                    </Button> */}
                     </CardFooter>
                 </Stack>
                 </Card>   

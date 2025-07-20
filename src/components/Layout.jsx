@@ -62,7 +62,7 @@ const Layout = () => {
                                 <Box w="2rem">
                                     <FiUsers className='fi-icon-thicken' color="gray.700" size="1.5rem" />
                                 </Box>                                    
-                                <Link to='/dashboard' className='nav-link'>Groups</Link>
+                                <Link to='/groups' className='nav-link'>Groups</Link>
                             </Flex> 
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">

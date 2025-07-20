@@ -1,4 +1,4 @@
-import {   Button, useDisclosure } from '@chakra-ui/react'
+import {  Button, useDisclosure } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
@@ -9,7 +9,6 @@ import './dashboard.css'
 import NewPostModal from './NewPostModal'
 
 const NewPost = ({ currentUser, addTopOfFeed }) => {
-    
     const { isOpen, onOpen, onClose } = useDisclosure() // this is some internal thing to Chakra
     const [content, setContent] = useState('')
     const [imageUrls, setImageUrls] = useState([])

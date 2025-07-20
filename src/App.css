@@ -53,6 +53,16 @@ button.minimal-toggle-btn {
     border: 1px solid #cad3e5;
     border-radius: 12px;    
 }
+button.modal-btn-close {
+    position: absolute;
+    top: -40px; 
+    right: -40px;    
+    color: white;
+    background-color: #232f46;
+    border-radius: 50%;
+    height: 38px;
+    width: 38px;
+}
 
 button.current-border {
     border: 2px solid black;
@@ -86,6 +96,10 @@ input::placeholder, textarea::placeholder {
     font-weight: 300;
     color: #232f46; 
     letter-spacing: .2px;
+}
+.chakra-input:focus, input:focus {
+    border: 2px solid black !important;
+    box-shadow: none !important;
 }
 
 .nav-link {

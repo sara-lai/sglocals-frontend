@@ -1,6 +1,6 @@
 const BACKEND_BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
 
-const eventAPI = async (requestType, token, requestObj) => {
+const eventAPI = async (requestType, token, requestObj, eventId) => {
 
     const requestPayload = JSON.stringify(requestObj);
     var url = '';
@@ -11,6 +11,9 @@ const eventAPI = async (requestType, token, requestObj) => {
     } else if (requestType === 'get' || requestType === 'GET') {
         requestType = 'GET';
         url = `${BACKEND_BASE_URL}/events`;
+    } else if (requestType === 'delete' || requestType === 'DELETE') {
+        requestType = 'DELETE';
+        url = `${BACKEND_BASE_URL}/events/delete?id=${eventId}`;
     } 
 
     console.log(url);

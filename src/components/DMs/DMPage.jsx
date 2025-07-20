@@ -9,7 +9,7 @@ import *  as dmService from '../../services/dmService'
 import DMFull from './DMFull'
 import DMsSummary from './DMsSummary'
 import { useState, useEffect, useRef } from 'react'
-import {  useOutletContext } from 'react-router'
+import {  useOutletContext, useSearchParams } from 'react-router'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
@@ -22,6 +22,8 @@ const DMPage = () => {
     const [ selectedDM, setSelectedDM ] = useState({})
     const { currentUser } = useOutletContext() 
     const pusherRef = useRef(null)
+    const [searchParams] = useSearchParams() // for creating chats from other parts of the app
+    const otherUserFromParams = searchParams.get('chattingWith')
 
     dayjs.extend(relativeTime) 
     function timeAgoFormat(time){
@@ -30,6 +32,8 @@ const DMPage = () => {
 
     async function createNewChat(other_user_id){
         const token = await getToken()
+
+        // this returns the old chat if already exists!
         const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
        
         setSelectedDM(newDM)
@@ -57,6 +61,14 @@ const DMPage = () => {
     useEffect(() => {
         getDataForDMs()
     }, [])
+
+    useEffect(() => {
+        if (otherUserFromParams){
+            console.log('new chat via params!', otherUserFromParams)
+            createNewChat(otherUserFromParams)
+        }        
+    }, [otherUserFromParams]) // trying to prevent some overwrite condition when new chat from params
+
 
     useEffect(() => {
         // fixed bug: showing abnormally high concurrent connections

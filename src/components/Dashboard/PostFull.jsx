@@ -63,7 +63,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
             )}
             <Box w={isImagePost ? "440px" : "100%"} flexGrow={1}>
                 <Box p={4}>
-                    <Flex direction="row" align="center" gap={1} mb={4}>
+                    <Flex direction="row" align="center" cursor='pointer' gap={1} mb={4} onClick={() => navigate('/profile/' + post.user_id)}>
                         <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
                         <div className='post-info-set'>
                             <div className='avatar-name'>{post.user?.fullName}</div>

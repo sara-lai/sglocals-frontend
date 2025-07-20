@@ -4,18 +4,26 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure  } f
 //import NewGroupModal from "./NewGroupModal"
 import '../Dashboard/dashboard.css' // modal stylings
 import './groups.css'
+import { useAuth } from '@clerk/clerk-react'
+import * as groupService from '../../services/groupService'
+import { useNavigate } from 'react-router'
 
 const GroupsPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { getToken } = useAuth()
+    const navigate = useNavigate()
 
+    // generic form handling
     const [formData, setFormData] = useState({ groupName: '', groupDescription: ''})    
     function handleChange(event){
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
     async function handleSubmit(event) {    
-        // todo
-        // service class to create group 
-        // navigate to your new group page
+        const token = await getToken()
+        const newGroup = await groupService.createNewGroup(formData, token)
+        console.log(newGroup)         
+        onClose()
+        // todo - navigate to groups page
     }
     
     // todo load both "nearby groups" and "your groups"

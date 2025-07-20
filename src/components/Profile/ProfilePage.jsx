@@ -20,6 +20,10 @@ const ProfilePage = () => {
     const navigate = useNavigate()
     const { id } = useParams()
 
+    function launchNewChat(){
+        navigate(`/dms?chattingWith=${id}`)
+    }
+
     async function fetchProfilePageData(){
         const token = await getToken()
 
@@ -55,6 +59,9 @@ const ProfilePage = () => {
                        {currentUser.user_id === id && <Button  w='110px' className='btn-default' mt={5} onClick={() => navigate('/profile/edit')}>
                             Edit Profile
                         </Button>}
+                       {currentUser.user_id !== id && <Button  w='110px' className='btn-default' mt={5} onClick={launchNewChat}>
+                            Message
+                        </Button>}                        
                     </Flex>
                 </Flex>
             </Box>

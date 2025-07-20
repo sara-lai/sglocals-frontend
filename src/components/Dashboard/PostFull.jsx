@@ -19,7 +19,6 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
 
     async function addCommentToPost() {
         // todo - figure out likes on commenting - should it only re-render the selected post ? eg dont update whole contentFeed
-        // copy post ; add comment to post & the ui; send off to DB
 
         const newPost = structuredClone(post)
         const newComment = {
@@ -90,7 +89,6 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
 
                 <Divider />
 
-
                 <Box className='post-comment-section content-scroll' maxH='500px' p={4} pl={6}>
                     {post.comments.length === 0 && 
                         <>
@@ -119,7 +117,6 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                 <Divider />
 
                 <Box className='post-comment-form' p={4}>
-
                     <Flex gap={2}>
                         <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />        
                         <Box w='100%'>
@@ -138,7 +135,6 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                             </Flex>            
                         </Box>
                     </Flex>
-
                 </Box> 
             </Box>
         </Flex>

@@ -13,7 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { useDisclosure } from '@chakra-ui/react' // for modals
 
-const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
+const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed }) => {
     const { getToken } = useAuth() // todo - trouble passing token from parent, re-doing here
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedPost, setSelectedPost] = useState({})
@@ -87,6 +87,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                     updateLikes={updateLikes} 
                     showFullPost={showFullPost} 
                     deletePost={deletePost}
+                    addTopOfFeed={addTopOfFeed}
                 />
             ))}
 

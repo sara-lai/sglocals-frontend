@@ -36,9 +36,9 @@ const Dashboard = () => {
         <div className='dashboard-container'> 
             <Flex maxW="1000px" h="100%">
                 <Box flex="0 0 70%" > 
-                    <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
+                    <NewPost currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
+                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
                 </Box>
                 <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0} ml={4}>                    
                     <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">

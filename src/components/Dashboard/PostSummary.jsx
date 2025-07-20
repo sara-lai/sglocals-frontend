@@ -1,12 +1,44 @@
+import { useState } from 'react'
 import {  useOutletContext, useNavigate } from 'react-router'
-import {  Avatar,  Box,  Flex, IconButton, Image  } from '@chakra-ui/react'
+import {  Avatar,  Box,  Flex, IconButton, Image, useDisclosure  } from '@chakra-ui/react'
 import { FiHeart, FiMessageSquare, FiRepeat, FiTrash } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
+import { useAuth } from '@clerk/clerk-react'
 
-const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost }) => {
+import NewPostModal from './NewPostModal'
+
+import * as postService from '../../services/postService'
+
+const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed }) => {
     const postImg = post.imageUrls?.[0]  // testing tmp
     const { currentUser } = useOutletContext()
     const  navigate = useNavigate()
+     const { getToken } = useAuth()
+
+    // adding re-post creation here (for now)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [content, setContent] = useState('')
+
+    // todo for reposts:
+    // render preview of item in new post
+    // make UI  the re-post section, click through to post
+    // design note? feature duplicates NewPost somewhat.... maybe a NewRePost thing instead?
+
+    function setupRePost(){
+        // this can be for events, groups, listings, posts
+        onOpen() // will this open the right modal?
+        // post.id already
+
+    }
+
+    function handleSubmit(){
+        // const token = getToken()
+        // do service call, get result after creation
+        // const newRePost = await postService.createNewPost(postData, token)
+
+        // add top of feed new post
+        // addTopOfFeed(newRePost)
+    }
 
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
@@ -43,11 +75,15 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                             <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
                         </Flex>
                     )}
-                    <Flex className='icon-stat-set' alignItems='center'>
+                    <Flex className='icon-stat-set' alignItems='center' onClick={() => setupRePost()}>
                         <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
                     </Flex>                    
                 </Flex>          
-            </Flex>                    
+            </Flex>   
+
+            <NewPostModal isOpen={isOpen} onClose={onClose} content={content} setContent={setContent} 
+                handleSubmit={handleSubmit} theRepost={post}  
+            />                 
         </Box>
     )
 

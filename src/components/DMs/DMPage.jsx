@@ -32,8 +32,8 @@ const DMPage = () => {
         const token = await getToken()
         const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
        
-        // display new data in two places
         setSelectedDM(newDM)
+        // todo - some logic to prevent duplicate chats, before setAllDMs
         setAllDMs([newDM, ...allDMs ])
 
         onClose() // close the modal 

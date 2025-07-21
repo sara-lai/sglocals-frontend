@@ -9,9 +9,7 @@ import * as postService from '../../services/postService'
 import * as userService from '../../services/userService'
 
 const ProfilePage = () => {
-
     // clarification: currentUser is the LOGGED IN USER, selectedUser is the person who's profile you are visiting
-
     const { currentUser } = useOutletContext()    
     const bannerImgUrl = currentUser.bannerImg || '/images/sg-skyline-sunset3.jpg'
     const { getToken } = useAuth()

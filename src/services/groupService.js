@@ -40,8 +40,48 @@ const getNearbyGroups = async (token) => {
     }
 }
 
+const getGroupsForCurrentUser = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/currentUser' , { 
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },   
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.groups
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
+const getGroup = async (id, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/' + id , { 
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },   
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.group
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
 
 export {
     createNewGroup,
-    getNearbyGroups
+    getNearbyGroups,
+    getGroupsForCurrentUser,
+    getGroup
 }

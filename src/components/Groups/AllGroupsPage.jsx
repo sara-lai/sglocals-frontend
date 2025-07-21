@@ -13,6 +13,7 @@ const GroupsPage = () => {
     const { getToken } = useAuth()
     const navigate = useNavigate()
     const [nearbyGroups, setNearbyGroups] = useState([])
+    const [currentUserGroups, setCurrentUserGroups] = useState([])
 
     // generic form handling
     const [formData, setFormData] = useState({ name: '', description: ''})    
@@ -34,15 +35,20 @@ const GroupsPage = () => {
         const newGroup = await groupService.createNewGroup(formData, token)
         console.log(newGroup)         
         onClose()
-        // todo - navigate to groups page
+        navigate('/groups/' + newGroup._id)
     }
     
     // todo load both "nearby groups" and "your groups"
     async function loadGroupData(){
         const token = await getToken()
+
+        // nearby groups data        
         const nearbyGroups = await groupService.getNearbyGroups(token)
-        console.log('got nearbyGroups', nearbyGroups)
         setNearbyGroups(nearbyGroups)
+
+        // current user groups data 
+        const currentUserGroups = await groupService.getGroupsForCurrentUser(token)
+        setCurrentUserGroups(currentUserGroups)
     }
     useEffect(() => {
         loadGroupData()
@@ -55,7 +61,7 @@ const GroupsPage = () => {
                 <Box flex="0 0 60%" >
                     <Heading size='md' mb={6}>Groups near you</Heading>
                     {nearbyGroups.map(group => (
-                        <Flex w='560px' mb={4}>
+                        <Flex w='560px' mb={4} cursor='pointer' onClick={() => navigate('/groups/' + group._id)}>
                             <Box h='120px' w='120px'
                                 backgroundImage={group.bannerImg || '/images/default-group-img5.png'}
                                 backgroundPosition="center"
@@ -66,7 +72,9 @@ const GroupsPage = () => {
                                 <Text fontWeight='600' fontSize='1.1rem'>{group.name}</Text>
                                 <Flex justify='space-between'>
                                     <Button className='btn-default'>Join</Button>
-                                    <Text fontWeight='400' fontSize='1rem' color='#576580'>{group.member_ids.length} members</Text>
+                                    <Text fontWeight='500' fontSize='1rem' color='#576580' letterSpacing='-.5px'>
+                                        {group.member_ids.length} members
+                                    </Text>
                                 </Flex>
                             </Flex>
                         </Flex>
@@ -76,8 +84,27 @@ const GroupsPage = () => {
                     <Flex align='center' gap={14} mb={6}>
                         <Heading size='md'>Your groups</Heading>     
                         <Button className='btn-default' onClick={onOpen}>Create</Button>
-                     </Flex>
-                     <Image mt={12} maxH='160px' src='/images/tmp-nothing-here.png' />
+                    </Flex>
+                    {currentUserGroups.legnth === 0 &&
+                        <Image mt={12} maxH='160px' src='/images/tmp-nothing-here.png' />
+                    }   
+                    {currentUserGroups.map(group => (
+                        <Flex w='280px' mb={4} align='center' cursor='pointer' onClick={() => navigate('/groups/' + group._id)}>
+                            <Box h='60px' w='60px'
+                                backgroundImage={group.bannerImg || '/images/default-group-img5.png'}
+                                backgroundPosition="center"
+                                backgroundSize='130%'
+                                backgroundRepeat='no-repeat'                                  
+                            >                               
+                            </Box>
+                            <Flex flex='1' direction='column' justify='space-between' p={6}>
+                                <Text fontWeight='600' fontSize='.9rem'>{group.name}</Text>
+                                <Text fontWeight='500' fontSize='.8rem' color='#576580' letterSpacing='-.5px'>
+                                    {group.member_ids.length} members
+                                </Text>                                
+                            </Flex>
+                        </Flex>
+                    ))}
                 </Box>               
             </Flex>
 

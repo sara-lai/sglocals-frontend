@@ -21,6 +21,27 @@ const createNewGroup = async (groupData, token) => {
     }
  }
 
+const getNearbyGroups = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/nearby' , { 
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },   
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.groups
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
+
 export {
-    createNewGroup
+    createNewGroup,
+    getNearbyGroups
 }

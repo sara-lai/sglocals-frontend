@@ -119,3 +119,10 @@ input::placeholder, textarea::placeholder {
 a:hover {
   color: inherit; 
 }
+
+
+/* some Clerk overrides - todo more */
+.cl-formFieldInput {
+    width: 100% !important;
+    height: 40px !important;
+}

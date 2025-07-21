@@ -81,9 +81,9 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
             <Box className='post-content' mb={1} pl={6} onClick={() => showFullPost(post._id)}>
                 {post.content}
             </Box>
-            <Box p={4}>
-                {post.repost_id && showRepostSummary(repost)}        
-            </Box>
+            {post.repost_id && <Box p={4}>
+                {showRepostSummary(repost)}        
+            </Box>}
             <div className='post-summary-img'>
                 {postImg && <Image src={postImg} mt={4} width="100%" maxH="440px" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
             </div>

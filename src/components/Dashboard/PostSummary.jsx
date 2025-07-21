@@ -1,27 +1,24 @@
 import { useState, useEffect } from 'react'
 import {  useOutletContext, useNavigate } from 'react-router'
 import {  Avatar,  Box,  Flex, IconButton, Image, useDisclosure  } from '@chakra-ui/react'
-import { FiHeart, FiMessageSquare, FiRepeat, FiTrash } from "react-icons/fi" // Fi vs Fa??
+import { FiHeart, FiMessageSquare, FiRepeat, FiTrash, FiArrowLeft, FiArrowRight } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
 import { useAuth } from '@clerk/clerk-react'
 import NewPostModal from './NewPostModal'
 import * as postService from '../../services/postService'
 
+import ImageCarousel from '../../utils/ImageCarousel'
+
 const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed }) => {
     // console.log('postSummary here!!', post)
     // todo noticed bug! seems to re-render all postSummaries just typing in form for the Repost (not a problem for regular post)
 
-    const postImg = post.imageUrls?.[0]  // testing tmp
     const { currentUser } = useOutletContext()
     const  navigate = useNavigate()
     const { getToken } = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure() // for repost
     const [content, setContent] = useState('') // for repost 
     const [repost, setRepost] = useState({})
-
-    // todo for reposts:
-    // make UI for the re-post section, click through to post
-    // design note? feature duplicates NewPost somewhat.... maybe a NewRePost thing instead?
 
     async function handleSubmit(){
         // this is creating a brand new post BUT with a repost attached
@@ -87,9 +84,10 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
             {post.repost_id && <Box p={4}>
                 {showRepostSummary(repost)}        
             </Box>}
-            <div className='post-summary-img'>
-                {postImg && <Image src={postImg} mt={4} width="100%" maxH="440px" objectFit="cover" cursor='pointer' onClick={() => showFullPost(post._id)} />}
-            </div>
+
+            {/* the carousel */}
+            <ImageCarousel imageUrls={post.imageUrls} onImageClick={() => showFullPost(post._id)} />
+
             <Flex className='post-action-row' justifyContent='space-between' p={4}>
                 <Flex gap={2}>                         
                     <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    

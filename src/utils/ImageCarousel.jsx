@@ -6,7 +6,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Box, Image, IconButton } from '@chakra-ui/react'
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 // todo find some really nice arrows/side that doesnt uglify
 
 const ImageCarousel = ({ imageUrls, onImageClick }) => {
@@ -16,9 +16,9 @@ const ImageCarousel = ({ imageUrls, onImageClick }) => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        // arrows: true,
-        // nextArrow: <FiArrowRight />,
-        // prevArrow:  <FiArrowLeft />
+        arrows: true,
+        nextArrow: <FiChevronRight />,
+        prevArrow:  <FiChevronLeft />
     }
     return (
         <Box>

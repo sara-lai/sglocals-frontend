@@ -27,6 +27,7 @@ const NewPost = ({ currentUser, addTopOfFeed }) => {
         
         // reset & close
         setContent('')
+        setImageUrls([])
         onClose()
     }
 

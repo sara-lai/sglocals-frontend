@@ -58,38 +58,39 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         <Flex w="100%">
             {isImagePost && (
                 <Box w="650px" bg='black' display='flex' alignItems='center' justifyContent='center'>
-                    <Image src={post.imageUrls?.[0]} width="100%" objectFit="cover" />
+                    <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" h='700px' /> 
                 </Box>
             )}
-            <Box w={isImagePost ? "440px" : "100%"} flexGrow={1}>
-                <Box p={4}>
-                    <Flex direction="row" align="center" cursor='pointer' gap={1} mb={4} onClick={() => navigate('/profile/' + post.user_id)}>
-                        <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
-                        <div className='post-info-set'>
-                            <div className='avatar-name'>{post.user?.fullName}</div>
-                            <Flex gap={2}>
-                                <p>{post.user?.neighbourhood}</p>
-                                <p>{timeAgoFormat(post.createdAt)}</p>
+            <Flex w={isImagePost ? "440px" : "100%"} flexGrow={1} direction='column' justify='space-between'>
+                <Box>
+                    <Box p={4}>
+                        <Flex direction="row" align="center" cursor='pointer' gap={1} mb={4} onClick={() => navigate('/profile/' + post.user_id)}>
+                            <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileImg} name={post.user?.fullName?.[0]} />
+                            <div className='post-info-set'>
+                                <div className='avatar-name'>{post.user?.fullName}</div>
+                                <Flex gap={2}>
+                                    <p>{post.user?.neighbourhood}</p>
+                                    <p>{timeAgoFormat(post.createdAt)}</p>
+                                </Flex>
+                            </div>
+                        </Flex>                              
+                        <Box className='post-content' mb={2}>
+                            {post.content}
+                        </Box>
+                        <Flex className='post-action-row' justifyContent='space-between'>               
+                            <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    
+                                <IconButton icon={<FiHeart />} variant="ghost" size="sm" />
+                                {post.likes > 0 && <div className='post-stat'>{post.likes}</div>}
+                            </Flex>                            
+                            <Flex className='icon-stat-set' alignItems='center'>
+                                <IconButton icon={<FiRepeat />} variant="ghost" size="sm" />
                             </Flex>
-                        </div>
-                    </Flex>                              
-                    <Box className='post-content' mb={2}>
-                        {post.content}
-                    </Box>
-                    <Flex className='post-action-row' justifyContent='space-between'>               
-                        <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    
-                            <IconButton icon={<FiHeart />} variant="ghost" size="sm" />
-                            {post.likes > 0 && <div className='post-stat'>{post.likes}</div>}
-                        </Flex>                            
-                        <Flex className='icon-stat-set' alignItems='center'>
-                            <IconButton icon={<FiRepeat />} variant="ghost" size="sm" />
                         </Flex>
-                    </Flex>
+                    </Box>
+                    <Divider />
                 </Box>
 
-                <Divider />
-
-                <Box className='post-comment-section content-scroll' maxH='500px' p={4} pl={6}>
+                <Box className='post-comment-section content-scroll' maxH='500px' h='100%' p={4} pl={6}>
                     {post.comments.length === 0 && 
                         <>
                             <p style={{ fontWeight: '600', marginBottom: '6px' }}>No Comments</p>
@@ -114,29 +115,30 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                     ))}
                 </Box>
 
-                <Divider />
-
-                <Box className='post-comment-form' p={4}>
-                    <Flex gap={2}>
-                        <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />        
-                        <Box w='100%'>
-                            <Input placeholder="Add a comment..." 
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                            />
-                            <Flex justify='space-between' mt={4}>
-                                <Flex gap={2} justify="start">
-                                    <IconButton className='action-icon' icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
-                                    <input hidden id="image-upload" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
-                                    <IconButton className='action-icon' icon={<FaMapMarkerAlt size={26} />} />
-                                    <IconButton className='action-icon' icon={<FaAt size={26} />}  />
-                                </Flex>     
-                                <Button className='btn-default' onClick={addCommentToPost}>Comment</Button>          
-                            </Flex>            
-                        </Box>
-                    </Flex>
-                </Box> 
-            </Box>
+                <Box>
+                    <Divider />
+                    <Box className='post-comment-form' p={4}>
+                        <Flex gap={2}>
+                            <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />        
+                            <Box w='100%'>
+                                <Input placeholder="Add a comment..." 
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                />
+                                <Flex justify='space-between' mt={4}>
+                                    <Flex gap={2} justify="start">
+                                        <IconButton className='action-icon' icon={<FaImage size={26} />} onClick={() => document.getElementById('image-upload').click()} />
+                                        <input hidden id="image-upload" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
+                                        <IconButton className='action-icon' icon={<FaMapMarkerAlt size={26} />} />
+                                        <IconButton className='action-icon' icon={<FaAt size={26} />}  />
+                                    </Flex>     
+                                    <Button className='btn-default' onClick={addCommentToPost}>Comment</Button>          
+                                </Flex>            
+                            </Box>
+                        </Flex>
+                    </Box> 
+                </Box>
+            </Flex>
         </Flex>
 
     )

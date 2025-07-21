@@ -58,7 +58,6 @@ const GroupsPage = () => {
                         <Flex w='560px' mb={4}>
                             <Box h='120px' w='120px'
                                 backgroundImage={group.bannerImg || '/images/default-group-img5.png'}
-                                backgroundSize="cover"
                                 backgroundPosition="center"
                                 backgroundSize='130%'                                  
                             >                               
@@ -78,7 +77,7 @@ const GroupsPage = () => {
                         <Heading size='md'>Your groups</Heading>     
                         <Button className='btn-default' onClick={onOpen}>Create</Button>
                      </Flex>
-                     <Image mt={20} maxH='160px' src='/images/tmp-nothing-here.png' />
+                     <Image mt={12} maxH='160px' src='/images/tmp-nothing-here.png' />
                 </Box>               
             </Flex>
 

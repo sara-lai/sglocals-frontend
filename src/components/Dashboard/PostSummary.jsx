@@ -59,9 +59,12 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                         </Flex>                                                                   
                     </div>
                 </Flex>
-                <Box className='post-content' mb={1} mt={4} pl={6}>
+                <Flex className='post-content' mb={1} mt={4} pl={6} align='center'>
+                    {(theRepost.imageUrls && theRepost.imageUrls.length > 0) && 
+                        <Image src={theRepost.imageUrls[0]} h='60px' w='60px' mr={4} />
+                    }
                     {theRepost.content}
-                </Box>                                              
+                </Flex>                                              
             </Box>   
         )                
     }
@@ -85,7 +88,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 {showRepostSummary(repost)}        
             </Box>}
             <div className='post-summary-img'>
-                {postImg && <Image src={postImg} mt={4} width="100%" maxH="440px" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
+                {postImg && <Image src={postImg} mt={4} width="100%" maxH="440px" objectFit="cover" cursor='pointer' onClick={() => showFullPost(post._id)} />}
             </div>
             <Flex className='post-action-row' justifyContent='space-between' p={4}>
                 <Flex gap={2}>                         

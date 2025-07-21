@@ -1,10 +1,19 @@
-import { Menu, MenuButton, MenuList, Button, Flex, Icon, Box, Text, SimpleGrid } from '@chakra-ui/react';
-import './marketplace.css';
 import MarketPlaceCard from './MarketPlaceCard';
+import { Menu, MenuButton, MenuList, Button, Flex, Icon, Box, Text, SimpleGrid } from '@chakra-ui/react';
+import { useState, useEffect } from "react";
+import { AddIcon } from '@chakra-ui/icons';
+import { useAuth } from '@clerk/clerk-react'
+import * as marketplaceService from '../../services/marketplaceService'
+
+import './marketplace.css';
+
 
 const MarketPlace = () => {
   
-  
+  const { userId, getToken } = useAuth();
+  const [itemList, setItemList] = useState([]);
+  const [addItem, setAddItem] = useState();
+
   
   return (
     <div>

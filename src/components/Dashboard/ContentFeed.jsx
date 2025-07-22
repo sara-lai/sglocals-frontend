@@ -1,6 +1,6 @@
 // open question how to build the Content Feed
 import { useState } from 'react'
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody  } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, Box  } from '@chakra-ui/react'
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 
@@ -13,8 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { useDisclosure } from '@chakra-ui/react' // for modals
 
-const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
-
+const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed }) => {
     const { getToken } = useAuth() // todo - trouble passing token from parent, re-doing here
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedPost, setSelectedPost] = useState({})
@@ -75,12 +74,12 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
         setContentFeed(newFeed)
 
         const token = await getToken()
-        const deleted = postService.deletePost(token, postId)
+        const deleted = await postService.deletePost(token, postId)
         console.log(deleted)
     }
 
     return (
-        <div className='content-feed-container'>
+        <Box>
             {theFeed.map(  (post) => (
                 <PostSummary 
                     post={post} 
@@ -88,12 +87,13 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                     updateLikes={updateLikes} 
                     showFullPost={showFullPost} 
                     deletePost={deletePost}
+                    addTopOfFeed={addTopOfFeed}
                 />
             ))}
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' >
                 <ModalOverlay bg="blackAlpha.600" />
-                <ModalContent className='post-full-modal' w={selectedPost.imageUrls?.length > 0 ? "1000px" : "640px"}>
+                <ModalContent className='post-full-modal' w={selectedPost.imageUrls?.length > 0 ? "1100px" : "640px"}>
                     <ModalCloseButton className='btn-close' />
                         <PostFull
                             post={selectedPost} 
@@ -107,7 +107,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                 </ModalContent>
             </Modal>
 
-        </div>
+        </Box>
     )
 }
 

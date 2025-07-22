@@ -94,11 +94,6 @@
     letter-spacing: .1px;
 }
 
-
- .content-feed-container {
-    padding: 20px;
-}
-
 /* Posts in content feed related.... tweaks to Chakra */
 /* todo - shrink fonts a bit, use grays for some, tighten content text, try out fonts */
 
@@ -189,4 +184,20 @@ button.action-icon {
 
 .sponsor-img {
     border-radius: 12px;
+}
+
+/* temp testing slider styles */
+.slick-arrow {
+    z-index: 1;
+    color: rgba(0,0,0,.6) !important;
+    stroke-width: 3px;
+}
+svg.slick-arrow {
+    font-size: 40px;
+}
+.slick-arrow.slick-prev {
+    left: 10px; 
+}
+.slick-arrow.slick-next {
+    right: 10px; 
 }

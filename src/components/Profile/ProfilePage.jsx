@@ -9,9 +9,7 @@ import * as postService from '../../services/postService'
 import * as userService from '../../services/userService'
 
 const ProfilePage = () => {
-
     // clarification: currentUser is the LOGGED IN USER, selectedUser is the person who's profile you are visiting
-
     const { currentUser } = useOutletContext()    
     const bannerImgUrl = currentUser.bannerImg || '/images/sg-skyline-sunset3.jpg'
     const { getToken } = useAuth()
@@ -19,6 +17,10 @@ const ProfilePage = () => {
     const [selectedUser, setSelectedUser] = useState({})
     const navigate = useNavigate()
     const { id } = useParams()
+
+    function launchNewChat(){
+        navigate(`/dms?chattingWith=${id}`)
+    }
 
     async function fetchProfilePageData(){
         const token = await getToken()
@@ -55,6 +57,9 @@ const ProfilePage = () => {
                        {currentUser.user_id === id && <Button  w='110px' className='btn-default' mt={5} onClick={() => navigate('/profile/edit')}>
                             Edit Profile
                         </Button>}
+                       {currentUser.user_id !== id && <Button  w='110px' className='btn-default' mt={5} onClick={launchNewChat}>
+                            Message
+                        </Button>}                        
                     </Flex>
                 </Flex>
             </Box>

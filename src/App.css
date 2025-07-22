@@ -14,6 +14,7 @@ button:hover:focus {
   font-weight: 700 !important;
 }
 
+
 /* some default button options; can set height/width on chakra */
 button.btn-default {
     border-radius: 20px;
@@ -38,6 +39,37 @@ button.btn-default.btn-lg {
         background-color: #21ad67;
     }
 }
+button.minimal-toggle-btn {
+    background: white;
+    font-size: .9rem;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 34px;
+    letter-spacing: -.2px;
+    &:hover {
+        background: inherit;
+        border: 2px solid #cad3e5 !important;
+    }
+    border: 1px solid #cad3e5;
+    border-radius: 12px;    
+}
+button.modal-btn-close {
+    position: absolute;
+    top: -40px; 
+    right: -40px;    
+    color: white;
+    background-color: #232f46;
+    border-radius: 50%;
+    height: 38px;
+    width: 38px;
+}
+
+button.current-border {
+    border: 2px solid black;
+    &:hover {
+        border: 2px solid black !important;
+    }    
+}
 
 /* attempt at scrollable center content with "app style" fixed height */
 .app-wrapper {
@@ -45,7 +77,6 @@ button.btn-default.btn-lg {
     overflow: hidden;
 }
 .content-scroll {
-    height: 100%;
     overflow-y: auto;
     scrollbar-width: none;
 }   
@@ -66,6 +97,10 @@ input::placeholder, textarea::placeholder {
     color: #232f46; 
     letter-spacing: .2px;
 }
+.chakra-input:focus, input:focus {
+    border: 2px solid black !important;
+    box-shadow: none !important;
+}
 
 .nav-link {
     font-weight: 500;
@@ -83,4 +118,11 @@ input::placeholder, textarea::placeholder {
 /* skip the blue hover default */
 a:hover {
   color: inherit; 
+}
+
+
+/* some Clerk overrides - todo more */
+.cl-formFieldInput {
+    width: 100% !important;
+    height: 40px !important;
 }

@@ -65,6 +65,7 @@ const EventForm = (props) => {
                     onClick={() => handleClick(xlSizes)}
                     key={xlSizes}
                     m={4}
+                    className='btn btn-green'
                     >
                     Add Event
                 </Button>

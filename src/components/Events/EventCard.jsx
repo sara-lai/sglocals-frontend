@@ -26,15 +26,17 @@ const EventCard = (props) => {
             "users": [userId]
         }
         let updateType = '';
+        ;
+
         if (event.target.innerText === "Interested?") {
             updateType = 'push';
-            event.target.style.backgroundColor = 'blue';
+           
             await eventAPI(postRequest, token, payload, eventId, updateType);
-            event.target.innerText = "Joining!"
+            event.target.innerText = "Participating!"
         } else {
             updateType = 'pull'
             await eventAPI(postRequest, token, payload, eventId, updateType);
-            event.target.style.backgroundColor = 'white';
+            
             event.target.innerText = "Interested?"            
         }
         
@@ -78,9 +80,14 @@ const EventCard = (props) => {
 
                     <CardFooter>
                     <Stack direction='row' spacing={2} align='center'>
-                        <Button colorScheme='teal' variant='outline'  onClick={participateFunction} >
-                            Interested?  
+                        {props.event.users.includes(userId) ? (
+                        <Button className='part' colorScheme='teal' variant='outline'  onClick={participateFunction} >
+                            Participating!  
                         </Button>
+                        ) : <Button className='part' colorScheme='teal' variant='outline' onClick={participateFunction} >
+                            Interested?  
+                        </Button>}
+
                         {props.event.createdby == userId ? (
                                 <Button variant='solid' colorScheme='red' onClick={deleteEventFunction} >
                                     Delete

@@ -1,6 +1,6 @@
 // open question how to build the Content Feed
 import { useState } from 'react'
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody  } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, Box  } from '@chakra-ui/react'
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 
@@ -79,7 +79,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed }) =>
     }
 
     return (
-        <div className='content-feed-container'>
+        <Box>
             {theFeed.map(  (post) => (
                 <PostSummary 
                     post={post} 
@@ -107,7 +107,7 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed }) =>
                 </ModalContent>
             </Modal>
 
-        </div>
+        </Box>
     )
 }
 

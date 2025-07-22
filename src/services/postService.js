@@ -21,6 +21,30 @@ const createNewPost = async (postData, token) => {
     }
  }
 
+const createNewPostForGroup = async (postData, groupId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/forGroup/' + groupId , { 
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },
+            body: JSON.stringify({
+                post: postData,
+                group_id: groupId,
+            })
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.post
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
+}
+
  // just returns all posts for now
 const getPostsForNeighbourhood = async (token) => {
     try {
@@ -138,6 +162,7 @@ const deletePost = async (token, postId) =>{
 
 export {
     createNewPost,
+    createNewPostForGroup,
     getPostsForNeighbourhood,
     getPostsForCurrentUser,
     getPostsForAnyUser,

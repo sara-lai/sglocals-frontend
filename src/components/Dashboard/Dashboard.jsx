@@ -27,8 +27,6 @@ const Dashboard = () => {
 
     function addTopOfFeed(newPost){
         console.log('top of content feed', newPost)
-        // todo need to set at top of feed
-        // sort by date instead?
         setContentFeed([newPost, ...contentFeed])
     }
 
@@ -38,7 +36,9 @@ const Dashboard = () => {
                 <Box flex="0 0 70%" maxW='700px'> 
                     <NewPost currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
+                    <Box p={5}>
+                        <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
+                    </Box>
                 </Box>
                 <Box className="side-content" flex="0 0 30%" maxW='300px' overflowY="auto" position="sticky" top={0} ml={4}>                    
                     <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">

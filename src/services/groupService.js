@@ -78,10 +78,54 @@ const getGroup = async (id, token) => {
     }
 }
 
+const getGroupPosts = async (id, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/groupPosts/' + id , { 
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },   
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.posts
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
+
+const joinGroup = async (id, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/join' , { 
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            }, 
+            body: JSON.stringify({ group_id: id })    
+
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.group
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
 
 export {
     createNewGroup,
     getNearbyGroups,
     getGroupsForCurrentUser,
-    getGroup
+    getGroup,
+    getGroupPosts,
+    joinGroup,
 }

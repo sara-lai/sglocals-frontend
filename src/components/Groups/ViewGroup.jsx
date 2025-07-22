@@ -7,6 +7,10 @@ import { Box, Flex, Button, Heading, Text, Icon, IconButton, Image, Avatar, Inpu
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { FiTrash } from "react-icons/fi"
 
+// group conversations, re-using work for posts
+import NewGroupPost from './NewGroupPost'
+import ContentFeed from '../Dashboard/ContentFeed'
+
 import '../Profile/profile.css' // tmp
 import './groups.css'
 
@@ -18,9 +22,16 @@ const ViewGroup = () => {
     const { getToken } = useAuth()
     const [group, setGroup] = useState({})
     const [notice, setNotice] = useState(true)
+    const [groupPosts, setGroupPosts] = useState([])
 
     function deleteGroup(){
-        console.log('deleting')
+        console.log('deleting todo')
+    }
+
+    async function joinGroup(){
+        const token = await getToken()
+        const updatedGroup = await groupService.joinGroup(id, token)
+        setGroup(updatedGroup)
     }
 
     function isCurrentUserAdmin(){
@@ -35,13 +46,26 @@ const ViewGroup = () => {
         return group.member_ids.includes(currentUser.user_id)
     }
 
-    async function fetchGroup(){
+    function addTopOfFeed(newPost){
+        console.log('top of content feed', newPost)
+        setGroupPosts([newPost, ...groupPosts])
+    }
+
+    async function fetchGroupData(){
         const token = await getToken()
+
+        // get the group from params
         const group = await groupService.getGroup(id, token)
         setGroup(group)
+
+        // fetch posts for group
+        if (group.post_ids){
+            const posts = await groupService.getGroupPosts(id, token)
+            setGroupPosts(posts)  
+        }
     }    
     useEffect(() => {       
-        fetchGroup()
+        fetchGroupData()
     }, [])  
     
     return (
@@ -64,10 +88,10 @@ const ViewGroup = () => {
                         </Flex>
                         <Flex justify='space-between' align='center'>
                             {isCurrentUserMember() &&
-                                <Button className='btn-default'>Invite</Button>
+                                <Button className='btn-default' onClick={() => console.log('todo launch UserSearch')}>Invite</Button>
                             }
                             {!isCurrentUserMember() &&
-                                <Button className='btn-default'>Join</Button>
+                                <Button className='btn-default' onClick={joinGroup}>Join</Button>
                             }                            
                             <Box>
                                 <Flex align='center'>
@@ -92,18 +116,21 @@ const ViewGroup = () => {
                 </Box>
             }
 
-            {isCurrentUserMember() &&
-                <Flex mt={4} gap={2} className='default-border' align='center' p={4}>
-                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />        
-                    <Box w='100%'>
-                        <Input borderRadius='30px' pl={6} h="46px" background='#f0f2f5' value='Share something with the group ...'  />     
-                    </Box>           
-                </Flex>
+            {/* re using dashboard post features ! */}
+            {isCurrentUserMember() && 
+                <NewGroupPost currentUser={currentUser} addTopOfFeed={addTopOfFeed} group={group} /> 
             }
-
-            <Flex mt={10} justify='center'>
-                <Image w='360px' src='/images/tmp-group-convo-empty.png' />
-            </Flex>            
+            {groupPosts.length > 0 &&
+                <Box mt={16}>
+                    <ContentFeed theFeed={groupPosts} setContentFeed={setGroupPosts} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />            
+                </Box>
+            }
+            
+            {groupPosts.length === 0 &&
+                <Flex mt={10} justify='center'>
+                    <Image w='360px' src='/images/tmp-group-convo-empty.png' />
+                </Flex>      
+            }            
         </Box>
     )
 }

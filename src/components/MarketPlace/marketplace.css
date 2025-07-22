@@ -1,0 +1,11 @@
+.marketplace-container .active {
+    border-bottom: 2px solid black;
+}
+
+.marketplace-container .tab {
+    font-weight: 700;
+    font-size: .9rem;
+    cursor: pointer;
+    padding: 10px;
+    letter-spacing: -.3px;
+}

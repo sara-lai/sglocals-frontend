@@ -56,7 +56,7 @@ const Layout = () => {
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faHandshake}  size="xl" cursor="pointer" />
                                 </Box>                                    
-                                <Link to='/dashboard' className='nav-link'>I Buy U Buy</Link>
+                                <Link to='/marketplace' className='nav-link'>I Buy U Buy</Link>
                             </Flex> 
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">

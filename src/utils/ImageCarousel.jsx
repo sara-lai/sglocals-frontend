@@ -9,7 +9,7 @@ import { Box, Image, IconButton } from '@chakra-ui/react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 // todo find some really nice arrows/side that doesnt uglify
 
-const ImageCarousel = ({ imageUrls, onImageClick }) => {
+const ImageCarousel = ({ imageUrls, onImageClick, containOrCover }) => {
     const sliderSettings = {
         dots: true,
         infinite: true,
@@ -20,6 +20,7 @@ const ImageCarousel = ({ imageUrls, onImageClick }) => {
         nextArrow: <FiChevronRight />,
         prevArrow:  <FiChevronLeft />
     }
+    const objFitType = containOrCover || 'cover'
     return (
         <Box>
             {imageUrls?.length === 1 && (
@@ -32,7 +33,7 @@ const ImageCarousel = ({ imageUrls, onImageClick }) => {
                     <Slider {...sliderSettings}>
                         {imageUrls.map((imgUrl, idx) => (
                             <Box key={idx}>
-                                <Image src={imgUrl} mt={4} width="100%" maxH="440px" objectFit="cover" cursor='pointer' 
+                                <Image src={imgUrl} mt={4} width="100%" maxH="440px" objectFit={objFitType} cursor='pointer' 
                                     onClick={onImageClick}
                                 />
                             </Box>

@@ -9,3 +9,34 @@
     padding: 10px;
     letter-spacing: -.3px;
 }
+
+
+/* copying from dashboard.css a bit */
+.new-listing-modal {
+    min-width: 660px;
+    border-radius: 20px !important;
+    padding: 20px;
+    padding-top: 40px;
+}
+.new-listing-modal .btn {
+    position: absolute;
+    top: 20px; 
+    right: 30px;
+    border-radius: 20px;
+}
+.new-listing-modal .btn-close {
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+}
+.new-listing-modal textarea,
+.new-listing-modal input {
+    font-size: 18px;
+    letter-spacing: .6px;
+    font-weight: 300
+}
+
+.btn-close svg {
+    height: 1.1rem;
+    width: 1.1rem;
+}

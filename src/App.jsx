@@ -15,6 +15,7 @@ import DMPage from './components/DMs/DMPage'
 import GroupsPage from './components/Groups/AllGroupsPage'
 import ViewGroup from './components/Groups/ViewGroup'
 import MarketPlace from './components/MarketPlace/MarketPlace'
+import ViewListing from './components/MarketPlace/ViewListing'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/events" element={<Events />} />      
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/marketplace" element={<MarketPlace />} />
+        <Route path="/listing/:id" element={<ViewListing />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/dms" element={<DMPage />} />

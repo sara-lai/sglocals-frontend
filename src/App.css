@@ -39,7 +39,8 @@ button.btn-default.btn-lg {
         background-color: #21ad67;
     }
 }
-button.minimal-toggle-btn {
+button.minimal-toggle-btn,
+button.minimal-toggle-btn:focus { /* the focus is for chakra override */
     background: white;
     font-size: .9rem;
     padding-left: 8px;
@@ -50,7 +51,7 @@ button.minimal-toggle-btn {
         background: inherit;
         border: 2px solid #cad3e5 !important;
     }
-    border: 1px solid #cad3e5;
+    border: 1px solid #cad3e5 !important; 
     border-radius: 12px;    
 }
 button.modal-btn-close {
@@ -63,10 +64,10 @@ button.modal-btn-close {
     height: 38px;
     width: 38px;
 }
-button.filter-btn
 
-button.current-border {
-    border: 2px solid black;
+button.current-border,
+ button.current-border:focus { /* the focus is for chakra override */
+    border: 2px solid black !important; 
     &:hover {
         border: 2px solid black !important;
     }    

@@ -15,7 +15,7 @@ const createNewListing = async (itemData, token) => {
              throw new Error(`HTTP problem ${response.status}`);
         }
         const data = await response.json();
-        return data
+        return data.listing
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -42,7 +42,7 @@ const getListingsForAll = async (token) => {
 
 const getListingsForCurrentUser = async (token) => {
     try {
-        const response = await fetch(BASE_URL + '/currentUser' , { 
+        const response = await fetch(BASE_URL + '/yourlist' , { 
             headers: { 
                 Authorization: `Bearer ${token}` 
             },     
@@ -51,7 +51,25 @@ const getListingsForCurrentUser = async (token) => {
              throw new Error(`HTTP problem ${response.status}`);
         }
         const data = await response.json();
-        return data.posts
+        return data.items
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    ``
+}
+
+const getSavedListings = async (token) => {
+    try {
+        const response = await fetch(BASE_URL + '/savedlist' , { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.items
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -70,6 +88,24 @@ const getListingsForAnyUser = async (userId, token) => {
         }
         const data = await response.json();
         return data.posts
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
+}
+
+const getListing = async (listingId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/' + listingId, { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.item
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -120,8 +156,10 @@ const deleteListing = async (token, listingId) =>{
 export {
     createNewListing,
     getListingsForAll,
+    getSavedListings,
     getListingsForCurrentUser,
     getListingsForAnyUser,
     updateListing,
     deleteListing,
+    getListing
 }

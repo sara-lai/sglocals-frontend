@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Flex, Box, Select, Button, Text } from '@chakra-ui/react';
 
-const MarketplaceFilters = () => {
+const MarketplaceFilters = ({ selectCategory, selectNeighbourhood, selectFree, selectGig }) => {
 
     const categoryList = [
         'all categories', 'appliances', 'automotive', 'baby & kids', 'bicycles', 'clothing & accessories',  'crafts',
@@ -25,20 +25,37 @@ const MarketplaceFilters = () => {
         return words.join(' ')
     }
 
-    // generic controlled form stuff 
-    const [formData, setFormData] = useState({
-        category: '',
-        neighbourhood: '',        
-    })
-    const { neighbourhood, category } = formData
-    function handleChange(event){
-        setFormData({ ...formData, [event.target.name]: event.target.value });
+    // saving filter values  maybe for display
+    const [category, setCategory]  = useState('')
+    const [neighbourhood, setNeighbourhood] = useState('')
+    const [isFree, setIsFree] = useState(false)
+    const [isGig, setIsGig] = useState(false)   
+
+    function handleCategories(event){
+        const val = event.target.value
+        setCategory(val)
+        selectCategory(val) // send off to parent to do filtering
+    }
+    function handleNeighbourhoods(event){
+        const val = event.target.value
+        setNeighbourhood(val)      
+        selectNeighbourhood(val)  
+    }
+    function handleIsFree(event){
+        setIsFree(!isFree)      
+        selectFree(!isFree)
+        setIsGig(false)          
+    }
+    function handleIsGig(event){
+        setIsGig(!isGig)      
+        selectGig(!isGig) 
+        setIsFree(false)         
     }
 
     return (
-        <Flex gap={4} mb={8}>
-            <Select  w='240px' fontWeight='600' bg="white" color="#232f46"  fontSize='.9rem'  borderRadius="md" name="category" 
-                placeholder="Categories" onChange={handleChange} value={category}>
+        <Flex gap={4} mb={8} mt={-2}>
+            <Select  w='240px' fontWeight='600' bg="white" color="#232f46"  fontSize='.9rem'  borderRadius="md" cursor='pointer'
+                placeholder="Categories" name="category" onChange={handleCategories} value={category}>
                 {categoryList.map((neighbourhood) => (
                     <option key={neighbourhood} value={neighbourhood}>
                         {optionDisplay(neighbourhood)}
@@ -46,8 +63,8 @@ const MarketplaceFilters = () => {
                 ))}
             </Select>   
 
-            <Select  w='240px' fontWeight='600' bg="white" color="#232f46" fontSize='.9rem' borderRadius="md" 
-                placeholder="Neighbourhoods" name="neighbourhood" onChange={handleChange} value={neighbourhood}>
+            <Select  w='240px' fontWeight='600' bg="white" color="#232f46" fontSize='.9rem' borderRadius="md" cursor='pointer'
+                placeholder="Neighbourhoods" name="neighbourhood" onChange={handleNeighbourhoods} value={neighbourhood}>
                 {neighbourhoodList.map((neighbourhood) => (
                     <option key={neighbourhood} value={neighbourhood}>
                         {optionDisplay(neighbourhood)}
@@ -55,8 +72,8 @@ const MarketplaceFilters = () => {
                 ))}
             </Select>  
 
-            <Button className='minimal-toggle-btn' h='40px !important'>Free</Button>
-            <Button className='minimal-toggle-btn' h='40px !important'>Gigs & Jobs</Button>
+            <Button className={`minimal-toggle-btn ${isFree && 'current-border'}`} h='40px !important' onClick={handleIsFree}>Free</Button>
+            <Button className={`minimal-toggle-btn ${isGig && 'current-border'}`}  h='40px !important' onClick={handleIsGig}>Gigs & Jobs</Button>
         </Flex>           
     )
 }

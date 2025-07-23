@@ -1,6 +1,6 @@
 import {  useOutletContext } from 'react-router'
 import { useEffect, useState } from 'react'
-import { Flex, Box, Text, Link  } from '@chakra-ui/react';
+import { Flex, Box, Text, Link, Image  } from '@chakra-ui/react';
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 import '../Onboarding/onboarding.css'
@@ -31,17 +31,17 @@ const Dashboard = () => {
     }
 
     return (
-        <div className='dashboard-container'> 
+        <Box className='dashboard-container'> 
             <Flex maxW="1000px">
-                <Box flex="0 0 70%" maxW='700px'> 
+                <Box flex="0 0 70%" maxW='660px'> 
                     <NewPost currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
 
                     <Box p={5}>
                         <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
                     </Box>
                 </Box>
-                <Box className="side-content" flex="0 0 30%" maxW='300px' overflowY="auto" position="sticky" top={0} ml={4}>                    
-                    <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">
+                <Box className="side-content" flex="0 0 30%" maxW='340px' position="sticky" top={0} alignSelf="flex-start"> {/* debugging solution, alignSelf makes it stick, thanks GPT */}                   
+                    <Box className='default-border' p={0} mt={2} maxW="300px">
                         <Link href='https://www.demo-sgknowledge.com/' _hover={{ textDecoration: 'none', color: 'black' }}>
                             <img src='/images/sample-sponsor1.png' className='sponsor-img' />
                             <Text textAlign='center' mt={4} mb={2} textDecoration="none" fontWeight='200'>
@@ -50,10 +50,10 @@ const Dashboard = () => {
                             <img src='/images/sample-sponsor2.png' className='sponsor-img'/>
                         </Link>
                     </Box>
-                    <img src='/images/sample-sponsor-3.png' />
+                    <Image mt={2} src='/images/sample-sponsor-3.png' />
                 </Box>
             </Flex> 
-        </div>
+        </Box>
     )
 }
 

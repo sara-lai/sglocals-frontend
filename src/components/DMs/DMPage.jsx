@@ -24,17 +24,21 @@ const DMPage = () => {
     const pusherRef = useRef(null)
     const [searchParams] = useSearchParams() // for creating chats from other parts of the app
     const otherUserFromParams = searchParams.get('chattingWith')
+    const listingFromParams = searchParams.get('aboutListing') // for marketplace-specific chats
 
     dayjs.extend(relativeTime) 
     function timeAgoFormat(time){
         return dayjs(time).fromNow()
     }
 
-    async function createNewChat(other_user_id){
+    async function createNewChat(other_user_id, listing=false){
         const token = await getToken()
 
         // this returns the old chat if already exists!
-        const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
+        const newDM = await dmService.createNewDM({
+            other_user_id: other_user_id, 
+            listing_id: listing // marketplace listing, false by default
+        }, token) 
        
         setSelectedDM(newDM)
         // todo - some logic to prevent duplicate chats, before setAllDMs
@@ -65,7 +69,8 @@ const DMPage = () => {
     useEffect(() => {
         if (otherUserFromParams){
             console.log('new chat via params!', otherUserFromParams)
-            createNewChat(otherUserFromParams)
+            console.log('is marketplace listing?', listingFromParams)
+            createNewChat(otherUserFromParams, listingFromParams)
         }        
     }, [otherUserFromParams]) // trying to prevent some overwrite condition when new chat from params
 

@@ -12,14 +12,25 @@ const DMsSummary = ({ allDMs, currentUser, setSelectedDM }) => {
         } else {
             otherUser = dm.user1
         }
+
+        // maybe some other day
+        // // show a bit of last (or first?) message 
+        // let lastMsg = null
+        // if (dm.messages){
+        //     lastMsg = dm.messages[dm.messages.length - 1]
+        // }
+
         return (
-            <Flex gap={3}>
-                <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={otherUser.profileImg} name={otherUser.fullName?.[0]} />
-                <Flex direction='column' >
-                    <Text fontWeight='600' fontSize='1.1rem'>{otherUser.fullName}</Text>
-                    <Text color='#576580' fontWeight='500'>{otherUser.neighbourhood}</Text>
-                </Flex>
-            </Flex>            
+            <>
+                <Flex gap={3}>
+                    <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={otherUser.profileImg} name={otherUser.fullName?.[0]} />
+                    <Flex direction='column' >
+                        <Text fontWeight='600' fontSize='1.1rem'>{otherUser.fullName}</Text>
+                        <Text color='#576580' fontWeight='500'>{otherUser.neighbourhood}</Text>
+                    </Flex>                
+                </Flex>    
+                {/* <Text>{lastMsg?.text}</Text>       */}
+            </>  
         )
     }
 

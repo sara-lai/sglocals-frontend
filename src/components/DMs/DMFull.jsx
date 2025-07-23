@@ -1,10 +1,12 @@
-import { Box, Flex, Text, Avatar, Button, Input, Divider } from "@chakra-ui/react"
+import { useNavigate } from "react-router"
+import { Box, Flex, Text, Avatar, Button, Input, Divider, Image } from "@chakra-ui/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages } from '@fortawesome/free-regular-svg-icons'
 import { useState } from "react"
 
 const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) => {
     const [message, setMessage] = useState('')
+    const navigate = useNavigate()
 
     // need to determine which user is 1 or 2 (current vs other)
     let otherUser = null
@@ -38,6 +40,17 @@ const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) =>
 
             <Box h="100%" p={4} className='content-scroll'>
                 <Flex direction='column' gap={4}>
+                    {selectedDM.isMarketplace && 
+                        <>
+                            <Flex gap={4} align='center'>
+                                <Image src={selectedDM.listing.image} h='50px' w='50px' />
+                                <Box>
+                                    <Text>{selectedDM.listing.title}</Text>
+                                    <Text>${selectedDM.listing.price}</Text>
+                                </Box>
+                            </Flex>
+                         </>
+                    }
                     {selectedDM.messages.map(msg => (
                         <Flex gap={2} p={2}>
                             <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={msg.user.profileImg} name={msg.user.fullName?.[0]} />

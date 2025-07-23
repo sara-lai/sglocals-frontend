@@ -1,20 +1,23 @@
 // can be your created group, or you can just be a member, or you can just be a guest (diff UI)
-import {  useOutletContext } from 'react-router'
+import {  useOutletContext, useNavigate } from 'react-router'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useAuth } from '@clerk/clerk-react'
-import { Box, Flex, Button, Heading, Text, Icon, IconButton, Image, Avatar, Input } from '@chakra-ui/react'
+import { Box, Flex, Button, Heading, Text, Icon, IconButton, Image } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, useDisclosure  } from '@chakra-ui/react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { FiTrash } from "react-icons/fi"
 
 // group conversations, re-using work for posts
 import NewGroupPost from './NewGroupPost'
 import ContentFeed from '../Dashboard/ContentFeed'
+import UserSearch from '../DMs/UserSearch'
 
 import '../Profile/profile.css' // tmp
 import './groups.css'
 
 import * as groupService from '../../services/groupService'
+import * as userService from '../../services/userService'
 
 const ViewGroup = () => {
     const { currentUser } = useOutletContext()    
@@ -23,6 +26,16 @@ const ViewGroup = () => {
     const [group, setGroup] = useState({})
     const [notice, setNotice] = useState(true)
     const [groupPosts, setGroupPosts] = useState([])
+    const navigate = useNavigate()
+
+    // view members, or invite users (drop into chat for now)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [usersData, setUsersData] = useState([])
+
+    function createNewChat(userId){
+        // will represent the invite, chattingWith key launches new chat
+       navigate(`/dms?chattingWith=${userId}`)
+    }
 
     function deleteGroup(){
         console.log('deleting todo')
@@ -51,6 +64,11 @@ const ViewGroup = () => {
         setGroupPosts([newPost, ...groupPosts])
     }
 
+    async function getUsersForInvites() {
+        const token = await getToken()
+        const users = await userService.getAvailableUsers(token)
+        setUsersData(users)
+    }
     async function fetchGroupData(){
         const token = await getToken()
 
@@ -66,6 +84,7 @@ const ViewGroup = () => {
     }    
     useEffect(() => {       
         fetchGroupData()
+        getUsersForInvites()
     }, [])  
     
     return (
@@ -88,7 +107,7 @@ const ViewGroup = () => {
                         </Flex>
                         <Flex justify='space-between' align='center'>
                             {isCurrentUserMember() &&
-                                <Button className='btn-default' onClick={() => console.log('todo launch UserSearch')}>Invite</Button>
+                                <Button className='btn-default' onClick={onOpen}>Invite</Button>
                             }
                             {!isCurrentUserMember() &&
                                 <Button className='btn-default' onClick={joinGroup}>Join</Button>
@@ -130,7 +149,16 @@ const ViewGroup = () => {
                 <Flex mt={10} justify='center'>
                     <Image w='360px' src='/images/tmp-group-convo-empty.png' />
                 </Flex>      
-            }            
+            }          
+
+            <Modal isOpen={isOpen} onClose={onClose} size='override' isCentered>
+                <ModalOverlay bg="blackAlpha.600" />
+                <ModalContent className='post-full-modal' w='400px' p={4}>
+                    <ModalCloseButton className='btn-close' />
+                        <Heading size='md' mb={3.5}>Invite a neighbour</Heading>
+                        <UserSearch users={usersData} createNewChat={createNewChat} />
+                </ModalContent>
+            </Modal>              
         </Box>
     )
 }

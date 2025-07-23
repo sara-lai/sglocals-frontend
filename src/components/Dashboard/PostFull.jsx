@@ -7,6 +7,8 @@ import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
 
 import * as postService from '../../services/postService'
 
+import ImageCarousel from '../../utils/ImageCarousel'
+
 import './dashboard.css'
 
 const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFeed, theFeed, setSelectedPost }) => {
@@ -57,8 +59,11 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
    
         <Flex w="100%">
             {isImagePost && (
-                <Box w="650px" bg='black' display='flex' alignItems='center' justifyContent='center'>
-                    <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" h='700px' /> 
+                <Box bg='black' display='flex' alignItems='center' justifyContent='center'>
+                    <Box w="600px" h="600px"> {/* fixed dimensions make carousel debugging way easier */}
+                        <ImageCarousel imageUrls={post.imageUrls} containOrCover='cover' maxHeight='700px' />
+                    </Box>
+                    {/* <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" h='700px' />  */}
                 </Box>
             )}
             <Flex w={isImagePost ? "440px" : "100%"} flexGrow={1} direction='column' justify='space-between'>

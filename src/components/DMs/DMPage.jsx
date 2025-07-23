@@ -20,6 +20,7 @@ const DMPage = () => {
     const { getToken } = useAuth()
     const [ allDMs, setAllDMs ] = useState([])
     const [ selectedDM, setSelectedDM ] = useState({})
+    const [allDMsLoaded, setAllDMsLoaded] = useState(false) // to coordinate more useEffects
     const { currentUser } = useOutletContext() 
     const pusherRef = useRef(null)
     const [searchParams] = useSearchParams() // for creating chats from other parts of the app
@@ -41,7 +42,6 @@ const DMPage = () => {
         }, token) 
        
         setSelectedDM(newDM)
-        // todo - some logic to prevent duplicate chats, before setAllDMs
         setAllDMs([newDM, ...allDMs ])
 
         onClose() // close the modal 
@@ -50,29 +50,31 @@ const DMPage = () => {
     async function createNewMessage(message){
         const token = await getToken()
         const newMsg = { message: message, dm_id: selectedDM._id }        
-        const newDM = await dmService.addMessageToDM(newMsg, token) // this returns a NEW DM not a new Msg
-        console.log('is this newDM from DB', newDM)
-        setSelectedDM(newDM)
-      
-        // todo - hmmm i should put this in state var first to update immediately.... have to construct full object in meantime....
+        const updatedDM = await dmService.addMessageToDM(newMsg, token) // this returns the updated DM not a new Msg
+        setSelectedDM(updatedDM)
+
+        // put the updated DM at the top of allDMs!
+        let allChats = [...allDMs]
+        allChats = allChats.filter(chat => chat._id !== updatedDM._id) // filter out that the DM and then push to front
+        setAllDMs([updatedDM, ...allChats ]) 
     }
 
     async function getDataForDMs(){
         const token = await getToken()
         const userDMs = await dmService.getDMsForCurrentUser(token)
         setAllDMs(userDMs)
+        setAllDMsLoaded(true)
     }
     useEffect(() => {
         getDataForDMs()
     }, [])
 
     useEffect(() => {
-        if (otherUserFromParams){
-            console.log('new chat via params!', otherUserFromParams)
-            console.log('is marketplace listing?', listingFromParams)
+        if (otherUserFromParams && allDMsLoaded){
+            console.log('new chat via params!', otherUserFromParams, 'is marketplace listing?',  listingFromParams)
             createNewChat(otherUserFromParams, listingFromParams)
         }        
-    }, [otherUserFromParams]) // trying to prevent some overwrite condition when new chat from params
+    }, [otherUserFromParams, allDMsLoaded]) // trying to prevent some overwrite condition when new chat from params
 
 
     useEffect(() => {

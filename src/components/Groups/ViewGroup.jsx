@@ -141,7 +141,7 @@ const ViewGroup = () => {
             }
             {groupPosts.length > 0 &&
                 <Box mt={16}>
-                    <ContentFeed theFeed={groupPosts} setContentFeed={setGroupPosts} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />            
+                    <ContentFeed theFeed={groupPosts} setContentFeed={setGroupPosts} currentUser={currentUser} addTopOfFeed={addTopOfFeed} forGroup={true} />            
                 </Box>
             }
             

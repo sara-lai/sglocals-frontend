@@ -9,7 +9,7 @@ import * as postService from '../../services/postService'
 
 import ImageCarousel from '../../utils/ImageCarousel'
 
-const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed }) => {
+const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed, forGroup }) => {
     // console.log('postSummary here!!', post)
     // todo noticed bug! seems to re-render all postSummaries just typing in form for the Repost (not a problem for regular post)
 
@@ -20,10 +20,10 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
     const [content, setContent] = useState('') // for repost 
     const [repost, setRepost] = useState({})
 
-    async function handleSubmit(){
+    async function createRepost(){
         // this is creating a brand new post BUT with a repost attached
         const token = await getToken()
-        const postData = { content: content, repost_id: post._id, repost_type: 'post'  }
+        const postData = { content: content, repost_id: post._id, repost_type: 'post', for_group: forGroup  }
         const newPost = await postService.createNewPost(postData, token)
 
         addTopOfFeed(newPost)
@@ -111,7 +111,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 </Flex>          
             </Flex>   
             <NewPostModal isOpen={isOpen} onClose={onClose} content={content} setContent={setContent} 
-                handleSubmit={handleSubmit} theRepost={post}  timeAgoFormat={timeAgoFormat}
+                handleSubmit={createRepost} theRepost={post}  timeAgoFormat={timeAgoFormat}
                  showRepostSummary={showRepostSummary}
             />                 
         </Box>

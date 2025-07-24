@@ -3,9 +3,13 @@ import { Flex, Box, Heading, Input, InputGroup, InputLeftElement, Avatar, Text }
 import { SearchIcon } from '@chakra-ui/icons'
 import Fuse from 'fuse.js'
 
-const UserSearch = ({ users }) => {
+const UserSearch = ({ users, createNewChat }) => {      
     const [query, setQuery] = useState('')
     const fuse = new Fuse(users, { keys: ['fullName'], threshold: 0.3 })
+
+    // todo - a way to filter out users where already a chat
+    // BUT in a way where this component cna be used by groups/events
+
     let results = [] // or set it to all users as the default!
     if (query) {
         results = fuse.search(query).map(({ item }) => item) // see Fuse docs ( the map destructures results)
@@ -22,7 +26,7 @@ const UserSearch = ({ users }) => {
 
             <Flex direction='column' gap={3} h="400px" overflowY="auto" mt={6}>
                 {results.map(user => (
-                    <Box m={2} cursor='pointer'>
+                    <Box m={2} cursor='pointer' onClick={() => createNewChat(user.user_id)}>
                         <Flex gap={2}>
                             <Avatar sx={{ w: '3.3rem', h: '3.3rem' }} src={user.profileImg} name={user.fullName?.[0]} />
                             <Flex direction='column' >

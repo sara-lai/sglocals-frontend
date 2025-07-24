@@ -5,6 +5,12 @@ import { AddIcon } from '@chakra-ui/icons'
 import { uploadWidget } from '../../../utils/cloudinaryUpload'
 import { eventAPI } from '../../../services/eventService'
 import { useAuth } from '@clerk/clerk-react'
+import MyApp from '../EventDate'
+
+
+
+
+
 // import './EventCard.css'
 
 import UploadImage from './UploadImage';
@@ -38,10 +44,11 @@ const EventForm = (props) => {
                 organizer: eventOrganizer.value,
                 description: eventDescription.value,
                 image: imageUrls,
+                createdby: userId,
                 users: [userId]
             }
             const callApi = await eventAPI(postRequest, token, requestObj);
-            props.seteventAdded(true);
+            props.seteventAdded(prev => prev + 1);
             console.log(requestObj);
 
             onClose();
@@ -85,6 +92,8 @@ const EventForm = (props) => {
                             placeholder='Please enter event name'
                             />
                         </Box>
+
+
                         <Box>
                             <FormLabel htmlFor='eventorganizer'>Event Organizer</FormLabel>
                             <Input
@@ -94,6 +103,7 @@ const EventForm = (props) => {
                             ></Input>
                         </Box>
 
+
                         <Box>
                             <FormLabel htmlFor='desc'>Description</FormLabel>
                             <Textarea id='eventDescription' />
@@ -101,6 +111,7 @@ const EventForm = (props) => {
                         <Box>
                             <UploadImage setFileList={setFileList} fileList={fileList} imageUrls={imageUrls} setImageUrls={setImageUrls}/>
                         </Box>
+\
                         </Stack>
                     </DrawerBody>
 

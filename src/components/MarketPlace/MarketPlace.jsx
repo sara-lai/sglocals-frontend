@@ -7,7 +7,7 @@ import { useAuth } from '@clerk/clerk-react'
 import MarketPlaceCard from './MarketPlaceCard';
 import AllListings from './AllListings';
 import YourListings from './YourListings';
-import SavedListings from './SavedListings'
+//import SavedListings from './SavedListings'
 // import MarketPlaceForm from './MarketPlaceForm'
 import NewListing from './NewListing';
 
@@ -61,7 +61,7 @@ const MarketPlace = () => {
         
           {tab === 'all' &&  <AllListings allListings={allListings} />}
           {tab === 'yours' &&  <YourListings />}
-          {tab === 'saved' &&  <SavedListings />}
+          {/* {tab === 'saved' &&  <SavedListings />} */}
         </Box>
         
     </div>

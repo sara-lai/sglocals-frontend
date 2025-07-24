@@ -50,8 +50,6 @@ const eventAPI = async (requestType, token, payload, eventId, updateType) => {
         console.error(error.message);
     }
 
-
-
 };
 
 export { eventAPI };

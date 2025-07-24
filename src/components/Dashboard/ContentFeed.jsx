@@ -1,6 +1,7 @@
 // open question how to build the Content Feed
 import { useState } from 'react'
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody  } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Box, Flex, Avatar, IconButton } from '@chakra-ui/react'
+import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi"
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 
@@ -13,8 +14,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { useDisclosure } from '@chakra-ui/react' // for modals
 
-const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
-
+const ContentFeed = ( { theFeed, setContentFeed, currentUser, addTopOfFeed, forGroup }) => {
     const { getToken } = useAuth() // todo - trouble passing token from parent, re-doing here
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedPost, setSelectedPost] = useState({})
@@ -75,12 +75,12 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
         setContentFeed(newFeed)
 
         const token = await getToken()
-        const deleted = postService.deletePost(token, postId)
+        const deleted = await postService.deletePost(token, postId)
         console.log(deleted)
     }
 
     return (
-        <div className='content-feed-container'>
+        <Box>
             {theFeed.map(  (post) => (
                 <PostSummary 
                     post={post} 
@@ -88,12 +88,14 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                     updateLikes={updateLikes} 
                     showFullPost={showFullPost} 
                     deletePost={deletePost}
+                    addTopOfFeed={addTopOfFeed}
+                    forGroup={forGroup}
                 />
             ))}
 
             <Modal isOpen={isOpen} onClose={onClose} size='override' >
                 <ModalOverlay bg="blackAlpha.600" />
-                <ModalContent className='post-full-modal' w={selectedPost.imageUrls?.length > 0 ? "1000px" : "640px"}>
+                <ModalContent className='post-full-modal' w={selectedPost.imageUrls?.length > 0 ? "1100px" : "640px"}>
                     <ModalCloseButton className='btn-close' />
                         <PostFull
                             post={selectedPost} 
@@ -106,8 +108,52 @@ const ContentFeed = ( { theFeed, setContentFeed, currentUser }) => {
                         />
                 </ModalContent>
             </Modal>
+            {theFeed.map(  (post, i) => (
+                <Box className='post-card' key={i} mb={4} boxShadow="sm">
+                    <div className='post-top-matter'>
+                        <Flex direction="" align="center" gap={2}>
+                            <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={post.user?.profileimg} name={post.user?.fullName?.[0]} />
+                            <div className='post-info-set'>
+                                <div className='avatar-name'>{post.user?.fullName}</div>
+                                <Flex gap={2}>
+                                    <p>{post.user?.neighbourhood}</p>
+                                    <p>todo format {post.createdAt}</p>
+                                </Flex>
+                            </div>
+                        </Flex>  
+                    </div>                                   
+                    <div className='post-content'>
+                        {post.content}
+                    </div>
+                    <div className='post-action-row'>
 
-        </div>
+                            <Flex justifyContent='space-between'>
+                                <Flex gap={2}>                         
+                                    {/* <Flex className='icon-stat-set' alignItems='center'> */}
+                                    <Flex className='icon-stat-set' alignItems={{base:'center',sm:'flex-start',lg:'flex-end'}}>
+
+                                        <IconButton icon={<FiHeart />} variant="ghost" size="lg" />
+                                        <div className='post-stat'>
+                                            1
+                                        </div>
+                                    </Flex>                            
+                                    <Flex className='icon-stat-set' alignItems='center'>
+                                        <IconButton icon={<FiMessageSquare />} variant="ghost" size="lg" />
+                                        <div className='post-stat'>
+                                            3
+                                        </div>
+                                    </Flex>
+                                </Flex>
+                                <Flex className='icon-stat-set' alignItems='center'>
+                                    <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
+                                </Flex>
+                            </Flex>
+
+                    </div>
+                </Box>
+            ))}
+
+        </Box>
     )
 }
 

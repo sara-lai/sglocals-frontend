@@ -1,12 +1,47 @@
+import { useState, useEffect } from 'react'
 import {  useOutletContext, useNavigate } from 'react-router'
-import {  Avatar,  Box,  Flex, IconButton, Image  } from '@chakra-ui/react'
-import { FiHeart, FiMessageSquare, FiRepeat, FiTrash } from "react-icons/fi" // Fi vs Fa??
+import {  Avatar,  Box,  Flex, IconButton, Image, useDisclosure  } from '@chakra-ui/react'
+import { FiHeart, FiMessageSquare, FiRepeat, FiTrash, FiArrowLeft, FiArrowRight } from "react-icons/fi" // Fi vs Fa??
 import './dashboard.css'
+import { useAuth } from '@clerk/clerk-react'
+import NewPostModal from './NewPostModal'
+import * as postService from '../../services/postService'
 
-const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost }) => {
-    const postImg = post.imageUrls?.[0]  // testing tmp
+import ImageCarousel from '../../utils/ImageCarousel'
+import RepostSummary from './RepostSummary'
+
+const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed, forGroup }) => {
+    // console.log('postSummary here!!', post)
+    // todo noticed bug! seems to re-render all postSummaries just typing in form for the Repost (not a problem for regular post)
+
     const { currentUser } = useOutletContext()
     const  navigate = useNavigate()
+    const { getToken } = useAuth()
+    const { isOpen, onOpen, onClose } = useDisclosure() // for repost
+    const [content, setContent] = useState('') // for repost 
+    const [repost, setRepost] = useState({})
+
+    async function createRepost(){
+        // this is creating a brand new post BUT with a repost attached
+        const token = await getToken()
+        const postData = { content: content, repost_id: post._id, repost_type: 'post', for_group: forGroup  }
+        const newPost = await postService.createNewPost(postData, token)
+
+        addTopOfFeed(newPost)
+
+        setContent('')  // reset & close
+        onClose()        
+    }
+
+    async function fetchRepost() {
+        if (!post.repost_id) return 
+        const token = await getToken()
+        const repostData = await postService.getPostForRepost(post.repost_id, token)       
+        setRepost(repostData)
+    }
+    useEffect(() => {
+        fetchRepost()
+    }, [post]) // unpredictbale buggy without this re-fetch after reposts occurs!!
 
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
@@ -23,9 +58,13 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
             <Box className='post-content' mb={1} pl={6} onClick={() => showFullPost(post._id)}>
                 {post.content}
             </Box>
-            <div className='post-summary-img'>
-                {postImg && <Image src={postImg} mt={4} width="100%" objectFit="cover" _hover={{ cursor: 'pointer' }}  onClick={() => showFullPost(post._id)} />}
-            </div>
+            {post.repost_id && <Box p={4}>
+                <RepostSummary theRepost={repost} showFullPost={showFullPost} />
+            </Box>}
+
+            {/* the carousel */}
+            <ImageCarousel imageUrls={post.imageUrls} onImageClick={() => showFullPost(post._id)} />
+
             <Flex className='post-action-row' justifyContent='space-between' p={4}>
                 <Flex gap={2}>                         
                     <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    
@@ -43,14 +82,17 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                             <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
                         </Flex>
                     )}
-                    <Flex className='icon-stat-set' alignItems='center'>
+                    <Flex className='icon-stat-set' alignItems='center' onClick={onOpen}>
                         <IconButton icon={<FiRepeat />} variant="ghost" size="lg" />
                     </Flex>                    
                 </Flex>          
-            </Flex>                    
+            </Flex>   
+            <NewPostModal isOpen={isOpen} onClose={onClose} content={content} setContent={setContent} 
+                handleSubmit={createRepost} theRepost={post}  timeAgoFormat={timeAgoFormat}
+                showFullPost={showFullPost}
+            />                 
         </Box>
     )
-
 }
 
 export default PostSummary

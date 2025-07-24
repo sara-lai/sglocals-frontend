@@ -8,7 +8,7 @@ import UserSearch from "./UserSearch"
 // the UserSearch feature was made own component to make Fuse search easier 
 // This component basically just fetches data and passes it down
 
-const NewDM = () => {
+const NewDM = ({ createNewChat }) => {
     const [usersData, setUsersData] = useState([])
     const { getToken } = useAuth()
 
@@ -25,7 +25,7 @@ const NewDM = () => {
     return (
         <Box>
             <Heading size='md' mb={3.5}>Create a chat</Heading>
-            <UserSearch users={usersData} />
+            <UserSearch users={usersData} createNewChat={createNewChat} />
         </Box>
     )
 }

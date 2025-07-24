@@ -21,7 +21,7 @@
  }
 
 .side-content {
-    margin-top: 40px; /* clearance for upper-right btns */
+    margin-top: 32px; /* clearance for upper-right btns */
     padding: 20px;
     padding-left: 4px;
 }
@@ -34,6 +34,7 @@
     align-items: center;
     justify-content: start;
     margin-left: 30px;
+    margin-top: 10px;
 }
 
 .logo-top-nav img {
@@ -92,11 +93,6 @@
 }
 .avatar-nhood {
     letter-spacing: .1px;
-}
-
-
- .content-feed-container {
-    padding: 20px;
 }
 
 /* Posts in content feed related.... tweaks to Chakra */
@@ -189,4 +185,20 @@ button.action-icon {
 
 .sponsor-img {
     border-radius: 12px;
+}
+
+/* temp testing slider styles */
+.slick-arrow {
+    z-index: 1;
+    color: rgba(0,0,0,.6) !important;
+    stroke-width: 3px;
+}
+svg.slick-arrow {
+    font-size: 40px;
+}
+.slick-arrow.slick-prev {
+    left: 10px; 
+}
+.slick-arrow.slick-next {
+    right: 10px; 
 }

@@ -14,12 +14,36 @@ const createNewPost = async (postData, token) => {
              throw new Error(`HTTP problem ${response.status}`);
         }
         const data = await response.json();
-        return data
+        return data.post
     } catch (err) {
         console.log(err)
         throw new Error(err)
     }
  }
+
+const createNewPostForGroup = async (postData, groupId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/forGroup/' + groupId , { 
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            },
+            body: JSON.stringify({
+                post: postData,
+                group_id: groupId,
+            })
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.post
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
+}
 
  // just returns all posts for now
 const getPostsForNeighbourhood = async (token) => {
@@ -76,6 +100,24 @@ const getPostsForAnyUser = async (userId, token) => {
     }    
 }
 
+const getPostForRepost = async (postId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/' + postId , { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.post
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }       
+}
+
 // update post, generic for anything
 const updatePost = async (token, postData) =>{
     try {
@@ -120,9 +162,11 @@ const deletePost = async (token, postId) =>{
 
 export {
     createNewPost,
+    createNewPostForGroup,
     getPostsForNeighbourhood,
     getPostsForCurrentUser,
     getPostsForAnyUser,
+    getPostForRepost,
     updatePost,
     deletePost,
 }

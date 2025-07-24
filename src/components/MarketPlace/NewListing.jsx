@@ -94,7 +94,7 @@ const NewListing = ({ createListing }) => {
                     />
                     <Flex gap={4}>
                         <Flex align='center' gap={2}>
-                            <Text fontSize='1.1rem' opacity='.6'>S$</Text>
+                            <Text fontSize='1.1rem' opacity='.6'>$</Text>
                             <Input  name='price' value={price} onChange={handleChange}
                                 h='56px' borderRadius='14px' maxW='200px'
                                 placeholder='Price'

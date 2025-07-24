@@ -40,6 +40,7 @@ const ViewListing = () => {
 
         // also fetch All listings for display more
         const listingsData = await marketplaceService.getListingsForAll(token)
+        console.log('fetched all listings', listingsData)
         setAllListings(listingsData)        
     }
     useEffect(() => {
@@ -64,7 +65,7 @@ const ViewListing = () => {
                         <FontAwesomeIcon icon={faBookmark}  size="xl" cursor="pointer"/>
                     </Box>
                     <Heading size='md' maxW='260px'>{listing.title}</Heading>
-                    <Text color='#576580' fontWeight='600'>S${listing.price}</Text>
+                    <Text color='#576580' fontWeight='600'>${listing.price}</Text>
                     
                     {/* user info of listing creator */}
                     <Flex direction="row" align="center" gap={1} mt={2} mb={4} cursor='pointer' onClick={() => navigate("/profile/" +  listing.userId)} >

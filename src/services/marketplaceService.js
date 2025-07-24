@@ -16,7 +16,7 @@ const createNewListing = async (itemData, token) => {
         }
         const data = await response.json();
         console.log(data)
-        return data
+        return data.listing
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -36,7 +36,7 @@ const getListingsForAll = async (token) => {
         }
         const data = await response.json();
         console.log(data)
-        return data.items
+        return data.listings
     } catch (err) {
         console.log(err)
         throw new Error(err)

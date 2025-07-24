@@ -54,7 +54,7 @@ const getListingsForCurrentUser = async (token) => {
              throw new Error(`HTTP problem ${response.status}`);
         }
         const data = await response.json();
-        return data.posts
+        return data.listings
     } catch (err) {
         console.log(err)
         throw new Error(err)

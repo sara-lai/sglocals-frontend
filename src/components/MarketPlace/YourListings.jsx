@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router';
 import { Image, Flex, Text, Box, Button } from '@chakra-ui/react';
-import {  useDisclosure } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 import { useAuth } from '@clerk/clerk-react'
 import NewListing from './NewListing';
 import MarketPlaceCard from './MarketPlaceCard';
@@ -29,8 +29,8 @@ const YourListings = ({ yourListings }) => {
                     <Flex gap={4} mt={6}>
                         {yourListings.map(listing => (
                             <MarketPlaceCard listing={listing}/>
-                        ))}                            
-                    </Flex>     
+                        ))} 
+                    </Flex> 
                 </>          
             }    
             {yourListings.length === 0 && 

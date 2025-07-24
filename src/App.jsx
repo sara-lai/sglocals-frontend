@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router'
 
 import './App.css'
@@ -14,8 +15,11 @@ import Events from './components/Events/EventTab'
 import DMPage from './components/DMs/DMPage'
 import GroupsPage from './components/Groups/AllGroupsPage'
 import ViewGroup from './components/Groups/ViewGroup'
+import MarketPlace from './components/MarketPlace/MarketPlace'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import { Mark } from '@chakra-ui/react'
+
 
 function App() {
   
@@ -25,10 +29,11 @@ function App() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} /> 
       <Route path="/onboarding" element={<Onboarding />} />
-
+    
       <Route element={<Layout />}>
         <Route path="/events" element={<Events />} />      
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/dms" element={<DMPage />} />
@@ -45,6 +50,7 @@ function App() {
           <SignedOut>
             <RedirectToSignIn redirectUrl="/sign-in" />
           </SignedOut>
+          <MarketPlace />
         </>
       }/> */}
 

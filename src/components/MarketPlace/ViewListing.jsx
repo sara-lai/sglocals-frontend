@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useOutletContext } from 'react-router';
-import { Image, Flex, Text, Box, Button, Heading, Icon, Avatar, SimpleGrid, Input } from '@chakra-ui/react';
-import { ArrowBackIcon } from '@chakra-ui/icons'
+import { Flex, Text, Box, Button, Heading, Icon, Avatar, SimpleGrid, Input, IconButton } from '@chakra-ui/react';
+import { ArrowBackIcon, EditIcon } from '@chakra-ui/icons'
+import { FiTrash } from "react-icons/fi"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComments, faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { useAuth } from '@clerk/clerk-react'
@@ -43,9 +44,25 @@ const ViewListing = () => {
         console.log('fetched all listings', listingsData)
         setAllListings(listingsData)        
     }
+
     useEffect(() => {
         fetchListing()
     }, [id]) // the id is needed so it will re-run everything if click on new item from within this page
+
+    const editListing = async () => {
+        const token = await getToken();
+        const updatedListing = await marketplaceService.updateListing(token, id)
+        console.log('updated listing', updatedListing)
+        navigate(`/listing/`) // redirect to the updated listing
+    }   
+//${updatedListing._id}
+    const deleteListing = async () => {
+        
+        const token = await getToken()
+        const deletedListing = await marketplaceService.deleteListing(token, id)
+        console.log('Listing deleted..', deletedListing)
+        navigate('/marketplace') // redirect to marketplace after deletion
+    }
 
     return (
         <Box>                 
@@ -62,7 +79,11 @@ const ViewListing = () => {
                 </Box>  
                 <Flex direction='column' className='default-border' h='100%' w='350px' position="sticky" top={0} ml={4} p={5} gap={2} > 
                     <Box position='absolute' top='4' right='4' onClick={()=> console.log('todo favouriting feature')}>
+                    
                         <FontAwesomeIcon icon={faBookmark}  size="xl" cursor="pointer"/>
+                    <Flex direction="row" justify="right" gap={4} onClick={editListing}>
+                        <EditIcon direction="row" justify="right" gap={4}/>
+                    </Flex>    
                     </Box>
                     <Heading size='md' maxW='260px'>{listing.title}</Heading>
                     <Text color='#576580' fontWeight='600'>${listing.price}</Text>
@@ -80,6 +101,9 @@ const ViewListing = () => {
                     <Text mb={2}>{listing.description}</Text>
                     <Text fontSize='.9rem'>{timeAgoFormat(listing.createdAt)}</Text>
                     
+                    <Flex direction="row" justify="right" gap={4} onClick={deleteListing}>
+                        <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
+                    </Flex>
                     <Box className='default-border' mt={6}>
                         <Flex gap={2}>
                             <FontAwesomeIcon icon={faComments}  size="xl" cursor="pointer" />
@@ -94,7 +118,6 @@ const ViewListing = () => {
                     </Box>                                
                 </Flex>
             </Flex>
-
             <Box mt={20}>
                 <Heading size='md'>More listings in your neighbourhood</Heading>
                 <Box mt={10}>

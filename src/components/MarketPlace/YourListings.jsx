@@ -11,7 +11,7 @@ import * as marketplaceService from '../../services/marketplaceService'
 const YourListings = ({ yourListings }) => {
     const { isOpen, onOpen, onClose } = useDisclosure() // modals
     const { getToken } = useAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     async function createListing(newListingData){
         // one approach: redirect them to the newly created listing

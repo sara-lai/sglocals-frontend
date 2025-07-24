@@ -8,7 +8,9 @@ import MarketPlaceCard from './MarketPlaceCard';
 import AllListings from './AllListings';
 import NewListing from './NewListing';
 import YourListings from './YourListings';
-import SavedListings from './SavedListings'
+// import SavedListings from './SavedListings'
+import NewListing from './NewListing';
+
 import * as marketplaceService from '../../services/marketplaceService'
 
 import './marketplace.css';
@@ -59,8 +61,8 @@ const MarketPlace = () => {
         <Box className='hu' mt={4}>
         
           {tab === 'all' &&  <AllListings allListings={allListings} />}
-          {/* {tab === 'yours' &&  <YourListings />}
-          {tab === 'saved' &&  <SavedListings />} */}
+          {tab === 'yours' &&  <YourListings />}
+          {tab === 'saved' &&  <SavedListings />}
         </Box>
         
     </div>

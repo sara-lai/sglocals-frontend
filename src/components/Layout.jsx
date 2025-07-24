@@ -28,8 +28,8 @@ const Layout = () => {
 
     return (
         <div className='app-wrapper'>
-            <Flex  justify="space-between" align="center" gap={4}> {/* refactoring attempt yikes */}
-                <Link to="/dashboard"> {/* todo - align this left with the side bar links */}
+            <Flex  justify="space-between" align="center" gap={4}>
+                <Link to="/dashboard">
                     <div className='logo-top-nav'>
                         <img src='/images/flowers1.png' />
                         <span>Kampong Lah</span>              
@@ -58,12 +58,12 @@ const Layout = () => {
                                 </Box>                                    
                                 <Link to='/marketplace' className='nav-link'>I Buy U Buy</Link>
                             </Flex> 
-                            {/* <Flex gap={2}  alignItems='center'>
+                            <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">
                                     <FiUsers className='fi-icon-thicken' color="gray.700" size="1.5rem" />
                                 </Box>                                    
-                                <Link to='/dashboard' className='nav-link'>Groups</Link>
-                            </Flex>  */}
+                                <Link to='/groups' className='nav-link'>Groups</Link>
+                            </Flex> 
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faCalendarCheck}  size="xl" cursor="pointer" />
@@ -82,8 +82,7 @@ const Layout = () => {
                         </Flex>
                     </Flex>
                 </Box>
-                <Box flex="0 0 80%" overflowY="auto"  p={4} className="content-scroll">
-
+                <Box flex="0 0 80%" overflowY="auto"  p={2} className="content-scroll" mb={20}> {/* mb because sometimes content cuts off bottom */}
                     <Outlet context={{ currentUser, setCurrentUser }} />
                 </Box>
             </Flex>

@@ -20,28 +20,27 @@ const Dashboard = () => {
         // content feed related- -  will take a bunch of time - have to figure out what to put contnet feed
         const posts = await postService.getPostsForNeighbourhood(token)
         setContentFeed(posts)
-
     }
     useEffect( () => {
         loadDataForDashboard()
     }, [] )
 
     function addTopOfFeed(newPost){
-        // todo need to set at top of feed
-        // sort by date instead?
+        console.log('top of content feed', newPost)
         setContentFeed([newPost, ...contentFeed])
     }
 
     return (
         <div className='dashboard-container'> 
-            <Flex maxW="1000px" h="100%">
-                <Box flex="0 0 70%" > 
-                    <NewPost userInfo={currentUser} addTopOfFeed={addTopOfFeed} />
+            <Flex maxW="1000px">
+                <Box flex="0 0 70%" maxW='700px'> 
+                    <NewPost currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
 
-                    <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} />
-
+                    <Box p={5}>
+                        <ContentFeed theFeed={contentFeed} setContentFeed={setContentFeed} currentUser={currentUser} addTopOfFeed={addTopOfFeed} />
+                    </Box>
                 </Box>
-                <Box className="side-content" flex="0 0 30%" h="100%" overflowY="auto" position="sticky" top={0} ml={4}>                    
+                <Box className="side-content" flex="0 0 30%" maxW='300px' overflowY="auto" position="sticky" top={0} ml={4}>                    
                     <Box className='default-border' p={0} mt={2} ml={2} maxW="256px">
                         <Link href='https://www.demo-sgknowledge.com/' _hover={{ textDecoration: 'none', color: 'black' }}>
                             <img src='/images/sample-sponsor1.png' className='sponsor-img' />

@@ -1,9 +1,25 @@
 import { Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
 // import { useState, useContext, useEffect } from "react";
 import './EventCard.css'
+import { useAuth } from '@clerk/clerk-react'
+import { eventAPI } from '../../services/eventService'
 
 const EventCard = (props) => {
+    const { userId, getToken } = useAuth();
 
+    const deleteEventFunction = async () => {
+        const token = await getToken();
+        const requestObj = []
+        // const user = await userService.getCurrentUser(token)
+        let postRequest = 'DELETE';
+        const eventId= props.event._id
+
+        const callApi = await eventAPI(postRequest, token, requestObj, eventId);
+        props.seteventAdded(prev => prev + 1);
+
+        console.log('Hellow');
+    }
+    
     return (
         <>
         
@@ -31,9 +47,12 @@ const EventCard = (props) => {
                     </CardBody>
 
                     <CardFooter>
-                    {/* <Button variant='solid' colorScheme='blue'>
-                        Buy Latte
-                    </Button> */}
+                    {props.event.createdby == userId ? (
+                            <Button variant='solid' colorScheme='red' onClick={deleteEventFunction} >
+                                Delete
+                            </Button>
+                        ) : null }
+                    
                     </CardFooter>
                 </Stack>
                 </Card>   

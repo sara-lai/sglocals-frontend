@@ -1,8 +1,11 @@
-import { ButtonGroup, Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
+import { Highlight, ButtonGroup, Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
 // import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import './EventCard.css'
 import { useAuth } from '@clerk/clerk-react'
+import { FaRegHeart } from "react-icons/fa";
 import { eventAPI } from '../../services/eventService'
+import EventModal from './EventModal'
 
 const EventCard = (props) => {
     const { userId, getToken } = useAuth();
@@ -18,7 +21,7 @@ const EventCard = (props) => {
 
         console.log('Hellow');
     }
-    const participateFunction = async (event) => {
+    const participatingEventFunction = async (event) => {
         const token = await getToken();      
         let postRequest = 'POST';  
         const eventId= props.event._id;
@@ -39,7 +42,7 @@ const EventCard = (props) => {
             
             event.target.innerText = "Interested?"            
         }
-        
+        props.seteventAdded(prev => prev + 1);
     }
 
     const addFavFunction = async (event) => {
@@ -50,6 +53,11 @@ const EventCard = (props) => {
 
         event.target.disabled = true;
     }
+
+    // useEffect(() => {
+    //     props.getEventList;
+    // },[]);
+
     
     return (
         <>
@@ -65,15 +73,28 @@ const EventCard = (props) => {
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '200px' }}
                     src={props.event.image}
-                    alt='Caffe Latte'
+                    alt='image'
                 />
 
                 <Stack>
+
                     <CardBody>
-                    <Heading size='md'>{props.event.name}</Heading>
+                    <div style={{ display: "flex", justifyContent: "left" }}>
+                        <EventModal event= {props.event} seteventAdded={props.seteventAdded}></EventModal>
+                        
+                    </div>
+                                     
+                    <Heading size='md'>Name: {props.event.name}</Heading>
 
                     <Text py='2'>
                         {props.event.description}
+                    </Text>
+
+                    <Text py='2'>
+                        Start: {props.event.eventstart}
+                    </Text>
+                    <Text py='2'>
+                        End: {props.event.eventstart}
                     </Text>
 
                     </CardBody>
@@ -81,10 +102,11 @@ const EventCard = (props) => {
                     <CardFooter>
                     <Stack direction='row' spacing={2} align='center'>
                         {props.event.users.includes(userId) ? (
-                        <Button className='part' colorScheme='teal' variant='outline'  onClick={participateFunction} >
+                        <Button bgColor="red.200" className='part' colorScheme='black' variant='outline'  onClick={participatingEventFunction} >
+                            
                             Participating!  
                         </Button>
-                        ) : <Button className='part' colorScheme='teal' variant='outline' onClick={participateFunction} >
+                        ) : <Button className='part' colorScheme='teal' variant='outline' onClick={participatingEventFunction} >
                             Interested?  
                         </Button>}
 

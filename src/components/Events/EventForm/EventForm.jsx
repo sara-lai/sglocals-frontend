@@ -38,13 +38,17 @@ const EventForm = (props) => {
             const eventName = document.getElementById("eventname"); 
             const eventOrganizer = document.getElementById("eventorganizer");
             const eventDescription = document.getElementById("eventDescription");
-
+            const eventStart = document.getElementById("eventstart");
+            const eventEnd = document.getElementById("eventend");
+            console.log(eventStart.value);
             const requestObj = {
                 name: eventName.value,  
                 organizer: eventOrganizer.value,
                 description: eventDescription.value,
                 image: imageUrls,
                 createdby: userId,
+                eventstart: eventStart.value,
+                eventend: eventStart.value,
                 users: [userId]
             }
             const callApi = await eventAPI(postRequest, token, requestObj);
@@ -85,12 +89,13 @@ const EventForm = (props) => {
 
                     <DrawerBody>
                         <Stack spacing='24px'>
-                        <Box>
+                        <Box required>
                             <FormLabel htmlFor='eventname'>Event Name</FormLabel>
                             <Input
                             ref={firstField}
                             id='eventname'
                             placeholder='Please enter event name'
+                            required
                             />
                         </Box>
 
@@ -101,18 +106,40 @@ const EventForm = (props) => {
                             ref={firstField}
                             id='eventorganizer'
                             placeholder='Please enter event organizer'
+                            required
                             ></Input>
                         </Box>
 
 
                         <Box>
                             <FormLabel htmlFor='desc'>Description</FormLabel>
-                            <Textarea id='eventDescription' />
+                            <Textarea 
+                            id='eventDescription'
+                            required 
+                            />
+                        </Box>
+                        <Box>
+                            <FormLabel htmlFor='desc'>Event Start</FormLabel>
+                            <Input 
+                            placeholder='Select Date and Time' 
+                            size='md' 
+                            type='datetime-local' 
+                            id='eventstart'
+                            />
+                        </Box>
+                        <Box>
+                            <FormLabel htmlFor='desc'>Event End</FormLabel>
+                            <Input 
+                            placeholder='Select Date and Time' 
+                            size='md' 
+                            type='datetime-local' 
+                            id='eventend'
+                            />
                         </Box>
                         <Box>
                             <UploadImage setFileList={setFileList} fileList={fileList} imageUrls={imageUrls} setImageUrls={setImageUrls}/>
                         </Box>
-\
+
                         </Stack>
                     </DrawerBody>
 

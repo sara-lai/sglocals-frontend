@@ -1,22 +1,20 @@
 import EventCard from "./EventCard";
 // import CreateEventsButton from './CreateEventsButton';
 import EventForm from './EventForm/EventForm';
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
 import { Flex, Box, Text, Grid, Button  } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons'
 import { eventAPI } from '../../services/eventService'
 import { useAuth } from '@clerk/clerk-react'
 
 import './Events.css'
-// export const FavContext = createContext();
-export const EventContext = createContext(null);
 
-const Events = () => {
+const ParticipatingEvents = () => {
 const cards = 6;
 const eventCards= [];
 const { userId, getToken } = useAuth();
 const [events, setEvents] = useState([]);
-const [eventAdded, seteventAdded] = useState(0);
+const [eventAdded, seteventAdded] = useState();
 
 // for (let i=0; i<cards; i++) {
 //    eventCards.push(<EventCard key={i}/>);
@@ -27,12 +25,11 @@ useEffect(() => {
     getEventList();
 },[]);
 
-// useEffect(() => {
+useEffect(() => {
     
-// },[events]);
+},[events]);
 
 useEffect(() => {
-    console.log(eventAdded);
     getEventList(); 
 },[eventAdded]);
 
@@ -43,7 +40,6 @@ const getEventList = async () => {
     const getEvents = await eventAPI(postRequest, token);
     console.log(getEvents.users);
     setEvents(getEvents.users);
-    
 }
 
 
@@ -54,15 +50,18 @@ const getEventList = async () => {
             <EventForm seteventAdded={seteventAdded}/>
             <Grid templateColumns="repeat(2, 1fr)" gap="6">
 
-                {events?.map((event, i) => (
+            {events?.map((event, i) => {
+                if (event.users.includes(userId)) {
+                    return (
                     <div className='eventcard' key={i} >
-                    <EventContext.Provider value={ event } >
-                        <EventCard event={event} seteventAdded={seteventAdded} />
-                    </EventContext.Provider>
+                        <EventCard event={event} />
                     </div>
-                ))} 
-
-
+                )
+                } else {
+                    return null;
+                }
+            }    
+            )}
             </Grid>
         </div>
 
@@ -72,4 +71,4 @@ const getEventList = async () => {
     );
 };
 
-export default Events;
+export default ParticipatingEvents;

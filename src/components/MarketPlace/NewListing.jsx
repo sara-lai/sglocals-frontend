@@ -6,9 +6,9 @@ import { FiMapPin, FiAtSign } from 'react-icons/fi'
 import { useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-// import * as postService from '../../services/postService'
 import { uploadWidget } from '../../utils/cloudinaryUpload'
 import './marketplace.css'
+import * as marketplaceService from '../../services/marketplaceService'
 
 // attempting to make this usable for new posts, reposts, and side nav launch
 // open question: set the content/setContent and imageUrls HERE or in the parent(s)?

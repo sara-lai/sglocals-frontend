@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useOutletContext } from 'react-router';
 import { Card,  Image, Flex, Box, Text, IconButton } from '@chakra-ui/react';
 import { FiTrash } from "react-icons/fi"
 import { useAuth } from '@clerk/clerk-react'
@@ -10,6 +10,7 @@ import * as marketplaceService from '../../services/marketplaceService'
 
 const MarketPlaceCard = ({ listing }) => {
   const { getToken } = useAuth()
+  const { currentUser } = useOutletContext()
   const navigate = useNavigate()
   // "time ago" date formatting
   dayjs.extend(relativeTime) 
@@ -43,9 +44,11 @@ const MarketPlaceCard = ({ listing }) => {
           </Text>
           
         </Flex>
-        <Flex classNamedirection="row" justify="right" gap={4} onClick={deleteListing}>
-          <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
-        </Flex>
+        {listing.userId === currentUser.user_id && 
+          <Flex classNamedirection="row" justify="right" gap={4} onClick={deleteListing}>
+            <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
+          </Flex>
+        }
       </Flex>
     </Card>
   )

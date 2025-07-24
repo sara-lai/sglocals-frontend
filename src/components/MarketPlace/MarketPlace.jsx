@@ -8,7 +8,7 @@ import MarketPlaceCard from './MarketPlaceCard';
 import AllListings from './AllListings';
 import NewListing from './NewListing';
 import YourListings from './YourListings';
-// import SavedListings from './SavedListings'
+import SavedListings from './SavedListings'
 
 import * as marketplaceService from '../../services/marketplaceService'
 
@@ -24,19 +24,30 @@ const MarketPlace = () => {
   const [tab, setTab] = useState('all')
   const [allListings, setAllListings] = useState([])
   const [filteredListings, setFilteredListings] = useState([])
+  const [yourListings, setYourListings] = useState([])
+  const [savedListings, setSavedListings] = useState([])
   
   // Fetch data for marketplace when component mounts
-  const fetchDataForMarketplace = async () => {
-      
+  async function fetchDataForMarketplace(){
     const token = await getToken()
+
+    // get all listings (later scope to neighbourhood)
     const listingsData = await marketplaceService.getListingsForAll(token)
-    console.log('lets see the listingsData',listingsData )
     setAllListings(listingsData)
-    setFilteredListings(listingsData)
+    setFilteredListings(listingsData) // start will all data
+
+    // get your listings
+    const yourListingsData = await marketplaceService.getListingsForCurrentUser(token)
+    console.log('yourlistings', yourListingsData)
+    setYourListings(yourListingsData)
+
+    // get saved listings 
+    const savedListingsData = await marketplaceService.getSavedListings(token)
+    setSavedListings(savedListingsData)    
   }
 
   useEffect(() => {
-    fetchDataForMarketplace();
+    fetchDataForMarketplace()
   }, [])
 
     const navigate = useNavigate()
@@ -62,8 +73,8 @@ const MarketPlace = () => {
         <Box className='hu' mt={4}>
         
           {tab === 'all' &&  <AllListings allListings={allListings} filteredListings={filteredListings} setFilteredListings={setFilteredListings} />}
-          {tab === 'yours' &&  <YourListings />}
-          {tab === 'saved' &&  <SavedListings />}
+          {tab === 'yours' &&  <YourListings yourListings={yourListings} />}
+          {tab === 'saved' &&  <SavedListings savedListings={savedListings} />}
         </Box>
         
     </div>

@@ -58,7 +58,7 @@ const NewListing = ({ createListing }) => {
     }      
 
     return (
-        <Button onClick={onOpen}>New Listing
+        <Button className='btn-default' onClick={onOpen}>New Listing
         <Modal isOpen={isOpen} onClose={onClose} size="md">
             <ModalOverlay bg="blackAlpha.500" />
 

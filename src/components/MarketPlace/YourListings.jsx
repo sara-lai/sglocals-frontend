@@ -35,14 +35,13 @@ const YourListings = ({ yourListings }) => {
             }    
             {yourListings.length === 0 && 
                 <Flex align='center' justify='center' mt={40} ml='-30%'>
-                    <Flex direction='column' gap={2}>
+                    <Flex direction='column' gap={2} textAlign='center'>
                         <Image h='200px' src='/images/tmp-no-listings.png' />
-                        <Button className='btn-default' onClick={onOpen}>Create a listing</Button>
+                         <NewListing isOpen={isOpen} onClose={onClose} createListing={createListing} />
+                        {/* <Button className='btn-default' onClick={onOpen}>Create a listing</Button> */}
                     </Flex>
                 </Flex>
-            }
-            {/* new Listing is a modal window with the form */}
-            <NewListing isOpen={isOpen} onClose={onClose} createListing={createListing} />
+            }          
         </Box>
     )
 }

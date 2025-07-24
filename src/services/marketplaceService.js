@@ -45,7 +45,7 @@ const getListingsForAll = async (token) => {
 
 const getListingsForCurrentUser = async (token) => {
     try {
-        const response = await fetch(BASE_URL + '/currentUser' , { 
+        const response = await fetch(BASE_URL + '/user' , { 
             headers: { 
                 Authorization: `Bearer ${token}` 
             },     

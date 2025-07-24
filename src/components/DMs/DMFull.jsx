@@ -71,7 +71,7 @@ const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) =>
             <Box>
                 <Divider />    
                 <Flex w='100%' p={6} pb={4} gap={2} align='center'>            
-                    <FontAwesomeIcon icon={faImages}  size="2xl" cursor="pointer"  onClick={() => console.log('todo')} />
+                    {/* <FontAwesomeIcon icon={faImages}  size="2xl" cursor="pointer"  onClick={() => console.log('todo')} /> */}
                     <Input  value={message} borderRadius='30px' borderColor="gray.300" h="46px" ml={4}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Message"  />                   

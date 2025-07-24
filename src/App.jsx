@@ -14,6 +14,7 @@ import Events from './components/Events/EventTab'
 import DMPage from './components/DMs/DMPage'
 import GroupsPage from './components/Groups/AllGroupsPage'
 import ViewGroup from './components/Groups/ViewGroup'
+import SearchPage from './components/Search/SearchPage'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/dms" element={<DMPage />} />
         <Route path= "/groups" element={<GroupsPage />} />
         <Route path= "/groups/:id" element={<ViewGroup />} />
+        <Route path= "/search" element={<SearchPage />} />
       </Route>
 
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}

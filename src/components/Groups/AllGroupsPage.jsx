@@ -8,7 +8,7 @@ import { useAuth } from '@clerk/clerk-react'
 import * as groupService from '../../services/groupService'
 import { useNavigate } from 'react-router'
 
-const GroupsPage = () => {
+const GroupsPage = () => {    
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { getToken } = useAuth()
     const navigate = useNavigate()

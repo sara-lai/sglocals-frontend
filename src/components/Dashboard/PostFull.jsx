@@ -70,10 +70,17 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         <Flex w="100%">
             {isImagePost && (
                 <Box bg='black' display='flex' alignItems='center' justifyContent='center'>
-                    <Box w="600px" h="600px"> {/* fixed dimensions make carousel debugging way easier */}
-                        <ImageCarousel imageUrls={post.imageUrls} containOrCover='cover' maxHeight='700px' />
-                    </Box>
-                    {/* <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" h='700px' />  */}
+                    {post.imageUrls.length === 1 &&
+                        <Flex maxW="620px" align='center'>
+                            {/* skipping carousel, too hard debugging alignment single image */}
+                            <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" />
+                        </Flex>
+                    }
+                    {post.imageUrls.length > 1 &&
+                        <Box w="620px" h="620px"> {/* fixed dimensions make carousel debugging way easier */}
+                            <ImageCarousel imageUrls={post.imageUrls} containOrCover='contain' maxHeight='700px' />
+                        </Box>
+                    }
                 </Box>
             )}
             <Flex w={isImagePost ? "440px" : "100%"} flexGrow={1} direction='column' justify='space-between' maxH='700px'>

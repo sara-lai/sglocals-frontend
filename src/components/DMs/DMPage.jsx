@@ -42,7 +42,20 @@ const DMPage = () => {
         }, token) 
        
         setSelectedDM(newDM)
-        setAllDMs([newDM, ...allDMs ])
+        
+        // edge case: dont add the same chat again 
+        // codewars style remove duplicates
+        const updatedDMs = [newDM, ...allDMs ]
+        let dmIds = []
+        let filteredDMs = []
+        for (let dm of updatedDMs){
+            if (dmIds.includes(dm._id)) {
+                continue
+            }
+            filteredDMs.push(dm)
+            dmIds.push(dm._id)
+        }
+        setAllDMs(filteredDMs)
 
         onClose() // close the modal 
     }

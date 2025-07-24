@@ -10,7 +10,7 @@ import ContentFeed from './ContentFeed'
 import * as postService from '../../services/postService'
 
 const Dashboard = () => {
-    const { currentUser } = useOutletContext()    
+    const { currentUser, createFromSidebar } = useOutletContext()    
     const { getToken } = useAuth()
     const [contentFeed, setContentFeed] = useState([])
 
@@ -29,7 +29,7 @@ const Dashboard = () => {
         console.log('top of content feed', newPost)
         setContentFeed([newPost, ...contentFeed])
     }
-
+    
     return (
         <Box className='dashboard-container'> 
             <Flex maxW="1000px">

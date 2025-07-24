@@ -85,7 +85,7 @@ const ViewGroup = () => {
     useEffect(() => {       
         fetchGroupData()
         getUsersForInvites()
-    }, [])  
+    }, [])    
     
     return (
         <Box ml='14%' w='600px' mb={10}>

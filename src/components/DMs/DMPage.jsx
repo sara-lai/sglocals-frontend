@@ -19,8 +19,10 @@ const DMPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { getToken } = useAuth()
     const [ allDMs, setAllDMs ] = useState([])
+    const [filteredDMs, setFilteredDMs] = useState([])
     const [ selectedDM, setSelectedDM ] = useState({})
     const [allDMsLoaded, setAllDMsLoaded] = useState(false) // to coordinate more useEffects
+    const [tab, setTab] = useState('all')
     const { currentUser } = useOutletContext() 
     const pusherRef = useRef(null)
     const [searchParams] = useSearchParams() // for creating chats from other parts of the app
@@ -55,10 +57,21 @@ const DMPage = () => {
             filteredDMs.push(dm)
             dmIds.push(dm._id)
         }
-        setAllDMs(filteredDMs)
+        setFilteredDMs(filteredDMs)
 
         onClose() // close the modal 
     }
+
+    async function filterMarketplace(){        
+        setTab('marketplace')
+        let filtered= [...allDMs]
+        filtered = filtered.filter(dm => dm.isMarketplace)
+        setFilteredDMs(filtered)
+    }
+    async function filterAll(){
+        setTab('all')
+        setFilteredDMs(allDMs)
+    }    
 
     async function createNewMessage(message){
         const token = await getToken()
@@ -69,13 +82,14 @@ const DMPage = () => {
         // put the updated DM at the top of allDMs!
         let allChats = [...allDMs]
         allChats = allChats.filter(chat => chat._id !== updatedDM._id) // filter out that the DM and then push to front
-        setAllDMs([updatedDM, ...allChats ]) 
+        setFilteredDMs([updatedDM, ...allChats ]) 
     }
 
     async function getDataForDMs(){
         const token = await getToken()
         const userDMs = await dmService.getDMsForCurrentUser(token)
         setAllDMs(userDMs)
+        setFilteredDMs(userDMs)
         setAllDMsLoaded(true)
     }
     useEffect(() => {
@@ -122,14 +136,14 @@ const DMPage = () => {
             <Flex className='default-border' maxW='900px' h='700px' p={0}>
                 <Box w='340px' className='content-scroll'>
                     <Flex p={4}  gap={2} position=''>
-                        <Button className='minimal-toggle-btn current-border'>
+                        <Button className={`minimal-toggle-btn ${tab ==='all' && 'current-border'}`} onClick={filterAll}>
                             All                        
                         </Button>
-                        <Button className='minimal-toggle-btn'>
+                        <Button className={`minimal-toggle-btn ${tab ==='marketplace' && 'current-border'}`} onClick={filterMarketplace}>
                             Marketplace                        
                         </Button>         
                     </Flex>     
-                    <DMsSummary allDMs={allDMs} currentUser={currentUser} setSelectedDM={setSelectedDM} />      
+                    <DMsSummary allDMs={filteredDMs} currentUser={currentUser} setSelectedDM={setSelectedDM} />      
                 </Box>
                 <Divider orientation='vertical' />  
                     {

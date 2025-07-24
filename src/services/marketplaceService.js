@@ -58,7 +58,25 @@ const getListingsForCurrentUser = async (token) => {
     } catch (err) {
         console.log(err)
         throw new Error(err)
-    }    ``
+    }   
+}
+
+const getListing = async (listingId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/' + listingId, { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.item
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
 }
 
 const getListingsForAnyUser = async (userId, token) => {
@@ -125,6 +143,7 @@ export {
     getListingsForAll,
     getListingsForCurrentUser,
     getListingsForAnyUser,
+    getListing,
     updateListing,
     deleteListing,
 }

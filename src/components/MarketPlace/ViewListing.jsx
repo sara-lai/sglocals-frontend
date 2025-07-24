@@ -88,7 +88,7 @@ const ViewListing = () => {
                             <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />                                
                             <Box w='100%' onClick={launchNewChat}>
                                 <Input borderRadius='30px' pl={6} h="46px" background='#f0f2f5' value='Still have or not?'  />     
-                            </Box>     
+                            </Box>    
                         </Flex>
                     </Box>                                
                 </Flex>

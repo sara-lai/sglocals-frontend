@@ -16,7 +16,7 @@ const MarketPlaceCard = ({ listing }) => {
   return (
     <Card minW='180px' maxW='220px'>
       
-      <Image src='/images/mp-sample.png' />      
+      <Image src='/images/mp-sample.png' />     
       <Text>{listing.price}</Text>
       <Text> {listing.title}</Text>
       <Text>{timeAgoFormat(listing.createdAt)} - {listing.neighbourhood}</Text>

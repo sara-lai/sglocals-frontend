@@ -81,11 +81,13 @@ const ViewListing = () => {
                     <Box position='absolute' top='4' right='4' onClick={()=> console.log('todo favouriting feature')}>
                     
                         <FontAwesomeIcon icon={faBookmark}  size="xl" cursor="pointer"/>
+                          
                     {listing.userId === currentUser.user_id && 
                         <Flex direction="row" justify="right" gap={4} onClick={editListing}>
                             <EditIcon direction="row" justify="right" gap={4}/>
                         </Flex>    
                     }
+                    
                     </Box>
                     <Heading size='md' maxW='260px'>{listing.title}</Heading>
                     <Text color='#576580' fontWeight='600'>${listing.price}</Text>
@@ -108,6 +110,7 @@ const ViewListing = () => {
                             <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
                         </Flex>
                     }
+
                     <Box className='default-border' mt={6}>
                         <Flex gap={2}>
                             <FontAwesomeIcon icon={faComments}  size="xl" cursor="pointer" />

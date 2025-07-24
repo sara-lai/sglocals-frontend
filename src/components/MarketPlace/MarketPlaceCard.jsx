@@ -11,6 +11,7 @@ import * as marketplaceService from '../../services/marketplaceService'
 const MarketPlaceCard = ({ listing }) => {
   const { getToken } = useAuth()
   const { currentUser } = useOutletContext()
+
   const navigate = useNavigate()
   // "time ago" date formatting
   dayjs.extend(relativeTime) 

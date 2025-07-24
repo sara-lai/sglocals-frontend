@@ -16,7 +16,7 @@ const createNewListing = async (itemData, token) => {
         }
         const data = await response.json();
         console.log(data)
-        return data
+        return data.listing
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -36,7 +36,7 @@ const getListingsForAll = async (token) => {
         }
         const data = await response.json();
         console.log(data)
-        return data.items
+        return data.listings
     } catch (err) {
         console.log(err)
         throw new Error(err)
@@ -58,7 +58,25 @@ const getListingsForCurrentUser = async (token) => {
     } catch (err) {
         console.log(err)
         throw new Error(err)
-    }    ``
+    }   
+}
+
+const getListing = async (listingId, token) => {
+    try {
+        const response = await fetch(BASE_URL + '/' + listingId, { 
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },     
+        })
+        if (!response.ok){
+             throw new Error(`HTTP problem ${response.status}`);
+        }
+        const data = await response.json();
+        return data.item
+    } catch (err) {
+        console.log(err)
+        throw new Error(err)
+    }    
 }
 
 const getListingsForAnyUser = async (userId, token) => {
@@ -125,6 +143,7 @@ export {
     getListingsForAll,
     getListingsForCurrentUser,
     getListingsForAnyUser,
+    getListing,
     updateListing,
     deleteListing,
 }

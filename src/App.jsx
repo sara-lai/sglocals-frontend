@@ -11,10 +11,12 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Layout from './components/Layout'
 import ProfilePage from './components/Profile/ProfilePage'
 import EditProfile from './components/Profile/EditProfile'
+import ViewListing from './components/MarketPlace/ViewListing'
 import Events from './components/Events/EventTab'
 import DMPage from './components/DMs/DMPage'
 import GroupsPage from './components/Groups/AllGroupsPage'
 import ViewGroup from './components/Groups/ViewGroup'
+import SearchPage from './components/Search/SearchPage'
 import MarketPlace from './components/MarketPlace/MarketPlace'
 
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
@@ -36,9 +38,11 @@ function App() {
         <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/listing/:id" element={<ViewListing />} />
         <Route path="/dms" element={<DMPage />} />
         <Route path= "/groups" element={<GroupsPage />} />
         <Route path= "/groups/:id" element={<ViewGroup />} />
+        <Route path= "/search" element={<SearchPage />} />
       </Route>
 
       {/* one approach to protect routes, also ProtectedRoute component approach? , or move this to utils*/}

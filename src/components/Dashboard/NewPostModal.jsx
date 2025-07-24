@@ -5,9 +5,11 @@ import { faImages } from '@fortawesome/free-regular-svg-icons'
 import { FiMapPin, FiAtSign } from 'react-icons/fi'
 import './dashboard.css'
 
+import RepostSummary from './RepostSummary'
+
 // attempting to make this usable for new posts, reposts, and side nav launch
 // open question: set the content/setContent and imageUrls HERE or in the parent(s)?
-const NewPostModal = ({ isOpen, onClose, handleSubmit, content, setContent, imageUrls, handleImageUpload, theRepost, showRepostSummary }) => {
+const NewPostModal = ({ isOpen, onClose, handleSubmit, content, setContent, imageUrls, handleImageUpload, theRepost, showFullPost }) => {
     const { currentUser } = useOutletContext()
 
     imageUrls = imageUrls || []
@@ -40,10 +42,9 @@ const NewPostModal = ({ isOpen, onClose, handleSubmit, content, setContent, imag
                             <Image src={url} boxSize="100px" objectFit="cover" />
                         ))}
                     </Flex>  
-                    {/* optional repost section with re-post UI 
-                        todo - will probably need to tweak for events/groups/listing/post
-                    */}
-                    {theRepost && showRepostSummary(theRepost)}                                     
+                    {theRepost && 
+                        <RepostSummary theRepost={theRepost} showFullPost={showFullPost} />
+                    }                                     
                     <Flex gap={2} justify="start"></Flex>                        
                     <Flex gap={4} justify="start">
                         {/* if skipping images, just skip this row for now */}

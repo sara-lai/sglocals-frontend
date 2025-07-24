@@ -6,7 +6,6 @@ import { FiMapPin, FiAtSign } from 'react-icons/fi'
 import { useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
-import * as marketplaceService from '../../services/marketplaceService'
 // import * as postService from '../../services/postService'
 import { uploadWidget } from '../../utils/cloudinaryUpload'
 import './marketplace.css'
@@ -37,7 +36,7 @@ const NewListing = ({ createListing }) => {
         isGig: false,
         category: '',
     })    
-    
+
     const { title, description, price, isFree, isGig, category } = formData
     const handleChange = (event) => {
         //setFormData({ ...formData, [event.target.name]: event.target.value }) 
@@ -95,7 +94,7 @@ const NewListing = ({ createListing }) => {
                     />
                     <Flex gap={4}>
                         <Flex align='center' gap={2}>
-                            <Text fontSize='1.1rem' opacity='.6'>S$</Text>
+                            <Text fontSize='1.1rem' opacity='.6'>$</Text>
                             <Input  name='price' value={price} onChange={handleChange}
                                 h='56px' borderRadius='14px' maxW='200px'
                                 placeholder='Price'

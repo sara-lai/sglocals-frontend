@@ -40,6 +40,7 @@ const ViewListing = () => {
 
         // also fetch All listings for display more
         const listingsData = await marketplaceService.getListingsForAll(token)
+        console.log('fetched all listings', listingsData)
         setAllListings(listingsData)        
     }
     useEffect(() => {
@@ -64,7 +65,7 @@ const ViewListing = () => {
                         <FontAwesomeIcon icon={faBookmark}  size="xl" cursor="pointer"/>
                     </Box>
                     <Heading size='md' maxW='260px'>{listing.title}</Heading>
-                    <Text color='#576580' fontWeight='600'>S${listing.price}</Text>
+                    <Text color='#576580' fontWeight='600'>${listing.price}</Text>
                     
                     {/* user info of listing creator */}
                     <Flex direction="row" align="center" gap={1} mt={2} mb={4} cursor='pointer' onClick={() => navigate("/profile/" +  listing.userId)} >
@@ -88,7 +89,7 @@ const ViewListing = () => {
                             <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} src={currentUser?.profileImg} name={currentUser?.fullName?.[0]} />                                
                             <Box w='100%' onClick={launchNewChat}>
                                 <Input borderRadius='30px' pl={6} h="46px" background='#f0f2f5' value='Still have or not?'  />     
-                            </Box>     
+                            </Box>    
                         </Flex>
                     </Box>                                
                 </Flex>

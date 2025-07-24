@@ -102,7 +102,7 @@ const EventCard = (props) => {
                     <CardFooter>
                     <Stack direction='row' spacing={2} align='center'>
                         {props.event.users.includes(userId) ? (
-                        <Button bgColor="red.200" className='part' colorScheme='black' variant='outline'  onClick={participatingEventFunction} >
+                        <Button bgColor="blue.200" className='part' colorScheme='black' variant='outline'  onClick={participatingEventFunction} >
                             
                             Participating!  
                         </Button>

@@ -1,61 +1,69 @@
-import MarketPlaceCard from './MarketPlaceCard';
-import { Menu, MenuButton, MenuList, Button, Flex, Icon, Box, Text, SimpleGrid } from '@chakra-ui/react';
+
+import {  useOutletContext } from 'react-router'
+import { Menu, MenuButton, MenuList, Button, Flex, Icon, Box, Text } from '@chakra-ui/react';
 import { useState, useEffect } from "react";
 import { AddIcon } from '@chakra-ui/icons';
 import { useAuth } from '@clerk/clerk-react'
+import MarketPlaceCard from './MarketPlaceCard';
+import AllListings from './AllListings';
+import YourListings from './YourListings';
+import SavedListings from './SavedListings'
+// import MarketPlaceForm from './MarketPlaceForm'
+import NewListing from './NewListing';
+
 import * as marketplaceService from '../../services/marketplaceService'
 
 import './marketplace.css';
 
 
 const MarketPlace = () => {
-  
+
+  const { currentUser } = useOutletContext()
   const { userId, getToken } = useAuth();
   const [itemList, setItemList] = useState([]);
   const [addItem, setAddItem] = useState();
+  const [tab, setTab] = useState('all')
+  const [allListings, setAllListings] = useState([])
 
-  
+  useEffect(() => {
+    // Fetch data for marketplace when component mounts
+    const fetchDataForMarketplace = async () => {
+    const token = await getToken()
+    const listingsData = await marketplaceService.getListingsForAll(token)
+    console.log('lets see the listingsData',listingsData )
+    setAllListings(listingsData)
+  }
+
+    fetchDataForMarketplace();
+  }, [])
+
+  const createListing = async (formData) => {
+    const token = await getToken()
+    try {
+        const response = await marketplaceService.createNewListing(formData, token)
+        console.log('Listing created!', response)
+        // You could update the listings here too
+    } catch (err) {
+        console.error('Error in createListing:', err)
+    }
+}
+
   return (
-    <div>
-      <div className='dashboard-container'> 
-        <Flex maxW="1600px" mx="auto" minH="80vh" gap={4}>
+      <div className='marketplace-container'> 
+        <Flex gap={10}>
+          <Text className={tab === 'all' ? 'active tab' : 'tab'} onClick={()=> setTab('all')}>All Listings</Text>
+          <Text className={tab === 'yours' ? 'active tab' : 'tab'} onClick={()=> setTab('yours')}>Your Listings</Text>
+          <Text className={tab === 'saved' ? 'active tab' : 'tab'} onClick={()=> setTab('saved')}>Saved Listings</Text>
           
+          <NewListing createListing={createListing} />
+        </Flex>
+        <Box className='hu' mt={4}>
         
-            <Box flex="0 0 80%" bg="white" p={4} >
-              <Flex maxW="1000px"  minH="80vh" gap={4}>
-                <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md" > 
-                  <img style={{ maxHeight: '80px'}} src='/images/nd-search-bar.png' />
-                  <div className='marketplace-header'>
-                    <h1>Welcome</h1>
-                  </div>
-                  <Box flex="0 0 70%"  bg="white" p={4}  borderRadius="md">
-                    <Flex direction="row" align="center" justify="space-between" mb={4}>
-                      <div className='marketplace-content' p='10px'>
-                        <h2>A place where IbuyUbuy!</h2>
-                        <button className='marketplace-post'>Post</button>
-                      </div>
-                    </Flex>
-                  </Box>
-                  <Flex maxW="800px" direction='column' align='center' justify='center' gap={2} p={2}>
-                    <SimpleGrid columns={[2, null, 3]} spacing={4}>
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-                      <MarketPlaceCard/>
-                    </SimpleGrid>
-                  </Flex>
-                </Box>
-              </Flex>
-            </Box>
-          </Flex>
-      </div>
+          {tab === 'all' &&  <AllListings allListings={allListings} />}
+          {tab === 'yours' &&  <YourListings />}
+          {tab === 'saved' &&  <SavedListings />}
+        </Box>
+        
     </div>
 
 

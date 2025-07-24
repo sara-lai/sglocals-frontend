@@ -1,6 +1,7 @@
 // open question how to build the Content Feed
 import { useState } from 'react'
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody  } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Box, Flex, Avatar, IconButton } from '@chakra-ui/react'
+import { FiHeart, FiMessageSquare, FiRepeat } from "react-icons/fi"
 import { useAuth } from '@clerk/clerk-react'
 import './dashboard.css'
 

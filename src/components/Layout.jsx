@@ -68,7 +68,7 @@ const Layout = () => {
                                 <Box w="2rem">
                                     <FontAwesomeIcon icon={faCalendarCheck}  size="xl" cursor="pointer" />
                                 </Box> 
-                                <Link to='/Events' className='nav-link'>Events</Link>
+                                <Link to='/events' className='nav-link'>Events</Link>
                             </Flex>  
                             <Flex gap={2}  alignItems='center'>
                                 <Box w="2rem">

@@ -9,7 +9,6 @@ import AllListings from './AllListings';
 import NewListing from './NewListing';
 import YourListings from './YourListings';
 // import SavedListings from './SavedListings'
-import NewListing from './NewListing';
 
 import * as marketplaceService from '../../services/marketplaceService'
 
@@ -24,6 +23,7 @@ const MarketPlace = () => {
   const [addItem, setAddItem] = useState();
   const [tab, setTab] = useState('all')
   const [allListings, setAllListings] = useState([])
+  const [filteredListings, setFilteredListings] = useState([])
   
   // Fetch data for marketplace when component mounts
   const fetchDataForMarketplace = async () => {
@@ -32,6 +32,7 @@ const MarketPlace = () => {
     const listingsData = await marketplaceService.getListingsForAll(token)
     console.log('lets see the listingsData',listingsData )
     setAllListings(listingsData)
+    setFilteredListings(listingsData)
   }
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const MarketPlace = () => {
         </Flex>
         <Box className='hu' mt={4}>
         
-          {tab === 'all' &&  <AllListings allListings={allListings} />}
+          {tab === 'all' &&  <AllListings allListings={allListings} filteredListings={filteredListings} setFilteredListings={setFilteredListings} />}
           {tab === 'yours' &&  <YourListings />}
           {tab === 'saved' &&  <SavedListings />}
         </Box>

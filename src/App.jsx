@@ -33,7 +33,7 @@ function App() {
       <Route path="/onboarding" element={<Onboarding />} />
     
       <Route element={<Layout />}>
-        <Route path="/events" element={<Events />} />      
+        <Route path="/events" element={<Events />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/profile/:id" element={<ProfilePage />} />

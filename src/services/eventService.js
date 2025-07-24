@@ -41,8 +41,6 @@ const eventAPI = async (requestType, token, requestObj, eventId) => {
         console.error(error.message);
     }
 
-
-
 };
 
 export { eventAPI };

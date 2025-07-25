@@ -6,30 +6,18 @@ import { Flex, Box, Text, Grid, Button  } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons'
 import { eventAPI } from '../../services/eventService'
 import { useAuth } from '@clerk/clerk-react'
-
 import './Events.css'
-// export const FavContext = createContext();
+
 export const EventContext = createContext(null);
 
-const Events = () => {
+const Events = ({ events, seteventAdded, eventAdded, setEvents }) => {
 const cards = 6;
 const eventCards= [];
 const { userId, getToken } = useAuth();
-const [events, setEvents] = useState([]);
-const [eventAdded, seteventAdded] = useState(0);
 
-// for (let i=0; i<cards; i++) {
-//    eventCards.push(<EventCard key={i}/>);
-// }
-
-// Set in a FavCard usestate for each favorite word
 useEffect(() => {
     getEventList();
 },[]);
-
-// useEffect(() => {
-    
-// },[events]);
 
 useEffect(() => {
     console.log(eventAdded);
@@ -46,23 +34,18 @@ const getEventList = async () => {
     
 }
 
-
-
     return (
         <>
         <div className='flex'>   
-            <EventForm seteventAdded={seteventAdded}/>
+            <EventForm seteventAdded={seteventAdded} />
             <Grid templateColumns="repeat(2, 1fr)" gap="6">
-
                 {events?.map((event, i) => (
                     <div className='eventcard' key={i} >
-                    <EventContext.Provider value={ event } >
-                        <EventCard event={event} seteventAdded={seteventAdded} />
-                    </EventContext.Provider>
+                        <EventContext.Provider value={event}>
+                            <EventCard event={event} seteventAdded={seteventAdded} />
+                        </EventContext.Provider>
                     </div>
-                ))} 
-
-
+                ))}
             </Grid>
         </div>
 

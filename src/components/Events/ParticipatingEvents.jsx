@@ -9,12 +9,10 @@ import { useAuth } from '@clerk/clerk-react'
 
 import './Events.css'
 
-const ParticipatingEvents = () => {
+const ParticipatingEvents = ({ events, userId, seteventAdded, eventAdded, setEvents }) => {
 const cards = 6;
 const eventCards= [];
-const { userId, getToken } = useAuth();
-const [events, setEvents] = useState([]);
-const [eventAdded, seteventAdded] = useState();
+const { getToken } = useAuth();
 
 // for (let i=0; i<cards; i++) {
 //    eventCards.push(<EventCard key={i}/>);
@@ -47,25 +45,15 @@ const getEventList = async () => {
     return (
         <>
         <div className='flex'>   
-            <EventForm seteventAdded={seteventAdded}/>
+            <EventForm seteventAdded={seteventAdded} />
             <Grid templateColumns="repeat(2, 1fr)" gap="6">
-
-            {events?.map((event, i) => {
-                if (event.users.includes(userId)) {
-                    return (
+                {events?.filter(event => event.users.includes(userId)).map((event, i) => (
                     <div className='eventcard' key={i} >
-                        <EventCard event={event} />
+                        <EventCard event={event} seteventAdded={seteventAdded} />
                     </div>
-                )
-                } else {
-                    return null;
-                }
-            }    
-            )}
+                ))}
             </Grid>
         </div>
-
-
         </>
 
     );

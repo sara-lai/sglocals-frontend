@@ -9,6 +9,7 @@ import { eventAPI } from '../../services/eventService'
 const EventTab = () => {
     const { userId, getToken } = useAuth();
     const [events, setEvents] = useState([]);
+    const [eventAdded, seteventAdded] = useState(0);
 
     useEffect(() => {
         getEventList();
@@ -30,17 +31,32 @@ const EventTab = () => {
             <TabList>
                 <Tab>All Events</Tab>
                 <Tab>Your Events</Tab>
-                <Tab onClick={getEventList}>Participating Events</Tab>
+                <Tab>Participating Events</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Events/>
+                    <Events
+                        events={events}
+                        setEvents={setEvents}
+                        seteventAdded={seteventAdded}
+                        eventAdded={eventAdded}                    
+                    />
                 </TabPanel>
                 <TabPanel>
-                    <MyEvents/>
+                    <MyEvents
+                        events={events}
+                        userId={userId}
+                        seteventAdded={seteventAdded}
+                    />
                 </TabPanel>
                 <TabPanel>
-                    <ParticipatingEvents onClick={getEventList} />
+                    <ParticipatingEvents
+                        events={events}
+                        setEvents={setEvents}
+                        userId={userId}
+                        seteventAdded={seteventAdded} 
+                        eventAdded={eventAdded}                   
+                    />
                 </TabPanel>
             </TabPanels>
             </Tabs>

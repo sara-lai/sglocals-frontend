@@ -9,12 +9,12 @@ import { useAuth } from '@clerk/clerk-react'
 
 import './Events.css'
 
-const MyEvents = () => {
+const MyEvents = ({ events, seteventAdded, eventAdded, setEvents }) => {
 const cards = 6;
 const eventCards= [];
 const { userId, getToken } = useAuth();
-const [events, setEvents] = useState([]);
-const [eventAdded, seteventAdded] = useState();
+// const [events, setEvents] = useState([]);
+// const [eventAdded, seteventAdded] = useState();
 
 // for (let i=0; i<cards; i++) {
 //    eventCards.push(<EventCard key={i}/>);
@@ -64,8 +64,6 @@ const getEventList = async () => {
             )}
             </Grid>
         </div>
-
-
         </>
 
     );

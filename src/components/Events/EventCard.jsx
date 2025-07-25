@@ -1,4 +1,4 @@
-import { Highlight, ButtonGroup, Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
+import { Box, Highlight, ButtonGroup, Card, Image, Stack, CardBody, Heading ,Text, Button, CardFooter, GridItem } from '@chakra-ui/react'
 // import { useState, useContext, useEffect } from "react";
 import { useState, useEffect } from "react";
 import './EventCard.css'
@@ -64,27 +64,34 @@ const EventCard = (props) => {
         
             <GridItem colSpan={1}>
                 <Card
-                direction={{ base: 'column', sm: 'row' }}
+                direction={{ base: 'column', sm: 'column' }}
                 overflow='hidden'
                 variant='outline'
                 className='event-card'
+                width="120%"
+                
                 >
-                <Image
+                <Box width="100%" height="200px" display="flex" justifyContent="center" alignItems="center">
+                    <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '200px' }}
                     src={props.event.image}
                     alt='image'
-                />
+                    />
+                </Box>           
+
 
                 <Stack>
 
                     <CardBody>
-                    <div style={{ display: "flex", justifyContent: "left" }}>
-                        <EventModal event= {props.event} seteventAdded={props.seteventAdded}></EventModal>
-                        
-                    </div>
+                     {props.event.createdby == userId ? (
+                    <div style={{ display: "flex", justifyContent: "right" }}>
+                        <EventModal event= {props.event} seteventAdded={props.seteventAdded}></EventModal> 
+                    </div>) :
+                    null
+                    }
                                      
-                    <Heading size='md'>Name: {props.event.name}</Heading>
+                    <Heading size='md'> [{props.event.name}]</Heading>
 
                     <Text py='2'>
                         {props.event.description}

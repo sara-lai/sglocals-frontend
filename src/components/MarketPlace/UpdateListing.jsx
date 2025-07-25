@@ -12,7 +12,7 @@ import * as marketplaceService from '../../services/marketplaceService'
 
 // attempting to make this usable for new posts, reposts, and side nav launch
 // open question: set the content/setContent and imageUrls HERE or in the parent(s)?
-const UpdateListing = ({ isOpen, onOpen, onClose, listing }) => {
+const UpdateListing = ({ isOpen, onOpen, onClose, listing, onListingUpdated }) => {
   const { getToken } = useAuth();
   
   const { currentUser } = useOutletContext();
@@ -31,10 +31,10 @@ const UpdateListing = ({ isOpen, onOpen, onClose, listing }) => {
   const handleSubmit = async () => {    
     const token = await getToken();
     const priceNumeric = Number(formData.price.replace(/,/g, ''));
-    const updatedData = { ...formData, price: priceNumeric, imageUrls };
+    const updatedData = { ...formData, price: priceNumeric, imageUrls: imageUrls };
 
     await marketplaceService.updateListing(token, listing._id, updatedData);
-    // onListingUpdated(); // call to refresh
+    onListingUpdated(); // call to refresh
     onClose();          // close modal
   };
 
@@ -102,22 +102,22 @@ const UpdateListing = ({ isOpen, onOpen, onClose, listing }) => {
                         minH="260px" resize="vertical" className='default-border'
                         placeholder="Describe your item"
                     />
-                    <Flex gap={4} wrap="wrap">
-                      <Flex align='center' gap={2}>
-                          <Text fontSize='1.1rem' opacity='.6'>$</Text>
-                          <Input  name='price' value={price} onChange={handleChange}
-                              h='56px' borderRadius='14px' maxW='200px'
-                              placeholder='Price'
-                          />
-                      </Flex>
-                      <Flex align="flex-start" gap={2}>
-                          <Switch w="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="green" />
-                          <Box>Free</Box>
-                      </Flex>
-                      <Flex align="center" gap={2}>
-                          <Switch w="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="green" />
-                          <Box>Gig or Job</Box>
-                      </Flex>     
+                    <Flex gap={4}>
+                        <Flex align='center' gap={2}>
+                            <Text fontSize='1.1rem' opacity='.6'>$</Text>
+                            <Input  name='price' value={price} onChange={handleChange}
+                                h='56px' borderRadius='14px' maxW='200px'
+                                placeholder='Price'
+                            />
+                        </Flex>
+                        <Flex align="center" gap={2}>
+                            <Switch size="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
+                            <Box>Free</Box>
+                        </Flex>
+                        <Flex align="center" gap={2}>
+                            <Switch size="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
+                            <Box>Gig or Job</Box>
+                        </Flex>     
                     </Flex>          
                     <Select  h='56px' fontWeight='600' bg="white" color="#232f46"  fontSize='.9rem'  borderRadius="md"
                         placeholder="Category" name='category' onChange={handleChange} value={category}>

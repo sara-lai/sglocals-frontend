@@ -7,9 +7,6 @@ const UserSearch = ({ users, createNewChat }) => {
     const [query, setQuery] = useState('')
     const fuse = new Fuse(users, { keys: ['fullName'], threshold: 0.3 })
 
-    // todo - a way to filter out users where already a chat
-    // BUT in a way where this component cna be used by groups/events
-
     let results = [] // or set it to all users as the default!
     if (query) {
         results = fuse.search(query).map(({ item }) => item) // see Fuse docs ( the map destructures results)

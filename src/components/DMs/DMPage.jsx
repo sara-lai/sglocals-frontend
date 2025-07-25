@@ -46,18 +46,15 @@ const DMPage = () => {
         setSelectedDM(newDM)
         
         // edge case: dont add the same chat again 
-        // codewars style remove duplicates
         const updatedDMs = [newDM, ...allDMs ]
         let dmIds = []
-        let filteredDMs = []
+        let filtered = []
         for (let dm of updatedDMs){
-            if (dmIds.includes(dm._id)) {
-                continue
-            }
-            filteredDMs.push(dm)
+            if (dmIds.includes(dm._id)) continue
+            filtered.push(dm)
             dmIds.push(dm._id)
         }
-        setFilteredDMs(filteredDMs)
+        setFilteredDMs(filtered)
 
         onClose() // close the modal 
     }
@@ -105,11 +102,7 @@ const DMPage = () => {
 
 
     useEffect(() => {
-        // fixed bug: showing abnormally high concurrent connections
-        // this section used GPT guidance / plus pusher docs (post signup)
-        console.log('useeffect for pusher')
-        if (!pusherRef.current) { // restrict pusher from init a bunch
-            console.log('init of new pusher')
+        if (!pusherRef.current) { // make sure pusher only 1 init
             pusherRef.current = new Pusher(import.meta.env.VITE_PUSHER_KEY, { cluster: 'ap1' });
         }
         const pusher = pusherRef.current
@@ -117,10 +110,6 @@ const DMPage = () => {
         channel.bind('new-message', (data) => {
             setSelectedDM(data)
         })
-        return () => {
-            channel.unbind_all()
-            channel.unsubscribe()
-        }
     }, [selectedDM._id])    
 
     return (

@@ -25,7 +25,7 @@ const YourListings = ({ yourListings }) => {
         <Box>
             {yourListings.length > 0 && 
                 <>
-                    <Button className='btn-default' mb={6} onClick={onOpen}>Create a listing</Button>
+                    {/* <Button className='btn-default' mb={6} onClick={onOpen}>Create a listing</Button> */}
                     <Flex gap={4} mt={6}>
                         {yourListings.map(listing => (
                             <MarketPlaceCard listing={listing}/>

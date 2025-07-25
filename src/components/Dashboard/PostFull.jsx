@@ -151,6 +151,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                                 <Input placeholder="Add a comment..." 
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
+                                    onKeyDown={(e) => {if (e.key === 'Enter') {addCommentToPost() }}}
                                 />
                                 <Flex justify='space-between' mt={4}>
                                     <Flex gap={2} justify="start">

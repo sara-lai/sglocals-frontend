@@ -3,7 +3,7 @@ import {  Modal,  ModalOverlay,  ModalContent,  ModalCloseButton,  Button,  Text
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages } from '@fortawesome/free-regular-svg-icons'
 import { FiMapPin, FiAtSign } from 'react-icons/fi'
-import { useDisclosure } from '@chakra-ui/react';
+// import { useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import { uploadWidget } from '../../utils/cloudinaryUpload'
@@ -12,43 +12,49 @@ import * as marketplaceService from '../../services/marketplaceService'
 
 // attempting to make this usable for new posts, reposts, and side nav launch
 // open question: set the content/setContent and imageUrls HERE or in the parent(s)?
-const NewListing = ({ createListing }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-    const [imageUrls, setImageUrls] = useState([])
-    const { currentUser } = useOutletContext()
+const UpdateListing = ({ isOpen, onOpen, onClose, listing, onListingUpdated }) => {
+  const { getToken } = useAuth();
+  
+  const { currentUser } = useOutletContext();
+  const [imageUrls, setImageUrls] = useState(listing?.imageUrls || []);
+  
+  const [formData, setFormData] = useState({ 
+    title: listing?.title || '', 
+    description: listing?.description || '',
+    price: listing?.price?.toString() || '',
+    isFree: listing?.isFree || false,
+    isGig: listing?.isGig || false,
+    category: listing?.category || '',
+  });
+
+
+  const handleSubmit = async () => {    
+    const token = await getToken();
+    const priceNumeric = Number(formData.price.replace(/,/g, ''));
+    const updatedData = { ...formData, price: priceNumeric, imageUrls };
+
+    await marketplaceService.updateListing(token, listing._id, updatedData);
+    onListingUpdated(); // call to refresh
+    onClose();          // close modal
+  };
 
     const categoryList = [
-        'appliances', 'automotive', 'baby & kids', 'bicycles', 'clothing & accessories',  'crafts',
-        'electronics', 'furniture', 'garage sales', 'garden', 'home decor', 'musical instruments',
-        'other', 'pet supplies', 'sports & outdoors', 'tickets', 'tools', 'toys & games', 
+      'appliances', 'automotive', 'baby & kids', 'bicycles', 'clothing & accessories',  'crafts',
+      'electronics', 'furniture', 'garage sales', 'garden', 'home decor', 'musical instruments',
+      'other', 'pet supplies', 'sports & outdoors', 'tickets', 'tools', 'toys & games', 
     ]
 
     const optionDisplay = (val) => {
-        let words = val.split(' ')
-        words = words.map(word => word[0].toUpperCase() + word.slice(1)) // standard way to capitalize a phrase
-        return words.join(' ')
+      let words = val.split(' ')
+      words = words.map(word => word[0].toUpperCase() + word.slice(1)) // standard way to capitalize a phrase
+      return words.join(' ')
     }
-    const [formData, setFormData] = useState({ 
-        title: '', 
-        description: '',
-        price: '',
-        isFree: false,
-        isGig: false,
-        category: '',
-    })    
 
     const { title, description, price, isFree, isGig, category } = formData
-
     const handleChange = (event) => {
-        //setFormData({ ...formData, [event.target.name]: event.target.value }) 
-        // need something non standard if using checkbox:
-        const { name, value, checked, type } = event.target;
-        setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value })
-    }
-    const handleSubmit = () => {
-        let priceNumeric = Number(price.replace(/,/g, '')) // encountering errors with commas
-        const formDataWithImages = {...formData, imageUrls: imageUrls, price: priceNumeric}
-        createListing(formDataWithImages)
+      //setFormData({ ...formData, [event.target.name]: event.target.value })
+      const { name, value, checked, type } = event.target;
+      setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value })
     }
     
     const handleImageUpload = () => { 
@@ -58,14 +64,17 @@ const NewListing = ({ createListing }) => {
         }, true) //  set true for multi upload -> means secureUrlsList is an array
     }      
 
+    console.log("listing in UpdateListing", listing); // Is it undefined?
+    console.log("onClose:", onClose);
+
     return (
         <Button className='btn-default' onClick={onOpen}>New Listing
-        <Modal isOpen={isOpen} onClose={onClose} size="md">
+        <Modal isOpen={isOpen} onClose={onClose} w="md">
             <ModalOverlay bg="blackAlpha.500" />
 
             <ModalContent className='new-listing-modal'>
                 <Button className='btn btn-green' onClick={handleSubmit}>
-                    Create
+                    Save
                 </Button>                    
                 <ModalCloseButton className='btn-close'/>
     
@@ -84,7 +93,7 @@ const NewListing = ({ createListing }) => {
                             </Flex>
                         }
                     </Flex>         
-                    <Heading size='lg'>What are you selling?</Heading> 
+                    <Heading size='lg'>What do you want to change?</Heading> 
                     <Input name='title' value={title} onChange={handleChange} 
                         h='56px' borderRadius='14px' 
                         placeholder='Item'
@@ -101,12 +110,12 @@ const NewListing = ({ createListing }) => {
                                 placeholder='Price'
                             />
                         </Flex>
-                        <Flex align="center" gap={2}>
-                            <Switch size="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
+                        <Flex direction="row" align="center" gap={2}>
+                            <Switch w="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
                             <Box>Free</Box>
                         </Flex>
                         <Flex align="center" gap={2}>
-                            <Switch size="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
+                            <Switch w="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
                             <Box>Gig or Job</Box>
                         </Flex>     
                     </Flex>          
@@ -129,4 +138,5 @@ const NewListing = ({ createListing }) => {
     )
 }
 
-export default NewListing
+
+export default UpdateListing

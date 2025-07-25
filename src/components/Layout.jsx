@@ -85,7 +85,8 @@ const Layout = () => {
                         <Input value={query} name='query' borderRadius='30px' borderColor="gray.300" onChange={(e) => setQuery(e.target.value) } 
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    navigate(`/search?type=${searchType}&query=${encodeURIComponent(query)}`)
+                                    setQuery('')
+                                    navigate(`/search?type=${searchType}&query=${encodeURIComponent(query)}`) // otherwise spaces are a problem
                                 }
                             }}                        
                         />

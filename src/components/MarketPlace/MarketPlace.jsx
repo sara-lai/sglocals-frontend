@@ -42,7 +42,7 @@ const MarketPlace = () => {
     setYourListings(yourListingsData)
 
     // get saved listings 
-    const savedListingsData = await marketplaceService.getSavedListing(token)
+    const savedListingsData = await marketplaceService.getListing(token)
     setSavedListings(savedListingsData)    
   }
 

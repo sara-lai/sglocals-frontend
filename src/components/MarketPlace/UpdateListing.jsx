@@ -12,7 +12,7 @@ import * as marketplaceService from '../../services/marketplaceService'
 
 // attempting to make this usable for new posts, reposts, and side nav launch
 // open question: set the content/setContent and imageUrls HERE or in the parent(s)?
-const UpdateListing = ({ isOpen, onOpen, onClose, listing, onListingUpdated }) => {
+const UpdateListing = ({ isOpen, onOpen, onClose, listing }) => {
   const { getToken } = useAuth();
   
   const { currentUser } = useOutletContext();
@@ -34,7 +34,7 @@ const UpdateListing = ({ isOpen, onOpen, onClose, listing, onListingUpdated }) =
     const updatedData = { ...formData, price: priceNumeric, imageUrls };
 
     await marketplaceService.updateListing(token, listing._id, updatedData);
-    onListingUpdated(); // call to refresh
+    // onListingUpdated(); // call to refresh
     onClose();          // close modal
   };
 

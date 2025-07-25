@@ -61,7 +61,7 @@ const getListingsForCurrentUser = async (token) => {
     }   
 }
 
-const getSavedListing = async (listingId, token) => {
+const getListing = async (listingId, token) => {
     try {
         const response = await fetch(BASE_URL + '/' + listingId, { 
             headers: { 
@@ -146,7 +146,7 @@ export {
     getListingsForAll,
     getListingsForCurrentUser,
     getListingsForAnyUser,
-    getSavedListing,
+    getListing,
     updateListing,
     deleteListing,
 }

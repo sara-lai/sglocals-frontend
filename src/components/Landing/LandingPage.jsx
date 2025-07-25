@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import { Button } from '@chakra-ui/react'
 
 import SignUpPage from './SignUp'
-import './landing.css'
+import './Landing.css'
 
 const LandingPage = (props) => {
 

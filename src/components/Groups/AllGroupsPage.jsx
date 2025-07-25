@@ -71,7 +71,7 @@ const GroupsPage = () => {
                             <Flex flex='1' direction='column' justify='space-between' p={6}>
                                 <Text fontWeight='600' fontSize='1.1rem'>{group.name}</Text>
                                 <Flex justify='space-between'>
-                                    <Button className='btn-default'>Join</Button>
+                                    <Button className='btn-default'>view</Button>
                                     <Text fontWeight='500' fontSize='1rem' color='#576580' letterSpacing='-.5px'>
                                         {group.member_ids.length} members
                                     </Text>

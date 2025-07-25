@@ -102,22 +102,22 @@ const UpdateListing = ({ isOpen, onOpen, onClose, listing }) => {
                         minH="260px" resize="vertical" className='default-border'
                         placeholder="Describe your item"
                     />
-                    <Flex gap={4}>
-                        <Flex align='center' gap={2}>
-                            <Text fontSize='1.1rem' opacity='.6'>$</Text>
-                            <Input  name='price' value={price} onChange={handleChange}
-                                h='56px' borderRadius='14px' maxW='200px'
-                                placeholder='Price'
-                            />
-                        </Flex>
-                        <Flex direction="row" align="center" gap={2}>
-                            <Switch w="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
-                            <Box>Free</Box>
-                        </Flex>
-                        <Flex align="center" gap={2}>
-                            <Switch w="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
-                            <Box>Gig or Job</Box>
-                        </Flex>     
+                    <Flex gap={4} wrap="wrap">
+                      <Flex align='center' gap={2}>
+                          <Text fontSize='1.1rem' opacity='.6'>$</Text>
+                          <Input  name='price' value={price} onChange={handleChange}
+                              h='56px' borderRadius='14px' maxW='200px'
+                              placeholder='Price'
+                          />
+                      </Flex>
+                      <Flex align="flex-start" gap={2}>
+                          <Switch w="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="green" />
+                          <Box>Free</Box>
+                      </Flex>
+                      <Flex align="center" gap={2}>
+                          <Switch w="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="green" />
+                          <Box>Gig or Job</Box>
+                      </Flex>     
                     </Flex>          
                     <Select  h='56px' fontWeight='600' bg="white" color="#232f46"  fontSize='.9rem'  borderRadius="md"
                         placeholder="Category" name='category' onChange={handleChange} value={category}>

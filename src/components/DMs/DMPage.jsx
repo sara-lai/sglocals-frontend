@@ -19,55 +19,89 @@ const DMPage = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { getToken } = useAuth()
     const [ allDMs, setAllDMs ] = useState([])
+    const [filteredDMs, setFilteredDMs] = useState([])
     const [ selectedDM, setSelectedDM ] = useState({})
+    const [allDMsLoaded, setAllDMsLoaded] = useState(false) // to coordinate more useEffects
+    const [tab, setTab] = useState('all')
     const { currentUser } = useOutletContext() 
     const pusherRef = useRef(null)
     const [searchParams] = useSearchParams() // for creating chats from other parts of the app
     const otherUserFromParams = searchParams.get('chattingWith')
+    const listingFromParams = searchParams.get('aboutListing') // for marketplace-specific chats
 
     dayjs.extend(relativeTime) 
     function timeAgoFormat(time){
         return dayjs(time).fromNow()
     }
 
-    async function createNewChat(other_user_id){
+    async function createNewChat(other_user_id, listing=false){
         const token = await getToken()
 
         // this returns the old chat if already exists!
-        const newDM = await dmService.createNewDM({other_user_id: other_user_id }, token) // I think this is all thats needed from FE for a new chat (back end handles rest)
+        const newDM = await dmService.createNewDM({
+            other_user_id: other_user_id, 
+            listing_id: listing // marketplace listing, false by default
+        }, token) 
        
         setSelectedDM(newDM)
-        // todo - some logic to prevent duplicate chats, before setAllDMs
-        setAllDMs([newDM, ...allDMs ])
+        
+        // edge case: dont add the same chat again 
+        // codewars style remove duplicates
+        const updatedDMs = [newDM, ...allDMs ]
+        let dmIds = []
+        let filteredDMs = []
+        for (let dm of updatedDMs){
+            if (dmIds.includes(dm._id)) {
+                continue
+            }
+            filteredDMs.push(dm)
+            dmIds.push(dm._id)
+        }
+        setFilteredDMs(filteredDMs)
 
         onClose() // close the modal 
     }
 
+    async function filterMarketplace(){        
+        setTab('marketplace')
+        let filtered= [...allDMs]
+        filtered = filtered.filter(dm => dm.isMarketplace)
+        setFilteredDMs(filtered)
+    }
+    async function filterAll(){
+        setTab('all')
+        setFilteredDMs(allDMs)
+    }    
+
     async function createNewMessage(message){
         const token = await getToken()
         const newMsg = { message: message, dm_id: selectedDM._id }        
-        const newDM = await dmService.addMessageToDM(newMsg, token) // this returns a NEW DM not a new Msg
-        console.log('is this newDM from DB', newDM)
-        setSelectedDM(newDM)
-      
-        // todo - hmmm i should put this in state var first to update immediately.... have to construct full object in meantime....
+        const updatedDM = await dmService.addMessageToDM(newMsg, token) // this returns the updated DM not a new Msg
+        setSelectedDM(updatedDM)
+
+        // put the updated DM at the top of allDMs!
+        let allChats = [...allDMs]
+        allChats = allChats.filter(chat => chat._id !== updatedDM._id) // filter out that the DM and then push to front
+        setFilteredDMs([updatedDM, ...allChats ]) 
     }
 
     async function getDataForDMs(){
         const token = await getToken()
         const userDMs = await dmService.getDMsForCurrentUser(token)
         setAllDMs(userDMs)
+        setFilteredDMs(userDMs)
+        setAllDMsLoaded(true)
     }
     useEffect(() => {
         getDataForDMs()
     }, [])
 
     useEffect(() => {
-        if (otherUserFromParams){
-            console.log('new chat via params!', otherUserFromParams)
-            createNewChat(otherUserFromParams)
+        if (otherUserFromParams && allDMsLoaded){
+            console.log('new chat via params!', otherUserFromParams, 'is marketplace listing?',  listingFromParams)
+            createNewChat(otherUserFromParams, listingFromParams)
         }        
-    }, [otherUserFromParams]) // trying to prevent some overwrite condition when new chat from params
+    }, [otherUserFromParams, allDMsLoaded]) // trying to prevent some overwrite condition when new chat from params
 
 
     useEffect(() => {
@@ -102,14 +136,14 @@ const DMPage = () => {
             <Flex className='default-border' maxW='900px' h='700px' p={0}>
                 <Box w='340px' className='content-scroll'>
                     <Flex p={4}  gap={2} position=''>
-                        <Button className='minimal-toggle-btn current-border'>
+                        <Button className={`minimal-toggle-btn ${tab ==='all' && 'current-border'}`} onClick={filterAll}>
                             All                        
                         </Button>
-                        <Button className='minimal-toggle-btn'>
+                        <Button className={`minimal-toggle-btn ${tab ==='marketplace' && 'current-border'}`} onClick={filterMarketplace}>
                             Marketplace                        
                         </Button>         
                     </Flex>     
-                    <DMsSummary allDMs={allDMs} currentUser={currentUser} setSelectedDM={setSelectedDM} />      
+                    <DMsSummary allDMs={filteredDMs} currentUser={currentUser} setSelectedDM={setSelectedDM} />      
                 </Box>
                 <Divider orientation='vertical' />  
                     {

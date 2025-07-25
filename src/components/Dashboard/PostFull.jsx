@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import {  Button, Avatar,  Box,  Flex, IconButton, Divider, Input, Image  } from '@chakra-ui/react'
 import { FiHeart, FiRepeat } from "react-icons/fi" // Fi vs Fa??
@@ -7,13 +7,17 @@ import { FaImage, FaMapMarkerAlt, FaAt } from 'react-icons/fa'
 
 import * as postService from '../../services/postService'
 
+import ImageCarousel from '../../utils/ImageCarousel'
+
+import RepostSummary from './RepostSummary'
+
 import './dashboard.css'
 
 const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFeed, theFeed, setSelectedPost }) => {
-
     const { getToken } = useAuth()
     const [file, setFile] = useState(null)
     const [content, setContent] = useState('')
+    const [repost, setRepost] = useState(false)
     const isImagePost = post.imageUrls.length > 0
     const navigate = useNavigate()
 
@@ -33,7 +37,7 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         }
         newPost.comments.push(newComment)
 
-        // copying from likes logic,
+        // replacing old post in the feed with the new post (UI update first, then send to BE)
         const newFeed = theFeed.map((post2) => {
             if (post._id === post2._id){
                 return newPost
@@ -41,11 +45,9 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                 return post2 // do need StructuredClone here too?
             }
         })
-
         // two prop callbacks!! sets the open modal and the background list of posts
         setSelectedPost(newPost)
         setContentFeed(newFeed)
-
         setContent('') // clear comment 
 
         // send off to back end
@@ -53,15 +55,35 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
         const newPostDB = await postService.updatePost(token, newPost)  
     }
 
+    async function fetchRepost() {
+        if (!post.repost_id) return 
+        const token = await getToken()
+        const repostData = await postService.getPostForRepost(post.repost_id, token)       
+        setRepost(repostData)
+    }
+    useEffect(() => {
+        fetchRepost()
+    }, [post]) // unpredictbale buggy without this re-fetch after reposts occurs!!    
+
     return (
    
         <Flex w="100%">
             {isImagePost && (
-                <Box w="650px" bg='black' display='flex' alignItems='center' justifyContent='center'>
-                    <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" h='700px' /> 
+                <Box bg='black' display='flex' alignItems='center' justifyContent='center'>
+                    {post.imageUrls.length === 1 &&
+                        <Flex maxW="620px" align='center'>
+                            {/* skipping carousel, too hard debugging alignment single image */}
+                            <Image src={post.imageUrls?.[0]} width="100%" objectFit="contain" />
+                        </Flex>
+                    }
+                    {post.imageUrls.length > 1 &&
+                        <Box w="620px" h="620px"> {/* fixed dimensions make carousel debugging way easier */}
+                            <ImageCarousel imageUrls={post.imageUrls} containOrCover='contain' maxHeight='700px' />
+                        </Box>
+                    }
                 </Box>
             )}
-            <Flex w={isImagePost ? "440px" : "100%"} flexGrow={1} direction='column' justify='space-between'>
+            <Flex w={isImagePost ? "440px" : "100%"} flexGrow={1} direction='column' justify='space-between' maxH='700px'>
                 <Box>
                     <Box p={4}>
                         <Flex direction="row" align="center" cursor='pointer' gap={1} mb={4} onClick={() => navigate('/profile/' + post.user_id)}>
@@ -77,6 +99,11 @@ const PostFull = ({ post, timeAgoFormat, updateLikes, currentUser, setContentFee
                         <Box className='post-content' mb={2}>
                             {post.content}
                         </Box>
+
+                        {repost && <Box p={4}>
+                            <RepostSummary theRepost={repost} />  
+                        </Box>}                        
+
                         <Flex className='post-action-row' justifyContent='space-between'>               
                             <Flex className='icon-stat-set' alignItems='center' onClick={() => updateLikes(post._id)}>    
                                 <IconButton icon={<FiHeart />} variant="ghost" size="sm" />

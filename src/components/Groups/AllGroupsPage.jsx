@@ -8,7 +8,7 @@ import { useAuth } from '@clerk/clerk-react'
 import * as groupService from '../../services/groupService'
 import { useNavigate } from 'react-router'
 
-const GroupsPage = () => {
+const GroupsPage = () => {    
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { getToken } = useAuth()
     const navigate = useNavigate()
@@ -85,7 +85,7 @@ const GroupsPage = () => {
                         <Heading size='md'>Your groups</Heading>     
                         <Button className='btn-default' onClick={onOpen}>Create</Button>
                     </Flex>
-                    {currentUserGroups.legnth === 0 &&
+                    {currentUserGroups.length === 0 &&
                         <Image mt={12} maxH='160px' src='/images/tmp-nothing-here.png' />
                     }   
                     {currentUserGroups.map(group => (

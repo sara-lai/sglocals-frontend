@@ -64,8 +64,9 @@ button.modal-btn-close {
     width: 38px;
 }
 
-button.current-border {
-    border: 2px solid black;
+button.current-border,
+ button.current-border:focus { /* the focus is for chakra override */
+    border: 2px solid black !important; 
     &:hover {
         border: 2px solid black !important;
     }    
@@ -125,4 +126,8 @@ a:hover {
 .cl-formFieldInput {
     width: 100% !important;
     height: 40px !important;
+}
+
+.global-search-bar {
+    
 }

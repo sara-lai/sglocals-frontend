@@ -8,8 +8,9 @@ import NewPostModal from './NewPostModal'
 import * as postService from '../../services/postService'
 
 import ImageCarousel from '../../utils/ImageCarousel'
+import RepostSummary from './RepostSummary'
 
-const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed }) => {
+const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePost, addTopOfFeed, forGroup }) => {
     // console.log('postSummary here!!', post)
     // todo noticed bug! seems to re-render all postSummaries just typing in form for the Repost (not a problem for regular post)
 
@@ -20,10 +21,10 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
     const [content, setContent] = useState('') // for repost 
     const [repost, setRepost] = useState({})
 
-    async function handleSubmit(){
+    async function createRepost(){
         // this is creating a brand new post BUT with a repost attached
         const token = await getToken()
-        const postData = { content: content, repost_id: post._id, repost_type: 'post'  }
+        const postData = { content: content, repost_id: post._id, repost_type: 'post', for_group: forGroup  }
         const newPost = await postService.createNewPost(postData, token)
 
         addTopOfFeed(newPost)
@@ -42,30 +43,6 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
         fetchRepost()
     }, [post]) // unpredictbale buggy without this re-fetch after reposts occurs!!
 
-    function showRepostSummary(theRepost){
-        // using theRepost b/c this is used for new repost and to show existing
-        return (
-            <Box className='default-border' onClick={() => showFullPost(theRepost._id)}>
-                <Flex direction="row" align="center" gap={1}  cursor='pointer' >
-                    <Avatar sx={{ w: '2.5rem', h: '2.5rem' }} ml={2} src={theRepost.user?.profileImg} name={theRepost.user?.fullName?.[0]} />
-                    <div className='post-info-set'>
-                        <div className='avatar-name'>{theRepost.user?.fullName}</div>
-                        <Flex gap={2}>
-                            <p>{theRepost.user?.neighbourhood}</p>
-                            <p>{timeAgoFormat(theRepost.createdAt)}</p>
-                        </Flex>                                                                   
-                    </div>
-                </Flex>
-                <Flex className='post-content' mb={1} mt={4} pl={6} align='center'>
-                    {(theRepost.imageUrls && theRepost.imageUrls.length > 0) && 
-                        <Image src={theRepost.imageUrls[0]} h='60px' w='60px' mr={4} />
-                    }
-                    {theRepost.content}
-                </Flex>                                              
-            </Box>   
-        )                
-    }
-
     return (
         <Box className='post-card' mb={2.5} boxShadow="sm">
             <Flex direction="row" align="center" gap={1} p={4}  cursor='pointer' onClick={() => navigate("/profile/" +  post.user_id)} >
@@ -82,7 +59,7 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 {post.content}
             </Box>
             {post.repost_id && <Box p={4}>
-                {showRepostSummary(repost)}        
+                <RepostSummary theRepost={repost} showFullPost={showFullPost} />
             </Box>}
 
             {/* the carousel */}
@@ -111,8 +88,8 @@ const PostSummary = ({ post, timeAgoFormat, updateLikes, showFullPost, deletePos
                 </Flex>          
             </Flex>   
             <NewPostModal isOpen={isOpen} onClose={onClose} content={content} setContent={setContent} 
-                handleSubmit={handleSubmit} theRepost={post}  timeAgoFormat={timeAgoFormat}
-                 showRepostSummary={showRepostSummary}
+                handleSubmit={createRepost} theRepost={post}  timeAgoFormat={timeAgoFormat}
+                showFullPost={showFullPost}
             />                 
         </Box>
     )

@@ -18,7 +18,8 @@ function UploaImage(props) {
         props.setFileList(file);
     },[file]);
 
-    const handleImageUpload = () => { 
+    const handleImageUpload = (e) => { 
+        e.preventDefault();
         uploadWidget((secureUrlsList) => {
             console.log(secureUrlsList)
             props.setImageUrls(secureUrlsList)       

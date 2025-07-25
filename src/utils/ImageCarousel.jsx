@@ -5,11 +5,11 @@
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Box, Image, IconButton } from '@chakra-ui/react'
+import { Box, Image, IconButton, Flex } from '@chakra-ui/react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 // todo find some really nice arrows/side that doesnt uglify
 
-const ImageCarousel = ({ imageUrls, onImageClick, containOrCover }) => {
+const ImageCarousel = ({ imageUrls, onImageClick, containOrCover, maxHeight}) => {
     const sliderSettings = {
         dots: true,
         infinite: true,
@@ -21,25 +21,26 @@ const ImageCarousel = ({ imageUrls, onImageClick, containOrCover }) => {
         prevArrow:  <FiChevronLeft />
     }
     const objFitType = containOrCover || 'cover'
+    const maxH = maxHeight || "440px"
     return (
         <Box>
             {imageUrls?.length === 1 && (
-                <Image src={imageUrls[0]} mt={4} width="100%" maxH="440px" objectFit="cover" cursor='pointer' 
+                <Image src={imageUrls[0]} mt={4} width="100%" maxH={maxH} objectFit={objFitType} cursor='pointer' 
                     onClick={onImageClick}
                 />                    
             )}
             {imageUrls?.length > 1 && (
-                <div className="slider-container">
+                <Box className="slider-container">
                     <Slider {...sliderSettings}>
                         {imageUrls.map((imgUrl, idx) => (
                             <Box key={idx}>
-                                <Image src={imgUrl} mt={4} width="100%" maxH="440px" objectFit={objFitType} cursor='pointer' 
+                                <Image src={imgUrl} mt={4} width="100%" maxH={maxH} objectFit={objFitType} cursor='pointer' 
                                     onClick={onImageClick}
                                 />
                             </Box>
                         ))}                        
                     </Slider>
-                </div>
+                </Box>
             )}
         </Box>  
     )

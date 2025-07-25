@@ -47,7 +47,7 @@ const NewListing = ({ createListing }) => {
     }
     const handleSubmit = () => {
         let priceNumeric = Number(price.replace(/,/g, '')) // encountering errors with commas
-        const formDataWithImages = {...formData, imageUrls: imageUrls, price: priceNumeric}
+        const formDataWithImages = {...formData, imageUrls: {imageUrls}, price: priceNumeric}
         createListing(formDataWithImages)
     }
     

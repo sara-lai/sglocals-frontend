@@ -21,6 +21,7 @@ const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) =>
 
     function handleSubmit (event) {
         event.preventDefault()
+        if (!message) return
         createNewMessage(message)
         setMessage('')
     }
@@ -74,6 +75,7 @@ const DMFull = ({ selectedDM, createNewMessage, currentUser, timeAgoFormat }) =>
                     {/* <FontAwesomeIcon icon={faImages}  size="2xl" cursor="pointer"  onClick={() => console.log('todo')} /> */}
                     <Input  value={message} borderRadius='30px' borderColor="gray.300" h="46px" ml={4}
                         onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={(e) => {if (e.key === 'Enter') {handleSubmit(e) }}}
                         placeholder="Message"  />                   
                     <Button className='btn-default' onClick={handleSubmit}>Send</Button>          
                 </Flex>

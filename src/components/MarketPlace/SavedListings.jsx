@@ -1,4 +1,4 @@
-import { Image, Flex, Text, Box, Button } from '@chakra-ui/react';
+import { Image, Flex, Text, Box } from '@chakra-ui/react';
 
 const SavedListings = ({ savedListings }) => {
     return (

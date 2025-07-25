@@ -110,12 +110,12 @@ const UpdateListing = ({ isOpen, onOpen, onClose, listing, onListingUpdated }) =
                                 placeholder='Price'
                             />
                         </Flex>
-                        <Flex direction="row" align="center" gap={2}>
-                            <Switch w="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
+                        <Flex align="center" gap={2}>
+                            <Switch size="lg" name="isFree" isChecked={isFree} onChange={handleChange} colorScheme="blue" />
                             <Box>Free</Box>
                         </Flex>
                         <Flex align="center" gap={2}>
-                            <Switch w="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
+                            <Switch size="lg" name="isGig" isChecked={isGig} onChange={handleChange} colorScheme="blue" />
                             <Box>Gig or Job</Box>
                         </Flex>     
                     </Flex>          

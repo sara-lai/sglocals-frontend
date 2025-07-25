@@ -38,6 +38,7 @@ const NewListing = ({ createListing }) => {
     })    
 
     const { title, description, price, isFree, isGig, category } = formData
+
     const handleChange = (event) => {
         //setFormData({ ...formData, [event.target.name]: event.target.value }) 
         // need something non standard if using checkbox:

@@ -11,6 +11,7 @@ import '../Dashboard/dashboard.css'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MarketPlaceCard from './MarketPlaceCard';
+import UpdateListing from './UpdateListing';
 
 import * as marketplaceService from '../../services/marketplaceService'
 
@@ -23,6 +24,7 @@ const ViewListing = () => {
     const { currentUser } = useOutletContext()
     const [listing, setListing] = useState({})
     const [allListings, setAllListings] = useState([]) // this is to show more underneath
+    const [editListing, setEditListing] = useState(false);
 
     dayjs.extend(relativeTime)
     function timeAgoFormat(time){
@@ -49,13 +51,7 @@ const ViewListing = () => {
         fetchListing()
     }, [id]) // the id is needed so it will re-run everything if click on new item from within this page
 
-    const editListing = async () => {
-        const token = await getToken();
-        const updatedListing = await marketplaceService.updateListing(token, id)
-        console.log('updated listing', updatedListing)
-        navigate(`/listing/`) // redirect to the updated listing
-    }   
-//${updatedListing._id}
+    
     const deleteListing = async () => {
         
         const token = await getToken()
@@ -80,11 +76,11 @@ const ViewListing = () => {
                 <Flex direction='column' className='default-border' h='100%' w='350px' position="sticky" top={0} ml={4} p={5} gap={2} > 
                     <Box position='absolute' top='4' right='4' onClick={()=> console.log('todo favouriting feature')}>
                     
-                        <FontAwesomeIcon icon={faBookmark}  size="xl" cursor="pointer"/>
+                        <FontAwesomeIcon icon={faBookmark}  w="xl" cursor="pointer"/>
                           
                     {listing.userId === currentUser.user_id && 
-                        <Flex direction="row" justify="right" gap={4} onClick={editListing}>
-                            <EditIcon direction="row" justify="right" gap={4}/>
+                        <Flex direction="row" justify="right" gap={4} onClick={() => setEditListing(true)}>
+                            <EditIcon cursor="pointer" />
                         </Flex>    
                     }
                     
@@ -107,13 +103,13 @@ const ViewListing = () => {
                     
                      {listing.userId === currentUser.user_id && 
                         <Flex direction="row" justify="right" gap={4} onClick={deleteListing}>
-                            <IconButton icon={<FiTrash />} variant="ghost" size="lg" />
+                            <IconButton icon={<FiTrash />} variant="ghost" w="lg" />
                         </Flex>
                     }
 
                     <Box className='default-border' mt={6}>
                         <Flex gap={2}>
-                            <FontAwesomeIcon icon={faComments}  size="xl" cursor="pointer" />
+                            <FontAwesomeIcon icon={faComments}  w="xl" cursor="pointer" />
                             <Text fontWeight='600' fontSize='.95rem'>Message {listing.user?.fullName}</Text>
                         </Flex>
                         <Flex mt={4} gap={1} align='center'>
@@ -135,9 +131,16 @@ const ViewListing = () => {
                     </SimpleGrid>
                 </Box>                        
             </Box>
-            
+            {editListing && listing && (
+                <UpdateListing
+                    isOpen={editListing}
+                    onClose={() => setEditListing(false)}
+                    listing={listing}
+                    onListingUpdated={fetchListing} // fetch after save
+                />
+            )}
         </Box>
     )
 }
-
+    
 export default ViewListing

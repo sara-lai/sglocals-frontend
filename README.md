@@ -25,11 +25,11 @@ This is a proof-of-concept for a neighbourhood social network in Singapore.
 
 <img width="1140" height="616" alt="Screenshot 2025-07-26 at 5 27 36 AM" src="https://github.com/user-attachments/assets/c2600812-3c28-49f5-8f44-fd3105b2cf02" />
 <img width="1164" height="637" alt="Screenshot 2025-07-26 at 5 25 32 AM" src="https://github.com/user-attachments/assets/05a8108a-c153-4169-8685-3ddb233ea2a1" />
+<img width="1147" height="658" alt="Screenshot 2025-07-27 at 1 42 43 PM" src="https://github.com/user-attachments/assets/154024a3-6ef4-4d18-861c-fd2cb4ac51fe" />
+<img width="1178" height="671" alt="Screenshot 2025-07-27 at 1 47 11 PM" src="https://github.com/user-attachments/assets/b5981410-e177-4e44-985b-c84db8cde8d8" />
+<img width="1179" height="649" alt="Screenshot 2025-07-27 at 1 42 21 PM" src="https://github.com/user-attachments/assets/68ddc0c2-8203-4141-8dcb-d31757e8f1ca" />
+<img width="1142" height="654" alt="Screenshot 2025-07-27 at 1 42 15 PM" src="https://github.com/user-attachments/assets/ff680fbe-3ecb-4490-a57e-62a0d52bb0ba" />
+<img width="1165" height="649" alt="Screenshot 2025-07-27 at 1 41 43 PM" src="https://github.com/user-attachments/assets/07863539-c71c-43a2-b781-b4baaceea6ee" />
+<img width="1152" height="648" alt="Screenshot 2025-07-26 at 5 27 28 AM" src="https://github.com/user-attachments/assets/66cedc17-839d-4325-9396-6f2a29ae176c" />
+<img width="1687" height="914" alt="Screenshot 2025-07-27 at 1 51 29 PM" src="https://github.com/user-attachments/assets/11879bca-7d9e-4c01-8b13-ac0624b59a8e" />
 
-<img width="1154" height="644" alt="Screenshot 2025-07-26 at 5 26 21 AM" src="https://github.com/user-attachments/assets/4ded9a2b-84e1-46f7-9a95-fe64dd3ca324" />
-
-<img width="1162" height="659" alt="Screenshot 2025-07-26 at 5 26 01 AM" src="https://github.com/user-attachments/assets/6c27b67e-edc1-4813-bf99-dea41c9d2977" />
-<img width="1170" height="650" alt="Screenshot 2025-07-26 at 5 26 11 AM" src="https://github.com/user-attachments/assets/8a646cc9-c551-4796-b921-18e67b140af7" />
-<img width="1153" height="653" alt="Screenshot 2025-07-26 at 5 25 43 AM" src="https://github.com/user-attachments/assets/98c3b841-056c-41d3-bb09-ec2d2fd4d724" />
-
-<img width="1152" height="648" alt="Screenshot 2025-07-26 at 5 27 28 AM" src="https://github.com/user-attachments/assets/abdf06e6-ed47-47fc-8941-8207e3723c53" />
